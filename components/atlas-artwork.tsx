@@ -1,13 +1,33 @@
 import Image from 'next/image';
 import { assetPath } from '@/lib/atlas/asset-path';
 import { MapAtmosphere } from './map-atmosphere';
+import { SOUTH_OFFSET, SOUTH_HEIGHT, southernRivers, southernMist, southernFlocks, southernRoad } from '@/lib/atlas/southern-illustration';
 import { EAST_OFFSET } from '@/lib/atlas/world';
 import { road, roadHighlight, river, warmLights, mistPatches } from '@/lib/atlas/illustration';
 import { westernRoad, westernSpur, westernRivers, westernLights, westernMist, westernChimneys } from '@/lib/atlas/western-illustration';
 import { windowLightAt } from '@/lib/atlas/bree';
 
-export function AtlasArtwork({hour,route,onEastLoad,onWestLoad,onError}:{hour:number;route:boolean;onEastLoad:()=>void;onWestLoad:()=>void;onError:()=>void}) {
+export function AtlasArtwork({hour,route,onEastLoad,onWestLoad,onSouthLoad,onError}:{hour:number;route:boolean;onEastLoad:()=>void;onWestLoad:()=>void;onSouthLoad:()=>void;onError:()=>void}) {
   return <>
+    <div className="southern-sheet" style={{top:SOUTH_OFFSET,height:SOUTH_HEIGHT}}>
+      <Image className="map-art" src={assetPath('/images/eriador-south.jpg')} alt="" width={2500} height={1300} unoptimized loading="eager" draggable={false} onLoad={onSouthLoad} onError={onError}/>
+      <div className="map-light-wash"/><div className="map-night-wash"/>
+      <MapAtmosphere chimneyPoints={[]} flockPaths={southernFlocks}/>
+      <svg className="map-ink" viewBox="0 0 2500 1300" fill="none" style={{height:1300}}>
+        <path className="river-underlight" d={southernRivers} stroke="#b4dfd5" strokeWidth="3"/>
+        <path className="river-current" d={southernRivers} stroke="#e3f6e7" strokeWidth="1.8" strokeDasharray="2 30 7 65"/>
+        {route&&<g className="journey-drawing"><path d={southernRoad} className="route-shadow" strokeWidth="4"/><path d={southernRoad} className="journey-dashes" strokeWidth="1.5" strokeDasharray="3 10"/></g>}
+        <text x="1915" y="380" className="geographic-label land-label" textAnchor="middle">EREGION</text>
+        <text x="1940" y="420" className="geographic-label southern-sublabel" textAnchor="middle">HOLLIN</text>
+        <text x="975" y="610" className="geographic-label land-label" textAnchor="middle">MINHIRIATH</text>
+        <text x="1515" y="830" className="geographic-label land-label" textAnchor="middle">ENEDWAITH</text>
+        <text x="1825" y="707" className="geographic-label land-label" textAnchor="middle">DUNLAND</text>
+        <text x="2310" y="990" className="geographic-label forest-label" textAnchor="middle">FANGORN</text>
+        <text x="1340" y="777" className="geographic-label southern-sublabel" textAnchor="middle" transform="rotate(-49 1340 777)">GWATHLÓ</text>
+        <text x="595" y="825" className="geographic-label sea-label" textAnchor="middle">THE GREAT SEA</text>
+      </svg>
+      <div className="valley-mists">{southernMist.map((p,i)=><span key={i} className="valley-mist" style={{left:p.x,top:p.y,width:p.w,height:p.h,animationDelay:`${p.delay}s`}}/>)}</div>
+    </div>
     <div className="eastern-sheet" style={{left:EAST_OFFSET}}>
       <Image className="map-art" src={assetPath('/images/eriador-painted.jpg')} alt="" width={1500} height={1000} unoptimized loading="eager" draggable={false} onLoad={onEastLoad} onError={onError}/>
       {[{x:1001,y:573,w:80,h:69},{x:1097,y:504,w:47,h:48}].map((p,i)=><div key={i} className="map-art-correction" style={{left:p.x*1500/1536,top:p.y*1000/1024,width:p.w*1500/1536,height:p.h*1000/1024}}><Image src={assetPath('/images/eriador-ford-correction.jpg')} alt="" width={1500} height={1000} unoptimized loading="eager" draggable={false} style={{left:-p.x*1500/1536,top:-p.y*1000/1024}} onError={onError}/></div>)}

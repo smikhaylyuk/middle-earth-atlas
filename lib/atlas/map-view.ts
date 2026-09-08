@@ -10,6 +10,10 @@ export function homeView(size:MapSize):MapView{
 }
 export function regionView(region:RegionId,size:MapSize):MapView{
   if(region==='all')return homeView(size);
+  if(region==='south'){
+    const scale=Math.max(.22,Math.min((size.width-64)/1550,(size.height-220)/1100));
+    return boundView({scale,x:size.width*.5-1690*scale,y:size.height*.46-1450*scale},size);
+  }
   const center=region==='west'?(size.width<650?750:800):1720;
   const scale=Math.max(size.width<650?.4:.28,Math.min((size.width-64)/1350,(size.height-220)/850));
   return boundView({scale,x:size.width*.5-center*scale,y:size.height*.47-470*scale},size);

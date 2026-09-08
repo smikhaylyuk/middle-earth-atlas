@@ -1,4 +1,4 @@
-.expanded-atlas .map-content{width:2500px;height:1000px;mask-image:linear-gradient(90deg,transparent,#000 4%,#000 96%,transparent),linear-gradient(0deg,transparent,#000 6%,#000 95%,transparent);mask-composite:intersect}
+.expanded-atlas .map-content{width:2500px;height:1940px;mask-image:linear-gradient(90deg,transparent,#000 4%,#000 96%,transparent),linear-gradient(0deg,transparent,#000 6%,#000 95%,transparent);mask-composite:intersect}
 .eastern-sheet,.western-sheet{position:absolute;top:0;width:1500px;height:1000px}
 .expanded-atlas .map-art{mask-image:none}
 .western-sheet{left:0;mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1500' height='1000' viewBox='0 0 1500 1000'%3E%3Cdefs%3E%3Cfilter id='f' x='-20%25' y='-20%25' width='140%25' height='140%25'%3E%3CfeGaussianBlur stdDeviation='12'/%3E%3C/filter%3E%3C/defs%3E%3Cpath fill='white' filter='url(%23f)' d='M-100 -100H1150L1170 450L1190 520L1310 660L1445 900L1490 1100H-100Z'/%3E%3C/svg%3E");mask-size:100% 100%}
@@ -33,3 +33,13 @@
 @media(max-width:800px){.expanded-atlas .journey-dock{left:23px;width:calc(100% - 46px)}.expanded-atlas .dock-heading{gap:12px}.expanded-atlas .dock-heading h2{font-size:21px}.region-controls button{padding:0 10px}.expanded-atlas .journey-stop{min-width:119px}.expanded-atlas .journey-stop strong{font-size:23px}.expanded-atlas .journey-stop>svg{display:none}}
 @media(max-width:600px){.expanded-atlas .journey-dock{left:14px;width:calc(100% - 28px)}.expanded-atlas .dock-heading{padding:8px 10px;gap:7px}.expanded-atlas .dock-heading h2{display:none}.region-controls{margin-right:auto}.region-controls button{height:31px;font-size:14px;padding:0 11px}.expanded-atlas .journey-stops{padding:6px;gap:4px}.expanded-atlas .journey-stop{min-width:113px;display:flex;flex:0 0 auto;text-align:left;padding:9px 10px}.expanded-atlas .journey-stop strong{font-size:23px}.expanded-atlas .journey-stop small{font-size:12px}.expanded-atlas .route-control{font-size:14px}.map-stage[data-density=overview] .pin-title{font-size:17px}.map-stage[data-density=overview] .map-pin{padding:0 2px 7px}.map-stage[data-density=overview] .pin-stem{height:9px;top:-12px}.expanded-atlas .atlas-folio{bottom:207px;max-height:calc(100% - 385px)}}
 @media(max-height:560px){.expanded-atlas .dock-heading{display:flex}.expanded-atlas .journey-dock{bottom:50px}.expanded-atlas .journey-stop{padding-top:6px;padding-bottom:6px}.expanded-atlas .atlas-folio{top:85px;bottom:auto;max-height:calc(100% - 255px)}}
+
+/* The original north is preserved over the new southern landscape. */
+.eastern-sheet{mask-image:linear-gradient(to bottom,#000 86%,transparent 100%)}
+.western-sheet{mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1500' height='1000' viewBox='0 0 1500 1000'%3E%3Cdefs%3E%3Cfilter id='f' x='-20%25' y='-20%25' width='140%25' height='140%25'%3E%3CfeGaussianBlur stdDeviation='12'/%3E%3C/filter%3E%3C/defs%3E%3Cpath fill='white' filter='url(%23f)' d='M-100 -100H1150L1170 450L1190 520L1310 660L1445 900L1490 1100H-100Z'/%3E%3C/svg%3E"),linear-gradient(to bottom,#000 86%,transparent 100%);mask-composite:intersect}
+.southern-sheet{position:absolute;left:0;width:2500px;overflow:hidden}
+.southern-sheet .map-art{width:2500px;height:1300px}
+.expanded-atlas .journey-stop{flex:0 0 auto;min-width:135px}
+@media(max-width:600px){.region-controls button{padding:0 9px}.expanded-atlas .journey-stop{min-width:125px}}
+
+.expanded-atlas .southern-sublabel{font-size:16px;letter-spacing:4px;font-style:italic}

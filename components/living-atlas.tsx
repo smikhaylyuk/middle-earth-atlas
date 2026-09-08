@@ -6,7 +6,7 @@ import Image from 'next/image';
 import { assetPath } from '@/lib/atlas/asset-path';
 import { type LightMode } from '@/lib/atlas/terrain';
 import { places, majorPlaces, type PlaceId } from '@/lib/atlas/places';
-import { type RegionId } from '@/lib/atlas/world';
+import { MAP_WIDTH, MAP_HEIGHT, type RegionId } from '@/lib/atlas/world';
 import { boundView, mapPlaces, placeView, regionView, zoomView, type MapSize, type MapView } from '@/lib/atlas/map-view';
 import { registerAtlasTools } from '@/lib/atlas/webmcp';
 import { clockLabel, dayPhase, phaseHours, type DayPhase, type MotionIntensity } from '@/lib/atlas/day-cycle';
@@ -36,6 +36,7 @@ export default function LivingAtlas(){
   const [selected,setSelected]=useState<PlaceId|null>(null),[intensity,setIntensity]=useState<MotionIntensity>('lively'),[route,setRoute]=useState(true),[motion,setMotion]=useState<boolean|null>(null);
   const [ready,setReady]=useState(false),[failed,setFailed]=useState(false),[dragging,setDragging]=useState(false);
   const [breeDetail,setBreeDetail]=useState<BreeDetail|null>(null);
+  const [southReady,setSouthReady]=useState(false);
   const [westReady,setWestReady]=useState(false),[region,setRegion]=useState<RegionId|null>('all');
   const visible=useSyncExternalStore(subscribeVisibility,visibilitySnapshot,()=>true);
   const running=motion??!reduced,place=places.find(p=>p.id===selected);
@@ -49,7 +50,7 @@ export default function LivingAtlas(){
     view.current=next;
     if(world.current)world.current.style.transform=`translate3d(${next.x}px,${next.y}px,0) scale(${next.scale})`;
     if(stage.current)stage.current.dataset.density=next.scale<.38?'overview':'detail';
-    places.forEach((p,i)=>{const point=mapPlaces[p.id],label=labels.current[i];if(label){label.style.transform=`translate(${next.x+point.x*next.scale}px,${next.y+point.y*next.scale}px) translate(-50%, 20px)`;label.style.visibility=p.major||next.scale>=.62||state.current.place===p.id?'visible':'hidden';}});
+    places.forEach((p,i)=>{const point=mapPlaces[p.id],label=labels.current[i];if(label){label.style.transform=`translate(${next.x+point.x*next.scale}px,${next.y+point.y*next.scale}px) translate(-50%, 20px)`;const shownAtOverview=['grey-havens','bree','rivendell','tharbad','moria-west-gate','isengard'].includes(p.id);label.style.visibility=(p.major&&(next.scale>=.28||shownAtOverview))||next.scale>=.62||state.current.place===p.id?'visible':'hidden';}});
   },[]);
   const fly=useCallback((target:MapView)=>{
     cancelAnimationFrame(animation.current);
@@ -63,16 +64,16 @@ export default function LivingAtlas(){
   const zoom=useCallback((factor:number)=>{setRegion(null);fly(zoomView(view.current,size.current,factor));},[fly]);
   useEffect(()=>{
     const element=stage.current;if(!element)return;
-    const resize=()=>{cancelAnimationFrame(animation.current);size.current={width:element.clientWidth,height:element.clientHeight};if(!viewInitialized.current){const initialRegion=size.current.width<650?'west':'all';state.current.region=initialRegion;setRegion(initialRegion);viewInitialized.current=true;}paint(state.current.place?placeView(state.current.place,size.current):state.current.region?regionView(state.current.region,size.current):boundView(view.current,size.current));};
+    const resize=()=>{cancelAnimationFrame(animation.current);size.current={width:element.clientWidth,height:element.clientHeight};if(!viewInitialized.current){const initialRegion='south';state.current.region=initialRegion;setRegion(initialRegion);viewInitialized.current=true;}paint(state.current.place?placeView(state.current.place,size.current):state.current.region?regionView(state.current.region,size.current):boundView(view.current,size.current));};
     const observer=new ResizeObserver(resize);observer.observe(element);resize();
     const wheel=(event:WheelEvent)=>{event.preventDefault();setRegion(null);cancelAnimationFrame(animation.current);const r=element.getBoundingClientRect();paint(zoomView(view.current,size.current,Math.exp(-event.deltaY*.0013),{x:event.clientX-r.left,y:event.clientY-r.top}));};
     element.addEventListener('wheel',wheel,{passive:false});
     return()=>{observer.disconnect();element.removeEventListener('wheel',wheel);cancelAnimationFrame(animation.current);};
   },[paint]);
   useEffect(()=>{
-    if(!ready||!westReady)return;
+    if(!ready||!westReady||!southReady)return;
     return registerAtlasTools({read:()=>({...state.current,lighting:dayPhase(hour.current),timeOfDay:Math.round(hour.current*100)/100}),focus,overview,lighting:setLight,route:setRoute,motion:setMotion,intensity:setIntensity,time:setTime,cycle:setCycle,duration:setDuration,bree:exploreBree,region:frameRegion});
-  },[ready,westReady,frameRegion,focus,overview,setLight,setTime,setCycle,setDuration,hour,exploreBree]);
+  },[ready,westReady,southReady,frameRegion,focus,overview,setLight,setTime,setCycle,setDuration,hour,exploreBree]);
   function pointerDown(event:ReactPointerEvent<HTMLDivElement>){
     if((event.target as Element).closest('button')||event.button>0)return;
     setRegion(null);event.currentTarget.focus({preventScroll:true});cancelAnimationFrame(animation.current);event.currentTarget.setPointerCapture(event.pointerId);
@@ -96,8 +97,8 @@ export default function LivingAtlas(){
       if(moves[event.key]){event.preventDefault();setRegion(null);cancelAnimationFrame(animation.current);const [x,y]=moves[event.key];paint(boundView({...view.current,x:view.current.x+x,y:view.current.y+y},size.current));}
       else if(event.key==='+'||event.key==='='){event.preventDefault();zoom(1.25);}else if(event.key==='-'){event.preventDefault();zoom(.8);}else if(event.key==='Escape')overview();
     }}>
-      <div className="map-content" ref={world} aria-hidden="true">
-        <AtlasArtwork hour={displayHour} route={route} onEastLoad={()=>setReady(true)} onWestLoad={()=>setWestReady(true)} onError={()=>setFailed(true)}/>
+      <div className="map-content" ref={world} style={{width:MAP_WIDTH,height:MAP_HEIGHT}} aria-hidden="true">
+        <AtlasArtwork hour={displayHour} route={route} onEastLoad={()=>setReady(true)} onWestLoad={()=>setWestReady(true)} onSouthLoad={()=>setSouthReady(true)} onError={()=>setFailed(true)}/>
       </div>
       <div className="map-pins">{places.map((p,i)=><button key={p.id} className={`map-pin pin-${p.id} ${p.major?'pin-major':'pin-minor'}`} ref={el=>{labels.current[i]=el;}} style={{visibility:'hidden'}} aria-label={`Explore ${p.name} on the map`} aria-pressed={selected===p.id} onClick={()=>focus(p.id)}><span className="pin-stem"/><span className="pin-title"><span className="pin-full-name">{p.name}</span><span className="pin-overview-name">{p.overviewLabel}</span></span><span className="pin-subtitle">{p.pinSubtitle}</span></button>)}</div>
     </div>
@@ -108,14 +109,14 @@ export default function LivingAtlas(){
       <input className="time-scrubber" type="range" min="0" max="24" step="0.01" value={displayHour} aria-label="Time of day" aria-valuetext={`${phase}, ${clockLabel(displayHour)}`} onChange={event=>{setTime(Number(event.target.value));setCycle(false);}}/>
       <div className="cycle-phase-buttons">{(Object.keys(phaseHours) as DayPhase[]).map(value=>{const Icon=phaseIcons[value];return <Button key={value} variant="ghost" aria-label={`Hold ${value} light`} aria-pressed={phase===value} onClick={()=>choosePhase(value)}><Icon size={13}/><span>{value}</span></Button>;})}</div>
     </section>
-    <div className="map-edition"><span>FROM THE GREY HAVENS TO RIVENDELL</span><i/>Third Age 3018 · Western Eriador</div>
+    <div className="map-edition"><span>FROM THE GREY HAVENS TO ISENGARD</span><i/>Late Third Age · Eriador & the southern lands</div>
     <div className="paper-compass" aria-hidden="true"><span>N</span><Compass size={40} strokeWidth={.75}/></div>
     <div className="journey-caption"><span className="caption-line"/><span>There is a road beyond every familiar place.</span></div>
-    <aside className="journey-dock" aria-label="Explore Eriador"><div className="dock-heading"><h2>Across Eriador</h2><nav className="region-controls" aria-label="Map regions">{(['west','all','east'] as RegionId[]).map(id=><Button key={id} variant="ghost" aria-label={id==='all'?'Show all Eriador':`Explore ${id==='west'?'western':'eastern'} Eriador`} aria-pressed={region===id} onClick={()=>frameRegion(id)}>{id==='all'?'Whole map':id==='west'?'West':'East'}</Button>)}</nav><button aria-label="Show illustrated East Road" aria-pressed={route} onClick={()=>setRoute(!route)} className="route-control"><Route size={14}/><span>Road</span><i/></button></div><nav className="journey-stops" aria-label="Choose a place">{majorPlaces.map(p=><button key={p.id} className="journey-stop" aria-pressed={selected===p.id} onClick={()=>focus(p.id)}><span><strong>{p.name}</strong><small>{p.pinSubtitle}</small></span><ArrowRight size={15}/></button>)}</nav></aside>
+    <aside className="journey-dock" aria-label="Explore Eriador"><div className="dock-heading"><h2>Across Eriador</h2><nav className="region-controls" aria-label="Map regions">{(['all','west','east','south'] as RegionId[]).map(id=><Button key={id} variant="ghost" aria-label={id==='all'?'Show the whole atlas':id==='south'?'Explore Eregion and the southern lands':`Explore ${id==='west'?'western':'eastern'} Eriador`} aria-pressed={region===id} onClick={()=>frameRegion(id)}>{id==='all'?'All':id==='west'?'West':id==='east'?'East':'South'}</Button>)}</nav><button aria-label="Show illustrated roads" aria-pressed={route} onClick={()=>setRoute(!route)} className="route-control"><Route size={14}/><span>Road</span><i/></button></div><nav className="journey-stops" aria-label="Choose a place">{(region&&region!=='all'?places.filter(p=>p.region===region):majorPlaces).map(p=><button key={p.id} className="journey-stop" aria-pressed={selected===p.id} onClick={()=>focus(p.id)}><span><strong>{p.name}</strong><small>{p.pinSubtitle}</small></span><ArrowRight size={15}/></button>)}</nav></aside>
     {place&&<article className="atlas-folio" key={place.id} aria-live="polite"><Button variant="ghost" className="folio-close" size="icon" aria-label="Close place details" onClick={()=>setSelected(null)}><X size={16}/></Button><span className="folio-kicker">{place.kind}</span><h2>{place.name}</h2><p className="folio-subtitle">{place.subtitle}</p>{place.id==='bree'&&<Button className="bree-invitation" onClick={()=>exploreBree('prancing-pony')} aria-haspopup="dialog"><div><small>At the inn</small><span>The Prancing Pony</span></div><ArrowRight size={20}/></Button>}<p className="folio-description">{place.description}</p>{place.date&&<div className="folio-date"><Clock3 size={13}/>{place.date}</div>}<a className="folio-source" href={place.source} target="_blank" rel="noreferrer">{place.sourceLabel} ↗</a></article>}
     <BreeDiscovery detail={breeDetail} onDetail={exploreBree} hour={displayHour} cyclePlaying={cycleEnabled&&running} motionEnabled={running} onTime={value=>{setTime(value);setCycle(false);}} onPlayCycle={()=>{if(!running){setMotion(true);setCycle(true);}else setCycle(!cycleEnabled);}} onPauseMotion={()=>setMotion(!running)}/>
     <footer className="living-footer"><span>Illustrated interpretation · Unofficial fan atlas</span><div className="map-gesture-hint">Drag to wander <i/> Scroll to look closer</div><div className="map-controls" aria-label="Map controls"><Button variant="ghost" size="icon" aria-label="Zoom in" onClick={()=>zoom(1.25)}><Plus size={17}/></Button><Button variant="ghost" size="icon" aria-label="Zoom out" onClick={()=>zoom(.8)}><Minus size={17}/></Button><span/><Button variant="ghost" size="icon" aria-label="Return to overview" onClick={overview}><Home size={16}/></Button></div></footer>
-    {(!ready||!westReady)&&!failed&&<output className="map-loading"><Compass size={36} strokeWidth={.7}/><span>Unfolding the map…</span></output>}
+    {(!ready||!westReady||!southReady)&&!failed&&<output className="map-loading"><Compass size={36} strokeWidth={.7}/><span>Unfolding the map…</span></output>}
     {failed&&<div className="map-failure" role="alert"><h2>The map couldn’t load.</h2><p>Please refresh to try again.</p><Button onClick={()=>window.location.reload()}>Try again</Button></div>}
   </main>;
 }

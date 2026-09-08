@@ -1,13 +1,13 @@
 # Eriador — A Living Atlas
 
-An interactive, painterly atlas of western Middle-earth, from the Grey Havens and the Shire to Bree, Weathertop and Rivendell.
+An interactive, painterly atlas of western Middle-earth, from the Grey Havens and the Shire to Rivendell, and south through Eregion and Moria to Isengard.
 
 ![The painted landscape of Eriador](public/images/eriador-painted.jpg)
 
 ## Explore the atlas
 
-- Pan and zoom across a continuous illustrated landscape, with West, Whole map and East views.
-- Discover seven locations, including Hobbiton, Michel Delving and Brandywine Bridge, with book-based reference notes.
+- Pan and zoom across a continuous illustrated landscape, with All, West, East and South views.
+- Discover twelve locations, including Moria’s western gate, ruined Tharbad, Ost-in-Edhil, Lond Daer and Isengard, with book-based reference notes.
 - Watch a continuous morning, day, evening and night cycle, with changing light, settlement windows, chimney smoke, mist, birds and moving water.
 - Adjust the cycle speed, hold a time of day, or pause motion.
 - Visit an illustrated study of the Prancing Pony in Bree, sharing the map's clock and atmosphere.
@@ -53,6 +53,7 @@ The workflow in `.github/workflows/pages.yml` installs the locked dependencies, 
 | `lib/atlas/world.ts` | World dimensions and place coordinates |
 | `lib/atlas/illustration.ts` | Eastern artwork anchors |
 | `lib/atlas/western-illustration.ts` | Western artwork anchors |
+| `lib/atlas/southern-illustration.ts` | Southern artwork and atmosphere anchors |
 | `lib/atlas/webmcp.ts` | Optional structured controls for compatible browser agents |
 | `public/images/` | Map paintings, detail art and sprites |
 | `docs/lore-and-cartography.md` | Geographic sources, alignment notes and artistic limits |
