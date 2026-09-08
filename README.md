@@ -1,13 +1,13 @@
 # Eriador — A Living Atlas
 
-An interactive, painterly atlas of western Middle-earth, from the Grey Havens and the Shire to Rivendell, south through Eregion to Isengard, and east to Lórien and the Anduin valley.
+An interactive, painterly atlas of western Middle-earth, from the Grey Havens and the Shire to Rivendell, south through Eregion to Isengard, east to Lórien and the Anduin valley, and onward into Rohan.
 
 ![The painted landscape of Eriador](public/images/eriador-painted.jpg)
 
 ## Explore the atlas
 
-- Pan and zoom across a continuous illustrated landscape, with All, West, East, South and Anduin views.
-- Discover seventeen locations, including Moria’s western gate, ruined Tharbad, Ost-in-Edhil, Lond Daer and Isengard, with book-based reference notes.
+- Pan and zoom across a continuous illustrated landscape, with All, West, East, South, Anduin and Rohan views.
+- Discover twenty-two locations, including Moria, Lórien, the Fords of Isen, Helm’s Deep, Edoras, Dunharrow and the Argonath, with book-based reference notes.
 - Watch a continuous morning, day, evening and night cycle, with changing light, settlement windows, chimney smoke, mist, birds and moving water.
 - Adjust the cycle speed, hold a time of day, or pause motion.
 - Visit an illustrated study of the Prancing Pony in Bree, sharing the map's clock and atmosphere.
@@ -55,6 +55,7 @@ The workflow in `.github/workflows/pages.yml` installs the locked dependencies, 
 | `lib/atlas/western-illustration.ts` | Western artwork anchors |
 | `lib/atlas/southern-illustration.ts` | Southern artwork and atmosphere anchors |
 | `lib/atlas/anduin-illustration.ts` | Anduin, Lórien and Mirkwood artwork anchors |
+| `lib/atlas/rohan-illustration.ts` | Rohan, the White Mountains and Argonath anchors |
 | `lib/atlas/webmcp.ts` | Optional structured controls for compatible browser agents |
 | `public/images/` | Map paintings, detail art and sprites |
 | `docs/lore-and-cartography.md` | Geographic sources, alignment notes and artistic limits |

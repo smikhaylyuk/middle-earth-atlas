@@ -53,7 +53,7 @@ Sources checked for this expansion:
 - https://tolkiengateway.net/wiki/Doors_of_Durin — western gate; *The Fellowship of the Ring*, Book II chapter 4.
 - https://tolkiengateway.net/wiki/Isengard — ring, Orthanc, valley and southern mountain setting; *The Two Towers*, Book III chapter 8.
 
-The generated sheet has 1736×906 pixels and is displayed in a 2500×1300 plane. Its bottom 160 display units are excluded: the source painting invents an eastward Isen bend and continues ridges beyond the intended southern boundary. The visible atlas therefore ends shortly below Isengard, without claiming to map the Gap of Rohan or the lower Isen. Eastern trees north of Fangorn are unnamed pictorial woodland, not an asserted continuous forest boundary. Minor anonymous ruins at the Baranduin mouth are decorative remnants, not a new named canonical settlement.
+The generated sheet has 1736×906 pixels and is displayed in a 2500×1300 plane. Its bottom 160 display units are excluded: the source painting invents an eastward Isen bend and continues ridges beyond the intended southern boundary. That sheet therefore ends shortly below Isengard; the later Rohan sheet supplies the Gap and lower Isen. Eastern trees north of Fangorn are unnamed pictorial woodland, not an asserted continuous forest boundary. Minor anonymous ruins at the Baranduin mouth are decorative remnants, not a new named canonical settlement.
 
 ## Lórien and the Anduin valley
 
@@ -78,3 +78,24 @@ Sources checked:
 Artwork alignment for the Anduin sheet: `anduin-painted.jpg` is 1103×1426. It is displayed at 1500×2350 with world x offset 2200 and cropped at world y=1940. This north–south adjustment puts the eastern door at approximately (2394,1119), opposite the existing western gate at (2195,1117), with Mirrormere southeast below it. Pins, river centrelines, mist and lamp anchors use the same transform. Earlier paintings and all earlier place coordinates remain unchanged. A mountain-edge feather reveals the eastern doorway while preserving the western one.
 
 The artwork's southern Anduin bend and most of the lower Limlight/Fangorn continuation are beyond this edition's edge. No Wold label is placed north of the Limlight. Rocky knolls in the Brown Lands remain pictorial relief rather than a named mountain range. Nimrodel is not distinctly legible, so it receives neither a named channel nor a speculative flowing-water overlay. Marsh boundaries and the exact shapes of the woods remain artistic approximations. Tree lamps are deliberately tiny placements among the visible Caras canopy; the underlying image does not establish individual lamp locations.
+
+## Rohan and the Pillars of the Kings
+
+The next sheet continues south of Isengard into the Gap of Rohan and across the northern White Mountains. It adds the Fords of Isen, Helm’s Deep, Edoras, Dunharrow and the Argonath. The Rohan navigation view includes the adjacent Anduin landmarks for exploration; it does not imply that the Argonath belonged to Rohan.
+
+Christopher Tolkien’s *The West of Middle-earth at the End of the Third Age* guides the major relationships. The Misty Mountains end north of the open Gap; the White Mountains form a separate range farther south. The Isen flows south past Isengard and the Fords, then west to the sea. It does not join the Anduin. Helm’s Deep belongs in a northern mountain gorge southeast of the Fords. Edoras lies farther east at the mouth of Harrowdale; Dunharrow occupies a high ledge on the valley’s eastern side, south of Edoras. The Snowbourn flows north past Edoras before turning east to the Entwash. The Argonath stand on either side of the Anduin upstream of Nen Hithoel, with Rauros downstream of the lake.
+
+The new notes use these references, checked against the book/map citations each provides:
+
+- https://tolkiengateway.net/wiki/Fords_of_Isen — the double ford and island, the westward turn of the Isen and the road crossing; *Unfinished Tales*, “The Battles of the Fords of Isen”.
+- https://tolkiengateway.net/wiki/Helm%27s_Deep — the gorge, Hornburg, Deeping Wall and stream; *The Two Towers*, “Helm’s Deep”.
+- https://tolkiengateway.net/wiki/Edoras — the hill town and Meduseld; *The Two Towers*, “The King of the Golden Hall”.
+- https://tolkiengateway.net/wiki/Snowbourn — the north-then-east course, supported by the published map and *The Return of the King*, “The Muster of Rohan”. This takes precedence over the Edoras wiki article’s contradictory “west” wording.
+- https://tolkiengateway.net/wiki/Dunharrow — the eastern cliff, winding ascent, Firienfeld and standing stones; *The Return of the King*, “The Muster of Rohan”.
+- https://tolkiengateway.net/wiki/Argonath — Isildur and Anárion, facing north with their left hands raised; *The Fellowship of the Ring*, “The Great River”.
+
+The clock remains atmospheric: no battle, muster, ghost army or historical journey advances with the day cycle. Local relief, architecture, minor streams and distances are pictorial interpretations. The earlier road highlight is not extended into an invented Fellowship route through Rohan.
+
+Artwork alignment for Rohan: the native painting is 2116×743, displayed in a 3420×1300 plane at world (280,1800). Its western sea strip reuses the same painting. The sheet’s visible height is 1000, bringing the atlas to 3700×2800. Every new pin, lamp and river trace uses that same transform; earlier landmark coordinates are unchanged. The sheet feathers beneath the earlier south and Anduin paintings. River bends within that joining band remain approximate.
+
+The painting brings the Entwash to the Anduin too close below Rauros. The eastern southern edge is therefore masked before this junction, and its current traces stop before it; the lower confluence and a complete Rauros view are outside this edition. Fangorn’s precise eastern boundary and the details of the ford shallows remain pictorial. The Argonath’s bank positions are visible, but the statues’ hand orientation cannot be resolved at atlas scale; the written notes follow the book. These limitations should guide any later regional detail work.

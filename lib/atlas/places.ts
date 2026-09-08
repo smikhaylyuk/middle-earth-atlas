@@ -77,6 +77,31 @@ export const places = [
     description:'Dol Guldur rises in southwestern Mirkwood, east of the Anduin. Sauron once hid here as the Necromancer. By the War of the Ring, his servants again hold the stronghold, threatening Lórien across the river.',
     date:null,region:'anduin',major:true,source:'https://tolkiengateway.net/wiki/Dol_Guldur',sourceLabel:'Appendix B · The Third Age',
   },
+  {
+    id:'fords-of-isen',name:'Fords of Isen',overviewLabel:'Fords of Isen',kind:'The western entrance to Rohan',pinSubtitle:'The Gap of Rohan',subtitle:'Two shallow crossings around a stony island',
+    description:'South of Isengard, the Isen spreads into two shallow arms around an island. The road crosses here, just before the river turns west toward the sea. The open Gap of Rohan lies between the southern Misty Mountains and the northern arm of the White Mountains.',
+    date:null,region:'rohan',major:true,source:'https://tolkiengateway.net/wiki/Fords_of_Isen',sourceLabel:'Unfinished Tales · The Battles of the Fords of Isen',
+  },
+  {
+    id:'helms-deep',name:'Helm’s Deep',overviewLabel:'Helm’s Deep',kind:'A stronghold of the Westfold',pinSubtitle:'The Hornburg',subtitle:'A guarded gorge beneath the Thrihyrne',
+    description:'Helm’s Deep cuts into the northern White Mountains, southeast of the Fords of Isen. The Hornburg and the Deeping Wall defend its entrance. The Deeping-stream runs out of the gorge, while the Glittering Caves lie within the mountains behind the defences.',
+    date:null,region:'rohan',major:true,source:'https://tolkiengateway.net/wiki/Helm%27s_Deep',sourceLabel:'Book III, ch. 7 · Helm’s Deep',
+  },
+  {
+    id:'edoras',name:'Edoras',overviewLabel:'Edoras',kind:'The courts of the kings of Rohan',pinSubtitle:'The Golden Hall',subtitle:'A hill above the Snowbourn',
+    description:'Edoras stands at the mouth of Harrowdale, with Meduseld, the Golden Hall, on its summit. The Snowbourn comes north from the mountains past the town, then turns east to the Entwash. Beyond the gates, the burial mounds of the kings lie beside the road.',
+    date:null,region:'rohan',major:true,source:'https://tolkiengateway.net/wiki/Edoras',sourceLabel:'Book III, ch. 6 · The King of the Golden Hall',
+  },
+  {
+    id:'dunharrow',name:'Dunharrow',overviewLabel:'Dunharrow',kind:'The refuge above Harrowdale',pinSubtitle:'The Firienfeld',subtitle:'An upland beneath the shadow of the mountains',
+    description:'South of Edoras, a winding road climbs the eastern cliff of Harrowdale to the grassy Firienfeld. Standing stones lead toward the Dimholt and the Dark Door under the Dwimorberg. This high refuge is an ancient place, older than the kingdom of Rohan.',
+    date:null,region:'rohan',major:false,source:'https://tolkiengateway.net/wiki/Dunharrow',sourceLabel:'Book V, ch. 3 · The Muster of Rohan',
+  },
+  {
+    id:'argonath',name:'Argonath',overviewLabel:'Argonath',kind:'The Pillars of the Kings',pinSubtitle:'The Great River',subtitle:'At the northern entrance to Nen Hithoel',
+    description:'The stone figures of Isildur and Anárion stand on opposite banks of the Anduin, facing north with their left hands raised. Below them, the river passes through a chasm into Nen Hithoel. The falls of Rauros lie beyond the lake’s southern end.',
+    date:null,region:'rohan',major:true,source:'https://tolkiengateway.net/wiki/Argonath',sourceLabel:'Book II, ch. 9 · The Great River',
+  },
   ...easternPlaces.map(p=>({...p,...eastNotes[p.id],overviewLabel:p.id==='weathertop'?'Amon Sûl':p.name,region:'east' as const,major:true})),
 ] as const;
 export type PlaceId = typeof places[number]['id'];
