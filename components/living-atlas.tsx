@@ -60,7 +60,7 @@ export default function LivingAtlas(){
   const running=motion??!reduced,place=places.find(p=>p.id===selected);
   const dockRegion=place?.region??browseRegion;
   const dockPlaces=dockRegion&&dockRegion!=='all'?places.filter(p=>p.region===dockRegion):majorPlaces;
-  const {root,hour,displayHour,cycleEnabled,cycleDuration,setTime,setCycle,setDuration,holdForNavigation}=useDayCycle(running,visible,navigating);
+  const {root,hour,displayHour,cycleEnabled,cycleDuration,setTime,setCycle,setDuration,holdForNavigation}=useDayCycle(running,visible);
   const beginNavigation=useCallback(()=>{
     if(settleTimer.current!==null)clearTimeout(settleTimer.current);
     if(navigating.current)return;
@@ -140,7 +140,7 @@ export default function LivingAtlas(){
       if(moves[event.key]){event.preventDefault();setRegion(null);cancelAnimationFrame(animation.current);beginNavigation();const [x,y]=moves[event.key];paint(boundView({...view.current,x:view.current.x+x,y:view.current.y+y},size.current));settleNavigation();}
       else if(event.key==='+'||event.key==='='){event.preventDefault();zoom(1.25);}else if(event.key==='-'){event.preventDefault();zoom(.8);}else if(event.key==='Escape')overview();
     }}>
-      <AtlasPainting ref={painting} onLoad={paintingLoaded} onError={paintingFailed} hour={hour} navigating={navigating} running={running} visible={visible} intensity={intensity} route={route}/>
+      <AtlasPainting ref={painting} onLoad={paintingLoaded} onError={paintingFailed} hour={hour} running={running} visible={visible} intensity={intensity} route={route}/>
       <AtlasLabels ref={labels} selected={selected} onSelect={focus}/>
     </div>
     <div className="map-vignette"/>
@@ -154,7 +154,7 @@ export default function LivingAtlas(){
     </section>
     <div className="map-edition"><span>WESTERN MIDDLE-EARTH</span><i/>Late Third Age · From Lindon to Rohan</div>
     <div className="paper-compass" aria-hidden="true"><span>N</span><Compass size={40} strokeWidth={.75}/></div>
-    <aside className="journey-dock" aria-label="Explore Eriador"><div className="dock-heading"><h2>Explore the atlas</h2><nav ref={regionNavigation} className="region-controls" aria-label="Map regions">{(Object.keys(regionLabels) as RegionId[]).map(id=><Button key={id} variant="ghost" aria-label={regionLabels[id].description} aria-pressed={region===id} onClick={()=>frameRegion(id)}>{regionLabels[id].label}</Button>)}</nav><button aria-label="Show illustrated roads" aria-pressed={route} onClick={()=>setRoute(!route)} className="route-control"><Route size={14}/><span>Road</span><i/></button></div><nav className="journey-stops" aria-label="Choose a place">{dockPlaces.map(p=><button key={p.id} className="journey-stop" aria-pressed={selected===p.id} onClick={()=>focus(p.id)}><span><strong>{p.name}</strong><small>{p.pinSubtitle}</small></span><ArrowRight size={15}/></button>)}</nav></aside>
+    <aside className="journey-dock" aria-label="Explore Eriador"><div className="dock-heading"><h2>Explore the atlas</h2><nav ref={regionNavigation} className="region-controls" aria-label="Map regions">{(Object.keys(regionLabels) as RegionId[]).map(id=><Button key={id} variant="ghost" aria-label={regionLabels[id].description} aria-pressed={region===id} onClick={()=>frameRegion(id)}>{regionLabels[id].label}</Button>)}</nav><button aria-label="Highlight mapped roads" aria-pressed={route} onClick={()=>setRoute(!route)} className="route-control"><Route size={14}/><span>Road</span><i/></button></div><nav className="journey-stops" aria-label="Choose a place">{dockPlaces.map(p=><button key={p.id} className="journey-stop" aria-pressed={selected===p.id} onClick={()=>focus(p.id)}><span><strong>{p.name}</strong><small>{p.pinSubtitle}</small></span><ArrowRight size={15}/></button>)}</nav></aside>
     {place&&<article className="atlas-folio" key={place.id} aria-live="polite"><Button variant="ghost" className="folio-close" size="icon" aria-label="Close place details" onClick={()=>setSelected(null)}><X size={16}/></Button><span className="folio-kicker">{place.kind}</span><h2>{place.name}</h2><p className="folio-subtitle">{place.subtitle}</p>{place.id==='bree'&&<Button className="bree-invitation" onClick={()=>exploreBree('prancing-pony')} aria-haspopup="dialog"><div><small>At the inn</small><span>The Prancing Pony</span></div><ArrowRight size={20}/></Button>}<p className="folio-description">{place.description}</p>{place.date&&<div className="folio-date"><Clock3 size={13}/>{place.date}</div>}<a className="folio-source" href={place.source} target="_blank" rel="noreferrer">{place.sourceLabel} ↗</a></article>}
     <footer className="living-footer"><span>Illustrated interpretation · Unofficial fan atlas</span><div className="map-gesture-hint">Drag to wander <i/> Scroll to look closer</div><div className="map-controls" aria-label="Map controls"><Button variant="ghost" size="icon" aria-label="Zoom in" onClick={()=>zoom(1.25)}><Plus size={17}/></Button><Button variant="ghost" size="icon" aria-label="Zoom out" onClick={()=>zoom(.8)}><Minus size={17}/></Button><span/><Button variant="ghost" size="icon" aria-label="Return to overview" onClick={overview}><Home size={16}/></Button></div></footer>
     </div>

@@ -4,6 +4,12 @@ The user wants a richly illustrated, living 2D atlas that stays true to the actu
 
 Geographic authority: Christopher Tolkien, *The West of Middle-earth at the End of the Third Age* (1980), https://tolkiengateway.net/wiki/File:Christopher_Tolkien_-_The_West_of_Middle-earth.png . Match major settlement relationships, road crossings, river topology and mountain ranges. Textured terrain, vegetation and modestly enlarged pictorial landmark buildings are artistic interpretation. Do not claim exact scale, surveyed terrain or perfect reconstruction.
 
+**Current review:** [Cartographic audit, 8 September 2026](cartographic-audit.md)
+supersedes earlier blanket claims about river topology and linework. It records
+confirmed corrections, retained relationships, and named tributaries that
+still cannot be identified reliably in the painting. The current painting is
+`atlas-cartographic.webp`; prior versions are retained for comparison.
+
 The reference crop is source x=1050, y=400, width=1050, height=750, from a 3840×2931 image. Within it: Bree (181,408); Weathertop (366,372); Last Bridge (589,366); Ford (774,396); Rivendell (809,378). The Weather Hills extend north from Weathertop. East Road passes south of it. Last Bridge crosses Hoarwell west of Trollshaws. Two upper Bruinen streams join southwest of Rivendell, with the Ford just downstream. Bruinen joins Hoarwell farther southwest at roughly (553,590).
 
 The expanded world is 3700×2800. `lib/atlas/world.ts` places the original 1500×1000 eastern sheet at x=1000. Keep its artwork and interaction geometry aligned through `lib/atlas/illustration.ts`; those local coordinates are unchanged. `lib/atlas/western-illustration.ts` uses the western sheet's 1500×1000 display plane. All are illustration coordinates rather than geographic coordinates. Any different artwork requires re-aligning pins, lights, smoke, moving water and road overlays together.

@@ -1,8 +1,8 @@
-// Precompose the approved paintings and their existing masks. This changes
-// rendering cost, not geography. Run after changing a painting or its alignment.
+// Precompose the paintings and reviewed local geography corrections.
 import sharp from 'sharp';
 import { readFile, mkdir } from 'node:fs/promises';
 import { repairAtlasJoins } from './repair-atlas-joins.mjs';
+import { repairAtlasGeography, makeSeaMask, makeWaterMask } from './repair-atlas-geography.mjs';
 const width=3700,height=2800;
 const svg=(w,h,body)=>Buffer.from(`<svg xmlns="http://www.w3.org/2000/svg" width="${w}" height="${h}">${body}</svg>`);
 const gradient=(id,x1,y1,x2,y2,stops)=>`<linearGradient id="${id}" gradientUnits="userSpaceOnUse" x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}">${stops.map(([offset,opacity])=>`<stop offset="${offset}" stop-color="white" stop-opacity="${opacity}"/>`).join('')}</linearGradient>`;
@@ -43,6 +43,10 @@ let painting=await transparent(width,height).png().toBuffer();
 for(const s of sheets)painting=await sharp(painting).composite([{input:await intersect(s.paint,masks[s.id]),left:s.x,top:s.y}]).png().toBuffer();
 await mkdir('public/images/atlas-masks',{recursive:true});
 await sharp(await repairAtlasJoins(await intersect(painting,whole))).webp({quality:94,alphaQuality:100,effort:6}).toFile('public/images/atlas-continuous.webp');
+const cartography=await repairAtlasGeography(await readFile('public/images/atlas-continuous.webp'));
+await sharp(cartography).webp({quality:94,alphaQuality:100,effort:6}).toFile('public/images/atlas-cartographic.webp');
+await sharp(await makeSeaMask(cartography)).png().toFile('public/images/atlas-masks/sea.png');
+await sharp(await makeWaterMask(cartography)).png().toFile('public/images/atlas-masks/water.png');
 // Each atmosphere layer gets only the portion visible above later paintings.
 let cover=await transparent(width,height).png().toBuffer();
 for(const s of [...sheets].reverse()){

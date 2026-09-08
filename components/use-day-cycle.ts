@@ -1,8 +1,8 @@
 'use client';
-import { useCallback, useEffect, useRef, useState, type RefObject } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { advanceHour, wrapHour } from '@/lib/atlas/day-cycle';
 
-export function useDayCycle(enabled: boolean, visible: boolean, navigating?:RefObject<boolean>) {
+export function useDayCycle(enabled: boolean, visible: boolean) {
   const root = useRef<HTMLElement>(null);
   const hour = useRef(8), playing = useRef(true), seconds = useRef(120);
   const [displayHour, setDisplayHour] = useState(8);
@@ -24,9 +24,6 @@ export function useDayCycle(enabled: boolean, visible: boolean, navigating?:RefO
     let last = performance.now(), lastPaint = last, lastDisplay = last, frame = 0;
     function tick(now: number) {
       const elapsed = Math.min((now - last) / 1000, .25);last = now;
-      // The camera redraws one frozen scene during a gesture, without
-      // invalidating CSS lighting across regional rendering layers.
-      if(navigating?.current){lastPaint=now;lastDisplay=now;frame=requestAnimationFrame(tick);return;}
       if (playing.current) {
         hour.current = advanceHour(hour.current, elapsed, seconds.current);
         if (now - lastPaint >= 50) {apply(hour.current);lastPaint=now;}
@@ -36,6 +33,6 @@ export function useDayCycle(enabled: boolean, visible: boolean, navigating?:RefO
     }
     frame=requestAnimationFrame(tick);
     return () => cancelAnimationFrame(frame);
-  }, [apply, enabled, visible, cycleEnabled, navigating]);
+  }, [apply, enabled, visible, cycleEnabled]);
   return {root, hour, displayHour, cycleEnabled, cycleDuration, setTime, setCycle, setDuration, holdForNavigation};
 }
