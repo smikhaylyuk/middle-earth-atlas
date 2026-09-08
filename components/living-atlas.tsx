@@ -6,13 +6,12 @@ import Image from 'next/image';
 import { assetPath } from '@/lib/atlas/asset-path';
 import { type LightMode } from '@/lib/atlas/terrain';
 import { places, majorPlaces, type PlaceId } from '@/lib/atlas/places';
-import { MAP_WIDTH, MAP_HEIGHT, type RegionId } from '@/lib/atlas/world';
+import { type RegionId } from '@/lib/atlas/world';
 import { boundView, placeView, regionView, zoomView, type MapSize, type MapView } from '@/lib/atlas/map-view';
 import { registerAtlasTools } from '@/lib/atlas/webmcp';
 import { createFrameQueue, wheelPixels } from '@/lib/atlas/frame-queue';
 import { clockLabel, dayPhase, phaseHours, type DayPhase, type MotionIntensity } from '@/lib/atlas/day-cycle';
 import { useDayCycle } from './use-day-cycle';
-import { AtlasArtwork } from './atlas-artwork';
 import { AtlasPainting, type AtlasPaintingHandle } from './atlas-painting';
 import { AtlasLabels, type AtlasLabelsHandle } from './atlas-labels';
 import { BreeDiscovery } from './bree-discovery';
@@ -43,7 +42,7 @@ function animateView(from:MapView,target:MapView,paint:(view:MapView)=>void,reme
 }
 
 export default function LivingAtlas(){
-  const stage=useRef<HTMLDivElement>(null),world=useRef<HTMLDivElement>(null),worldPosition=useRef<HTMLDivElement>(null),labels=useRef<AtlasLabelsHandle>(null);
+  const stage=useRef<HTMLDivElement>(null),labels=useRef<AtlasLabelsHandle>(null);
   const size=useRef<MapSize>({width:1000,height:760}),view=useRef<MapView>({x:0,y:0,scale:1}),animation=useRef(0),viewInitialized=useRef(false);
   const painting=useRef<AtlasPaintingHandle>(null);
   const pointers=useRef(new Map<number,{x:number;y:number}>());
@@ -84,10 +83,6 @@ export default function LivingAtlas(){
   const setLight=useCallback((value:LightMode)=>choosePhase(value==='golden'?'evening':'morning'),[choosePhase]);
   const renderView=useCallback((next:MapView)=>{
     painting.current?.paint(next,size.current);
-    // Layout zoom keeps masked atmosphere and SVG ink in the viewport's paint
-    // path. Scaling a promoted world texture can evict unrelated UI tiles.
-    if(worldPosition.current){worldPosition.current.style.left=`${next.x}px`;worldPosition.current.style.top=`${next.y}px`;}
-    if(world.current)world.current.style.zoom=String(next.scale);
     labels.current?.paint(next,state.current.place);
   },[]);
   const painter=useRef<ReturnType<typeof createFrameQueue<MapView>>|null>(null);
@@ -119,7 +114,7 @@ export default function LivingAtlas(){
   },[paint,beginNavigation,settleNavigation]);
   useEffect(()=>{
     if(!ready)return;
-    return registerAtlasTools({read:()=>({...state.current,lighting:dayPhase(hour.current),timeOfDay:Math.round(hour.current*100)/100}),focus,overview,lighting:setLight,route:setRoute,motion:setMotion,intensity:setIntensity,time:setTime,cycle:setCycle,duration:setDuration,bree:exploreBree,region:frameRegion});
+    return registerAtlasTools({read:()=>({...state.current,lighting:dayPhase(hour.current),timeOfDay:Math.round(hour.current*100)/100,rendering:painting.current?.diagnostics()}),focus,overview,lighting:setLight,route:setRoute,motion:setMotion,intensity:setIntensity,time:setTime,cycle:setCycle,duration:setDuration,bree:exploreBree,region:frameRegion});
   },[ready,frameRegion,focus,overview,setLight,setTime,setCycle,setDuration,hour,exploreBree]);
   function pointerDown(event:ReactPointerEvent<HTMLDivElement>){
     if((event.target as Element).closest('button')||event.button>0)return;
@@ -145,10 +140,7 @@ export default function LivingAtlas(){
       if(moves[event.key]){event.preventDefault();setRegion(null);cancelAnimationFrame(animation.current);beginNavigation();const [x,y]=moves[event.key];paint(boundView({...view.current,x:view.current.x+x,y:view.current.y+y},size.current));settleNavigation();}
       else if(event.key==='+'||event.key==='='){event.preventDefault();zoom(1.25);}else if(event.key==='-'){event.preventDefault();zoom(.8);}else if(event.key==='Escape')overview();
     }}>
-      <AtlasPainting ref={painting} onLoad={paintingLoaded} onError={paintingFailed}/>
-      <div className="map-effects-position" ref={worldPosition} aria-hidden="true"><div className="map-content" ref={world} style={{width:MAP_WIDTH,height:MAP_HEIGHT}}>
-        <AtlasArtwork hour={displayHour} route={route}/>
-      </div></div>
+      <AtlasPainting ref={painting} onLoad={paintingLoaded} onError={paintingFailed} hour={hour} navigating={navigating} running={running} visible={visible} intensity={intensity} route={route}/>
       <AtlasLabels ref={labels} selected={selected} onSelect={focus}/>
     </div>
     <div className="map-vignette"/>

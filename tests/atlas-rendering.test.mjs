@@ -9,10 +9,32 @@ const load=async file=>{
   return import('data:text/javascript;base64,'+Buffer.from(output[0].code).toString('base64'));
 };
 const {createFrameQueue,zoomDetail,wheelPixels}=await load('frame-queue');
-const {renderAtlasPainting}=await load('painting');
+const {renderAtlasPainting,lightAtlasPainting}=await load('painting');
+const {trackPoint}=await load('canvas-scene');
 const {renderMapLabels}=await load('map-labels');
 const {places}=await load('places');
 const {mapPlaces,homeView,placeView,zoomView,boundView,MAP_WIDTH,MAP_HEIGHT}=await load('map-view');
+
+await test('daylight is a single uniform operation over the entire viewport, including midnight wrap',()=>{
+  const calls=[];
+  const ctx={save(){},restore(){},fillRect(...rect){calls.push({color:this.fillStyle,alpha:this.globalAlpha,blend:this.globalCompositeOperation,rect});}};
+  const size={width:1440,height:900};
+  for(const hour of [0,6,12,18,23.999,24]){
+    calls.length=0;lightAtlasPainting(ctx,size,hour);
+    assert.ok(calls.length>0);
+    assert.ok(calls.every(c=>c.blend==='source-atop'&&c.alpha>=0&&c.alpha<=1));
+    assert.ok(calls.every(c=>JSON.stringify(c.rect)==='[0,0,1440,900]'),'No region bounds or region-specific sun positions');
+  }
+  calls.length=0;lightAtlasPainting(ctx,size,0);const midnight=[...calls];
+  calls.length=0;lightAtlasPainting(ctx,size,24);assert.deepEqual(calls,midnight);
+});
+
+await test('flow and wildlife positions remain continuous between sampled points',()=>{
+  const track={length:100,points:[{x:10,y:20,alpha:1},{x:30,y:60,alpha:.5},{x:70,y:80,alpha:0}]};
+  assert.deepEqual(trackPoint(track,.25),{x:20,y:40,alpha:.75});
+  assert.deepEqual(trackPoint(track,1),{x:70,y:80,alpha:0});
+  assert.deepEqual(trackPoint(track,-1),track.points[0]);
+});
 
 await test('the whole atlas fits between the header and dock and detail zoom stays within the painting limit',()=>{
   for(const size of [{width:390,height:844},{width:828,height:755},{width:1440,height:900}]){

@@ -140,3 +140,74 @@ softens their transition. Do not claim this presentation pass replaces or
 fully restores the underlying paintings. Any future retouch must preserve the
 existing river topology and landmarks, then pass the region-specific checks
 above before replacing an asset.
+
+## Continuous-map rendering and seam repair — September 2026
+
+The earlier polish did not resolve the structural defects. The Anduin sheet's
+channel ended west of Rohan's channel in their y=1800–1940 overlap; alpha
+feathering blended water into grass rather than connecting the banks. Rohan's
+sea was independently painted with a bluer hue and different wave texture.
+These are production seams, not intentional terrain or biome boundaries.
+
+The clock was already shared. However, five independent `map-light-wash`,
+`map-night-wash` and weather groups each used region-local gradients, masks
+and blend modes. These made the shared time produce discontinuous lighting.
+Even after the background was baked, the live atmosphere still used a scaled
+3700×2800 DOM subtree containing those expensive surfaces. Moving fixed
+controls outside that subtree did not remove the remaining source of
+compositing pressure. GPU tile eviction is the working explanation for the
+reported flashes, not a proven driver-level diagnosis. Chromium documents
+layer rasterization and texture memory costs here:
+https://www.chromium.org/developers/design-documents/gpu-accelerated-compositing-in-chrome/ .
+
+The active map now mounts one opaque canvas. A reusable viewport-sized
+backing canvas holds the painted image and receives one uniform lighting
+operation, preserving its alpha with source-atop. The canvas renders water,
+roads, mist, chimney smoke, tree/settlement lights, birds and geographic text
+using existing artwork coordinates. Region masks are sampled once at load
+for effects visibility; there are no live CSS masks, filters, blend modes or
+scaled world element inside the map. Clouds span the full atlas. Camera
+updates never resize the surfaces. The UI and accessible place buttons stay
+in the DOM, and the UI no longer requests forced GPU promotion. Pause and
+reduced-motion behavior retain their shared controls.
+
+`read_atlas_view` includes rendering diagnostics: recent CPU draw-call timing,
+presentation count and surface allocation count. These are not GPU timings
+or proof that every display driver is flicker-free. At 828×755, DPR 2, the
+initial local navigation check reported p95 CPU draw time about 1.4 ms,
+2,500,560 presentation pixels and one initial surface allocation. DOM
+inspection found one map canvas and zero masked, filtered or blended map
+nodes. The previous visual flashing still requires direct observation rather
+than an assertion based only on screenshots.
+
+Two built-in ImageGen edits were made from registered crops of the approved
+painting. Neither full crop replaces the surrounding geography:
+
+- `public/images/repairs/anduin-join.webp`: target crop world (3100,1600),
+  580×580. The prompt required one continuous Anduin bend through the central
+  gap, preserving the upper/lower channels, surrounding terrain and all
+  framing, with no added branch, bridge or settlement. The generated
+  1254×1254 output is resampled to the source crop and used only within a
+  feathered central 300×355 rectangle at local (100,145). Water particles use
+  measured centerline samples of that repaired band. This is an approximate
+  illustrated bend; it does not assert a surveyed course or add named sites.
+- `public/images/repairs/ocean-water.webp`: target crop world (0,1600),
+  1400×1200. The prompt required matching the upper ocean's muted slate teal
+  and fine ripples throughout the water, preserving land, coast, islands,
+  rocks and river mouths. The 1355×1161 output is resampled to the crop and
+  clipped to a connected ocean selection from the original painting, inset
+  from the shoreline. Original land, rocks, coast and river mouths remain.
+
+`scripts/repair-atlas-joins.mjs` records those registrations and masks. It
+explicitly preserves the complete original alpha channel, including the
+southeastern exclusion before the incorrect Entwash confluence. Output is
+`public/images/atlas-continuous.webp`; the original and earlier polished
+paintings remain available. Regression checks cover the alpha, water in the
+formerly broken channel, ocean palette, uniform lighting across midnight,
+point interpolation and viewport allocation during zoom.
+
+Ground hues may vary with woodland, open grassland, dry country and relief.
+Existing terrain character is retained. Such variation should follow the
+landscape and blend continuously; a rectangle at a source-sheet boundary is
+never evidence of a Tolkien biome boundary. No place anchors, lore notes,
+settlement dates or route chronology change in this repair.

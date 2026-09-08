@@ -1,6 +1,6 @@
 'use client';
 import { useCallback, useEffect, useRef, useState, type RefObject } from 'react';
-import { advanceHour, atmosphereAt, dayPhase, wrapHour } from '@/lib/atlas/day-cycle';
+import { advanceHour, wrapHour } from '@/lib/atlas/day-cycle';
 
 export function useDayCycle(enabled: boolean, visible: boolean, navigating?:RefObject<boolean>) {
   const root = useRef<HTMLElement>(null);
@@ -10,11 +10,6 @@ export function useDayCycle(enabled: boolean, visible: boolean, navigating?:RefO
   const [cycleDuration, setCycleDuration] = useState(120);
   const apply = useCallback((value: number) => {
     hour.current = wrapHour(value);
-    const element = root.current;
-    if (!element) return;
-    const a = atmosphereAt(hour.current);
-    Object.entries(a).forEach(([key, amount]) => element.style.setProperty(`--day-${key}`, amount.toFixed(4)));
-    element.dataset.phase = dayPhase(hour.current);
   }, []);
   const setTime = useCallback((value: number) => {apply(value);setDisplayHour(hour.current);}, [apply]);
   const setCycle = useCallback((value: boolean) => {playing.current=value;setCycleEnabled(value);}, []);
@@ -29,8 +24,8 @@ export function useDayCycle(enabled: boolean, visible: boolean, navigating?:RefO
     let last = performance.now(), lastPaint = last, lastDisplay = last, frame = 0;
     function tick(now: number) {
       const elapsed = Math.min((now - last) / 1000, .25);last = now;
-      // Changing filters invalidates all five masked paintings. Keep their
-      // current lighting while the camera moves, then continue without a jump.
+      // The camera redraws one frozen scene during a gesture, without
+      // invalidating CSS lighting across regional rendering layers.
       if(navigating?.current){lastPaint=now;lastDisplay=now;frame=requestAnimationFrame(tick);return;}
       if (playing.current) {
         hour.current = advanceHour(hour.current, elapsed, seconds.current);
