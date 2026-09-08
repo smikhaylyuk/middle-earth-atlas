@@ -52,6 +52,31 @@ export const places = [
     description:'Isengard stands in Nan Curunír, near the Gap of Rohan. A great ring of stone encloses the black tower of Orthanc. Dunland lies to the west and Fangorn beyond the mountains to the east. This is Saruman’s stronghold before the Ents break its walls.',
     date:null,region:'south',major:true,source:'https://tolkiengateway.net/wiki/Isengard',sourceLabel:'Book III, ch. 8 · The Road to Isengard',
   },
+  {
+    id:'gladden-fields',name:'Gladden Fields',overviewLabel:'Gladden Fields',kind:'Marshes of the Great River',pinSubtitle:'The Gladden & Anduin',subtitle:'Where the mountain river meets the Anduin',
+    description:'The Gladden Fields spread around the meeting of the Gladden and the Anduin, north of Lórien. Isildur was ambushed here early in the Third Age. Centuries later, Déagol found the One Ring in the river nearby.',
+    date:null,region:'anduin',major:true,source:'https://tolkiengateway.net/wiki/Gladden_Fields',sourceLabel:'Unfinished Tales · The Disaster of the Gladden Fields',
+  },
+  {
+    id:'dimrill-dale',name:'Dimrill Dale',overviewLabel:'Dimrill Dale',kind:'The eastern threshold of Moria',pinSubtitle:'Azanulbizar',subtitle:'Below the three peaks of Khazad-dûm',
+    description:'Dimrill Dale lies outside Moria’s eastern gate. Mirrormere rests in the valley beneath the mountains, and the Silverlode runs southeast toward Lórien. The Fellowship emerges here after passing beneath the mountain range.',
+    date:null,region:'anduin',major:true,source:'https://tolkiengateway.net/wiki/Dimrill_Dale',sourceLabel:'Book II, ch. 6 · Lothlórien',
+  },
+  {
+    id:'cerin-amroth',name:'Cerin Amroth',overviewLabel:'Cerin Amroth',kind:'A hill in the Golden Wood',pinSubtitle:'Lórien',subtitle:'Among white trunks and golden boughs',
+    description:'Cerin Amroth stands north of Caras Galadhon. A grassy mound and two rings of trees surround the great tree where Amroth once dwelt. Aragorn and Arwen pledged their love on this hill.',
+    date:null,region:'anduin',major:false,source:'https://tolkiengateway.net/wiki/Cerin_Amroth',sourceLabel:'Book II, ch. 6 · Appendix A',
+  },
+  {
+    id:'caras-galadhon',name:'Caras Galadhon',overviewLabel:'Lórien',kind:'The city of the Galadhrim',pinSubtitle:'The Golden Wood',subtitle:'High among the mallorn trees',
+    description:'Caras Galadhon stands in Lórien, west of the Anduin and north of the Silverlode. Its dwellings rise among the mallorn boughs on a hill enclosed by a wall and a deep ditch. Here Celeborn and Galadriel receive the Fellowship.',
+    date:null,region:'anduin',major:true,source:'https://tolkiengateway.net/wiki/Caras_Galadhon',sourceLabel:'Book II, ch. 7 · The Mirror of Galadriel',
+  },
+  {
+    id:'dol-guldur',name:'Dol Guldur',overviewLabel:'Dol Guldur',kind:'The Hill of Sorcery',pinSubtitle:'Southern Mirkwood',subtitle:'A shadow across the Great River',
+    description:'Dol Guldur rises in southwestern Mirkwood, east of the Anduin. Sauron once hid here as the Necromancer. By the War of the Ring, his servants again hold the stronghold, threatening Lórien across the river.',
+    date:null,region:'anduin',major:true,source:'https://tolkiengateway.net/wiki/Dol_Guldur',sourceLabel:'Appendix B · The Third Age',
+  },
   ...easternPlaces.map(p=>({...p,...eastNotes[p.id],overviewLabel:p.id==='weathertop'?'Amon Sûl':p.name,region:'east' as const,major:true})),
 ] as const;
 export type PlaceId = typeof places[number]['id'];

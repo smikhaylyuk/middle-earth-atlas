@@ -6,11 +6,11 @@ Geographic authority: Christopher Tolkien, *The West of Middle-earth at the End 
 
 The reference crop is source x=1050, y=400, width=1050, height=750, from a 3840×2931 image. Within it: Bree (181,408); Weathertop (366,372); Last Bridge (589,366); Ford (774,396); Rivendell (809,378). The Weather Hills extend north from Weathertop. East Road passes south of it. Last Bridge crosses Hoarwell west of Trollshaws. Two upper Bruinen streams join southwest of Rivendell, with the Ford just downstream. Bruinen joins Hoarwell farther southwest at roughly (553,590).
 
-The expanded world is 2500×1940. `lib/atlas/world.ts` places the original 1500×1000 eastern sheet at x=1000. Keep its artwork and interaction geometry aligned through `lib/atlas/illustration.ts`; those local coordinates are unchanged. `lib/atlas/western-illustration.ts` uses the western sheet's 1500×1000 display plane. All are illustration coordinates rather than geographic coordinates. Any different artwork requires re-aligning pins, lights, smoke, moving water and road overlays together.
+The expanded world is 3700×1940. `lib/atlas/world.ts` places the original 1500×1000 eastern sheet at x=1000. Keep its artwork and interaction geometry aligned through `lib/atlas/illustration.ts`; those local coordinates are unchanged. `lib/atlas/western-illustration.ts` uses the western sheet's 1500×1000 display plane. All are illustration coordinates rather than geographic coordinates. Any different artwork requires re-aligning pins, lights, smoke, moving water and road overlays together.
 
 The user chose regional expansion before further landmark detail: extend west through the Shire to the Grey Havens. A future “look closer” should reveal a whole town, then individual buildings. Retain the existing Prancing Pony study without presenting it as a complete view of Bree. This revision adds no new interior/town screens.
 
-The western painting is `public/images/eriador-west.jpg`, generated once from the approved eastern painting and the published map as references. A shaped feather joins it near Bree and extends farther east in the south to keep the painted Brandywine intact without exposing a second river underneath. The original Bree, Weathertop, Rivendell, Last Bridge, and corrected Bruinen ford remain on the eastern sheet. All, West, East and South controls frame the expanded geography; smaller labels appear as the viewer zooms in. The southern expansion initially frames the south; All returns to the complete atlas.
+The western painting is `public/images/eriador-west.jpg`, generated once from the approved eastern painting and the published map as references. A shaped feather joins it near Bree and extends farther east in the south to keep the painted Brandywine intact without exposing a second river underneath. The original Bree, Weathertop, Rivendell, Last Bridge, and corrected Bruinen ford remain on the eastern sheet. All, West, East, South and Anduin controls frame the expanded geography; smaller labels appear as the viewer zooms in. The latest expansion initially frames the Anduin valley; All returns to the complete atlas.
 
 Western relationships checked: the Grey Havens occupy opposing shores of a gulf opening west; the Lhûn and Brandywine have separate drainage; the Brandywine emerges from Lake Evendim and crosses the East Road at a bridge north of Old Forest. Hobbiton's selected village symbol is north of the East Road and west/north of the bridge; Michel Delving is southwest of Hobbiton. The road highlight is geographic guidance, not Frodo's outward route: he used the ferry. New place notes have no invented journey dates.
 
@@ -54,3 +54,27 @@ Sources checked for this expansion:
 - https://tolkiengateway.net/wiki/Isengard — ring, Orthanc, valley and southern mountain setting; *The Two Towers*, Book III chapter 8.
 
 The generated sheet has 1736×906 pixels and is displayed in a 2500×1300 plane. Its bottom 160 display units are excluded: the source painting invents an eastward Isen bend and continues ridges beyond the intended southern boundary. The visible atlas therefore ends shortly below Isengard, without claiming to map the Gap of Rohan or the lower Isen. Eastern trees north of Fangorn are unnamed pictorial woodland, not an asserted continuous forest boundary. Minor anonymous ruins at the Baranduin mouth are decorative remnants, not a new named canonical settlement.
+
+## Lórien and the Anduin valley
+
+This eastern expansion crosses the Misty Mountains into the Anduin valley. The name Eriador remains the atlas's established title; edition copy and regional navigation identify the wider western Middle-earth coverage. It introduces five places: the Gladden Fields, Dimrill Dale, Cerin Amroth, Caras Galadhon, and Dol Guldur. No additional close-up scenes are introduced.
+
+Christopher Tolkien's published map remains the geographic authority. The Anduin flows south between the mountains and Mirkwood. The Gladden reaches it from the west, north of Moria and Lórien. Dimrill Dale and Mirrormere belong outside Moria's eastern entrance; the existing Doors of Durin remain on the western slope. The Silverlode runs southeast from the dale through Lórien to the Anduin. Caras Galadhon is west of the Great River and north of the Silverlode, with Cerin Amroth farther north. Dol Guldur is across the river in southwestern Mirkwood. Lórien and Fangorn are distinct woods separated by open country; the Brown Lands lie south of Mirkwood on the eastern bank.
+
+The illustration depicts a late-Third-Age landscape before the fall of Dol Guldur. Its precise fortress plan is not established here. The tree dwellings of Caras Galadhon are tiny pictorial interpretations, not a surveyed city plan. Lights among its boughs refer to the lamps described in Book II chapter 7; they are not a visualisation of Nenya. No eye of Sauron, magical beams, spectral armies, movie-only palaces, or invented above-ground city of Moria appears. The new place notes avoid invented journey dates, and the day cycle remains atmospheric rather than chronological.
+
+The route toggle remains a road annotation. No invented bridge is drawn across the Anduin, and no visible route is drawn through Moria's underground halls. Water, daylight birds and valley mist use the same pause and intensity controls as the rest of the atlas.
+
+Sources checked:
+
+- https://tolkiengateway.net/wiki/Lothl%C3%B3rien — Golden Wood, Anduin and Silverlode relationships; *The Fellowship of the Ring*, Book II chapters 6–8.
+- https://tolkiengateway.net/wiki/Dimrill_Dale — eastern Moria gate, Mirrormere and the Silverlode; Book II chapter 6.
+- https://tolkiengateway.net/wiki/Gladden_Fields — marshes at the Gladden/Anduin confluence; *Unfinished Tales*, “The Disaster of the Gladden Fields.”
+- https://tolkiengateway.net/wiki/Caras_Galadhon — the hill, trees, wall and ditch; Book II chapter 7.
+- https://tolkiengateway.net/wiki/Cerin_Amroth — the mound and its tree rings; Book II chapter 6 and Appendix A.
+- https://tolkiengateway.net/wiki/Dol_Guldur — southwest Mirkwood and late-Third-Age occupation; Appendix B.
+
+
+Artwork alignment for the Anduin sheet: `anduin-painted.jpg` is 1103×1426. It is displayed at 1500×2350 with world x offset 2200 and cropped at world y=1940. This north–south adjustment puts the eastern door at approximately (2394,1119), opposite the existing western gate at (2195,1117), with Mirrormere southeast below it. Pins, river centrelines, mist and lamp anchors use the same transform. Earlier paintings and all earlier place coordinates remain unchanged. A mountain-edge feather reveals the eastern doorway while preserving the western one.
+
+The artwork's southern Anduin bend and most of the lower Limlight/Fangorn continuation are beyond this edition's edge. No Wold label is placed north of the Limlight. Rocky knolls in the Brown Lands remain pictorial relief rather than a named mountain range. Nimrodel is not distinctly legible, so it receives neither a named channel nor a speculative flowing-water overlay. Marsh boundaries and the exact shapes of the woods remain artistic approximations. Tree lamps are deliberately tiny placements among the visible Caras canopy; the underlying image does not establish individual lamp locations.

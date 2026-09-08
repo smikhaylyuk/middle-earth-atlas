@@ -5,11 +5,15 @@ export type MapSize={width:number;height:number};
 export type MapPlaceId=keyof typeof mapPlaces;
 const clamp=(n:number,min:number,max:number)=>Math.min(max,Math.max(min,n));
 export function homeView(size:MapSize):MapView{
-  const scale=Math.max(.12,Math.min((size.width-32)/MAP_WIDTH,(size.height-225)/MAP_HEIGHT));
+  const scale=Math.max(.06,Math.min((size.width-32)/MAP_WIDTH,(size.height-225)/MAP_HEIGHT));
   return {scale,x:size.width/2-MAP_WIDTH*.5*scale,y:size.height*.47-MAP_HEIGHT*.5*scale};
 }
 export function regionView(region:RegionId,size:MapSize):MapView{
   if(region==='all')return homeView(size);
+  if(region==='anduin'){
+    const scale=Math.max(.23,Math.min((size.width-64)/1300,(size.height-225)/1400));
+    return boundView({scale,x:size.width*.5-2910*scale,y:size.height*.46-1120*scale},size);
+  }
   if(region==='south'){
     const scale=Math.max(.22,Math.min((size.width-64)/1550,(size.height-220)/1100));
     return boundView({scale,x:size.width*.5-1690*scale,y:size.height*.46-1450*scale},size);

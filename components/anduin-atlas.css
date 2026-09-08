@@ -1,0 +1,19 @@
+/* A fourth painted sheet continues beyond the eastern mountain ridge. */
+.anduin-sheet{position:absolute;top:0;height:1940px;overflow:hidden}
+.anduin-sheet .map-art{width:1500px;height:2350px}
+.eastern-sheet{mask-image:linear-gradient(to bottom,#000 86%,transparent 100%),linear-gradient(to right,#000 88%,transparent 100%);mask-composite:intersect}
+.southern-sheet{mask-image:linear-gradient(to right,#000 90%,transparent 95.2%)}
+.expanded-atlas .lorien-label{fill:#ead99d;stroke:#3e4c27cc;stroke-width:4px;letter-spacing:5px}
+.has-day-cycle .lorien-lamp{background:#f4ffe5;box-shadow:0 0 5px 2px #daeacb88,0 0 16px 5px #d8c28444;width:3px;height:3px;opacity:calc(var(--day-night) * .85 + var(--day-warmth) * .25)}
+.expanded-atlas .dock-heading{flex-wrap:wrap;gap:10px 18px}
+.expanded-atlas .dock-heading h2{font-size:22px}
+.region-controls{min-width:0;overflow-x:auto;scrollbar-width:none;max-width:100%}
+.region-controls button{flex-shrink:0}
+@media(max-width:600px){
+  .expanded-atlas .dock-heading{gap:7px}
+  .region-controls{flex:1;margin:0}
+  .region-controls button{padding:0 8px}
+  .expanded-atlas .route-control{padding:7px;margin-left:0}
+  .expanded-atlas .route-control>span,.expanded-atlas .route-control>i{display:none}
+}
+@media(max-width:360px){.region-controls button{padding:0 6px}}

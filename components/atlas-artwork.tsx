@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import { AnduinArtwork } from './anduin-artwork';
 import { assetPath } from '@/lib/atlas/asset-path';
 import { MapAtmosphere } from './map-atmosphere';
 import { SOUTH_OFFSET, SOUTH_HEIGHT, southernRivers, southernMist, southernFlocks, southernRoad } from '@/lib/atlas/southern-illustration';
@@ -7,8 +8,9 @@ import { road, roadHighlight, river, warmLights, mistPatches } from '@/lib/atlas
 import { westernRoad, westernSpur, westernRivers, westernLights, westernMist, westernChimneys } from '@/lib/atlas/western-illustration';
 import { windowLightAt } from '@/lib/atlas/bree';
 
-export function AtlasArtwork({hour,route,onEastLoad,onWestLoad,onSouthLoad,onError}:{hour:number;route:boolean;onEastLoad:()=>void;onWestLoad:()=>void;onSouthLoad:()=>void;onError:()=>void}) {
+export function AtlasArtwork({hour,route,onEastLoad,onWestLoad,onSouthLoad,onAnduinLoad,onError}:{hour:number;route:boolean;onEastLoad:()=>void;onWestLoad:()=>void;onSouthLoad:()=>void;onAnduinLoad:()=>void;onError:()=>void}) {
   return <>
+    <AnduinArtwork onLoad={onAnduinLoad} onError={onError}/>
     <div className="southern-sheet" style={{top:SOUTH_OFFSET,height:SOUTH_HEIGHT}}>
       <Image className="map-art" src={assetPath('/images/eriador-south.jpg')} alt="" width={2500} height={1300} unoptimized loading="eager" draggable={false} onLoad={onSouthLoad} onError={onError}/>
       <div className="map-light-wash"/><div className="map-night-wash"/>
