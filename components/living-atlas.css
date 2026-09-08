@@ -1,0 +1,174 @@
+.living-atlas{position:relative;width:100%;height:100svh;min-height:530px;overflow:hidden;background:radial-gradient(ellipse at 50% 42%,#e8e0c5 30%,#d2c4a2 100%);color:#2c4236;font-family:'DM Sans',sans-serif;isolation:isolate}
+.map-stage{position:absolute;inset:0;overflow:hidden;touch-action:none;cursor:grab;outline:none}
+.map-stage.is-dragging{cursor:grabbing}
+.map-stage:focus-visible{outline:2px solid #947c47;outline-offset:-6px}
+.map-content{position:absolute;left:0;top:0;width:1500px;height:1000px;transform-origin:0 0;will-change:transform;pointer-events:none}
+.map-art{display:block;position:absolute;inset:0;width:1500px;height:1000px;max-width:none;user-select:none;filter:saturate(.78) brightness(1.08);mask-image:radial-gradient(ellipse 77% 80% at 50% 50%,#000 48%,#000 68%,transparent 99%);transition:filter 2.2s ease}
+.map-art-correction{position:absolute;overflow:hidden;pointer-events:none;mask-image:linear-gradient(90deg,transparent,#000 4px,#000 calc(100% - 4px),transparent),linear-gradient(0deg,transparent,#000 4px,#000 calc(100% - 4px),transparent);mask-composite:intersect}
+.map-art-correction img{position:absolute;width:1500px;height:1000px;max-width:none;filter:saturate(var(--day-saturation)) brightness(var(--day-brightness));user-select:none}
+.map-light-wash{position:absolute;inset:0;background:linear-gradient(120deg,#f6d89111 0%,transparent 50%,#8797820b 100%);mix-blend-mode:soft-light;opacity:.6;transition:background 2s,opacity 2s;mask-image:radial-gradient(ellipse,#000 45%,transparent 78%)}
+.is-golden .map-art{filter:saturate(.79) brightness(.88) sepia(.16)}
+.is-golden .map-light-wash{background:linear-gradient(125deg,#f9bd66aa 4%,#f0a64738 39%,#2a444a99 100%);opacity:.72}
+.map-vignette{position:absolute;inset:0;z-index:2;pointer-events:none;box-shadow:inset 0 0 105px 20px #6658352b;background:linear-gradient(to bottom,#e7dec555 0,transparent 150px,transparent 65%,#d8caac55 100%)}
+.map-vignette::after{content:'';position:absolute;inset:12px;border:1px solid #806c3f33;box-shadow:0 0 0 4px #eddfbb15;pointer-events:none}
+.map-ink{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.river-underlight{opacity:.19;mix-blend-mode:screen;animation:water-light 8s ease-in-out infinite}
+.river-current{opacity:.43;stroke-linecap:round;animation:water-flow 16s linear infinite}
+@keyframes water-flow{to{stroke-dashoffset:-208}}
+@keyframes water-light{0%,100%{opacity:.12}50%{opacity:.37}}
+.route-shadow{stroke:#4e4929;opacity:.19;stroke-linecap:round;stroke-linejoin:round}
+.journey-ink{stroke:#dfbf72;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:1;stroke-dashoffset:0;animation:draw-road 5s cubic-bezier(.22,.61,.36,1) both;filter:drop-shadow(0 1px 1px #67522666)}
+.journey-dashes{stroke:#f9ecc7;opacity:.8;stroke-linecap:round}
+@keyframes draw-road{from{stroke-dashoffset:1}to{stroke-dashoffset:0}}
+.geographic-label{fill:#314435;paint-order:stroke;stroke:#e8dfc244;stroke-width:3px;font:500 17px 'Cormorant Garamond',Georgia,serif;letter-spacing:7px;opacity:.7}
+.road-label{font-size:13px;letter-spacing:4px;opacity:.55}
+.mountain-label{font-size:16px;letter-spacing:6px;fill:#e9e4cc;stroke:#37403688;stroke-width:4px;opacity:.76}
+.traveller{position:absolute;left:0;top:0;width:1px;height:1px;offset-rotate:0deg;animation:traveller-journey 65s linear infinite;animation-delay:5s;offset-distance:0%;opacity:.94}
+.traveller-halo{position:absolute;width:20px;height:20px;left:-10px;top:-10px;border-radius:50%;background:radial-gradient(circle,#ffe8a1aa,transparent 70%)}
+.traveller-point{position:absolute;left:-2px;top:-2px;width:4px;height:4px;border-radius:50%;background:#fff3c2;box-shadow:0 0 5px #ffeab0,0 0 0 1px #a4844e}
+@keyframes traveller-journey{0%{offset-distance:0%;opacity:0}2%{opacity:.9}97%{opacity:.9}100%{offset-distance:100%;opacity:0}}
+.settlement-light{position:absolute;width:3px;height:3px;border-radius:50%;background:#fff3b1;box-shadow:0 0 5px 2px #f1a54c99,0 0 13px 5px #e9a35a33;opacity:.3;animation:hearth-light 5.3s ease-in-out infinite;transition:opacity 2s}
+.is-golden .settlement-light{width:4px;height:4px;box-shadow:0 0 6px 3px #ffd185cc,0 0 22px 7px #f7b85b55;opacity:.9}
+@keyframes hearth-light{0%,100%{filter:brightness(.8)}35%{filter:brightness(1.3)}48%{filter:brightness(.85)}67%{filter:brightness(1.2)}}
+.valley-mists{position:absolute;inset:0;overflow:hidden;mask-image:radial-gradient(ellipse,#000 44%,transparent 83%)}
+.valley-mist{position:absolute;border-radius:50%;background:radial-gradient(ellipse at 28% 56%,#f1eed27d,transparent 61%),radial-gradient(ellipse at 65% 42%,#e5e8d683,transparent 65%);filter:blur(13px);opacity:.36;animation:valley-drift 62s ease-in-out infinite alternate;mix-blend-mode:screen}
+@keyframes valley-drift{0%{transform:translate(-100px,9px) scaleX(.88);opacity:.14}45%{opacity:.44}100%{transform:translate(95px,-12px) scaleX(1.14);opacity:.22}}
+.hearth-smoke{position:absolute;width:14px;height:39px;transform-origin:center bottom;background:radial-gradient(ellipse at 50% 70%,#e6e2cd88,transparent 67%);filter:blur(3px);animation:smoke-rise 8s ease-out infinite;opacity:.35}
+.hearth-smoke.second{animation-delay:-4s;width:10px}
+@keyframes smoke-rise{0%{transform:translate(0,0) scale(.45);opacity:0}20%{opacity:.5}100%{transform:translate(18px,-38px) scale(1.8);opacity:0}}
+.is-still .map-content *{animation-play-state:paused!important}
+.is-still .journey-ink{animation:none;stroke-dashoffset:0}
+.is-still .traveller{display:none}
+.map-pins{position:absolute;inset:0;pointer-events:none;overflow:hidden;z-index:3}
+.map-pin{position:absolute;left:0;top:0;padding:0 10px 7px;display:flex;align-items:center;flex-direction:column;background:transparent;border:0;color:#263b2e;pointer-events:auto;white-space:nowrap;will-change:transform;text-shadow:0 1px 2px #f1e5c9,0 0 8px #f1e5c9,0 0 19px #f1e5c9;cursor:pointer}
+.pin-stem{height:14px;width:1px;background:#34483280;position:absolute;top:-17px}
+.pin-stem::before{content:'';position:absolute;width:4px;height:4px;left:-1.5px;top:-2px;transform:rotate(45deg);background:#d3bc76;border:1px solid #4c593ccc;box-shadow:0 0 0 3px #eee1b733}
+.pin-title{font:600 29px/1.05 'Cormorant Garamond',Georgia,serif;letter-spacing:.5px}
+.pin-subtitle{font:italic 15px/1.4 'Cormorant Garamond',Georgia,serif;color:#4c604b}
+.map-pin:hover .pin-title,.map-pin[aria-pressed=true] .pin-title{color:#8a6025}
+.map-pin[aria-pressed=true] .pin-stem::before{box-shadow:0 0 0 5px #f5dda64d,0 0 18px 3px #ffedb8a6}
+.living-header{position:absolute;top:34px;left:36px;right:36px;z-index:5;display:flex;align-items:flex-start;justify-content:space-between;gap:18px;pointer-events:none}
+.living-brand{display:flex;gap:13px;align-items:center;text-shadow:0 1px 15px #eee4c9;pointer-events:auto}
+.living-brand>img{opacity:.88;width:38px;height:38px;box-shadow:0 1px 15px #ede4ca55;border-radius:9px}
+.atlas-kicker{display:block;font-size:10px;font-weight:500;text-transform:uppercase;letter-spacing:2.4px}
+.living-brand h1{font:500 45px/.94 'Cormorant Garamond',Georgia,serif;margin:5px 0 0;letter-spacing:1px}
+.atmosphere-controls{display:flex;align-items:center;gap:10px;pointer-events:auto}
+.day-controls{display:flex;background:#f4edd9df;border:1px solid #fff5;box-shadow:0 3px 20px #35482f12;padding:4px;border-radius:6px;backdrop-filter:blur(12px)}
+.day-controls button{height:34px;padding:0 11px;font-size:13px;color:#5d6c50;border-radius:3px;gap:7px}
+.day-controls button[aria-pressed=true]{background:#3a5340;color:#f0e6c8;box-shadow:0 1px 4px #1b302b20}
+.life-control{font-size:12px!important;height:40px!important;padding:0 12px!important;border:1px solid #73815b55!important;background:#e8dfc788!important;color:#46593e!important;backdrop-filter:blur(10px);gap:7px!important}
+.map-edition{position:absolute;left:50%;top:46px;transform:translateX(-50%);font:italic 15px 'Cormorant Garamond',Georgia,serif;text-align:center;color:#506044;text-shadow:0 1px 7px #eadfc5;pointer-events:none;z-index:4}
+.map-edition>span{display:block;font:500 10px 'DM Sans',sans-serif;letter-spacing:2px}
+.map-edition>i{display:block;height:1px;width:30px;margin:9px auto 6px;background:#77856366}
+.paper-compass{position:absolute;right:47px;top:137px;z-index:4;display:flex;flex-direction:column;align-items:center;gap:5px;color:#596749;opacity:.72;pointer-events:none;filter:drop-shadow(0 1px 5px #e9e0c7)}
+.paper-compass>span{font:600 13px 'Cormorant Garamond',Georgia,serif}
+.journey-caption{position:absolute;left:38px;bottom:232px;z-index:4;display:flex;align-items:center;gap:12px;color:#3e5239;font:italic 19px 'Cormorant Garamond',Georgia,serif;text-shadow:0 1px 14px #eaddbc;pointer-events:none}
+.caption-line{width:31px;height:1px;background:#74836199}
+.journey-dock{position:absolute;left:34px;bottom:72px;width:min(690px,calc(100% - 260px));border:1px solid #f4ead34d;border-radius:6px;background:linear-gradient(125deg,#203f36f2,#294437f0);backdrop-filter:blur(18px);box-shadow:0 16px 45px #20372c33,0 1px 0 #acb39633 inset;z-index:6;color:#ecdfc0}
+.dock-heading{padding:15px 20px 10px;display:flex;align-items:center;gap:12px;border-bottom:1px solid #bbba9b24}
+.dock-heading>span{font-size:9px;letter-spacing:2px;color:#baa876}
+.dock-heading h2{font:500 20px 'Cormorant Garamond',Georgia,serif;margin:0}
+.route-control{display:flex;gap:7px;align-items:center;border:0;padding:4px 0 4px 12px;margin-left:auto;background:none;color:#ccc7a8;font-size:12px}
+.route-control>i{width:5px;height:5px;border-radius:50%;background:#697c64;margin-left:3px}
+.route-control[aria-pressed=true]>i{background:#dfbe78;box-shadow:0 0 8px #e9c87966}
+.journey-stops{display:flex;padding:11px;gap:3px}
+.journey-stop{display:flex;align-items:center;text-align:left;flex:1;gap:12px;background:none;border:1px solid transparent;border-radius:4px;padding:10px 12px;color:#eae3c9;min-width:0;transition:background .25s,border-color .25s}
+.journey-stop:hover{background:#50654c77}
+.journey-stop[aria-pressed=true]{background:#dcd1ac17;border-color:#c7b57955}
+.journey-number{font:400 21px 'Cormorant Garamond',Georgia,serif;color:#b9ac81}
+.journey-stop strong{display:block;font:500 24px/1 'Cormorant Garamond',Georgia,serif;white-space:nowrap}
+.journey-stop small{display:block;font-size:10px;color:#afbaa2;margin-top:6px}
+.journey-stop>svg{margin-left:auto;color:#bdaf7d;opacity:0;transition:opacity .2s}
+.journey-stop:hover>svg,.journey-stop[aria-pressed=true]>svg{opacity:.85}
+.atlas-folio{position:absolute;right:34px;bottom:144px;width:320px;padding:25px 27px 23px;background:linear-gradient(135deg,#f6efdcf7,#e6ddc3f7);border:1px solid #fff8;border-radius:3px 3px 12px 3px;backdrop-filter:blur(15px);box-shadow:0 15px 55px #31433130;z-index:6;animation:folio-in .5s ease}
+@keyframes folio-in{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+.folio-close{position:absolute!important;right:9px;top:9px;color:#738063!important;height:27px!important;width:27px!important;background:transparent!important}
+.folio-kicker{font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:#9c7e40;display:block;padding-right:8px}
+.atlas-folio h2{font:500 41px/1 'Cormorant Garamond',Georgia,serif;margin:12px 0 7px}
+.folio-subtitle{font:italic 18px/1.35 'Cormorant Garamond',Georgia,serif;color:#6e785c;margin:0}
+.folio-description{font-size:15px;line-height:1.75;margin:17px 0;color:#50624b}
+.folio-date{display:flex;gap:8px;align-items:center;font-size:11px;border-top:1px solid #a6ac8c66;padding-top:13px;color:#828469}
+.living-footer{position:absolute;left:36px;right:36px;bottom:25px;z-index:5;display:flex;align-items:center;justify-content:space-between;gap:20px;color:#697757;font-size:10px;text-shadow:0 1px 9px #eadebc;pointer-events:none}
+.map-gesture-hint{position:absolute;left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:10px;color:#5e704f;font-size:11px;white-space:nowrap}
+.map-gesture-hint i{width:3px;height:3px;border-radius:50%;background:#7a885f}
+.map-controls{display:flex;align-items:center;gap:1px;padding:3px;background:#eee5cedd;border:1px solid #f5eacb77;border-radius:5px;backdrop-filter:blur(8px);pointer-events:auto;box-shadow:0 2px 16px #4a5f3020}
+.map-controls>button{height:29px;width:31px;background:none;color:#586b49;border-radius:3px}
+.map-controls>button:hover{background:#b8c3a755}
+.map-controls>span{width:1px;height:17px;margin:0 3px;background:#9ba58555}
+.map-loading,.map-failure{position:absolute;inset:0;z-index:10;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:18px;background:#e5dcc0;color:#556b4a;text-align:center;padding:24px}
+.map-loading>span,.map-failure>h2{font:500 31px 'Cormorant Garamond',Georgia,serif}
+.map-loading>svg{animation:unfold 9s linear infinite}
+@keyframes unfold{to{transform:rotate(360deg)}}
+@media(min-width:1450px){.journey-dock{width:730px}.journey-caption{bottom:241px}.living-header{top:38px;left:42px;right:42px}.living-brand h1{font-size:50px}.atlas-folio{width:345px;padding:29px}.folio-description{font-size:16px}.journey-stop{padding:12px 15px}}
+@media(max-width:1200px){.map-edition{display:none}.journey-dock{width:650px;max-width:calc(100% - 70px)}.journey-caption{bottom:238px}.atlas-folio{bottom:239px}.living-header{left:28px;right:28px}.living-footer{left:29px;right:29px}.map-gesture-hint{display:none}.journey-stop strong{font-size:23px}}
+@media(max-width:800px){.living-brand h1{font-size:39px}.atlas-kicker{font-size:9px;letter-spacing:1.5px}.living-brand{gap:9px}.living-brand>img{width:31px;height:31px}.living-header{top:26px;left:24px;right:24px}.life-control>span{display:none}.life-control{width:38px!important;padding:0!important}.day-controls button{padding:0 8px;font-size:12px}.journey-dock{left:23px;bottom:72px;max-width:none;width:calc(100% - 46px)}.journey-caption{display:none}.atlas-folio{right:24px;bottom:241px;width:294px}.folio-description{font-size:14px;line-height:1.65}.paper-compass{top:121px;right:29px}.pin-title{font-size:26px}}
+@media(max-width:600px){
+ .living-atlas{min-height:540px}.living-header{top:24px;left:20px;right:20px;gap:12px}.living-brand{gap:8px}.living-brand>img{width:27px;height:27px}.atlas-kicker{font-size:8px;letter-spacing:1px;max-width:170px}.living-brand h1{font-size:36px}.atmosphere-controls{gap:5px}.day-controls{padding:3px}.day-controls button{padding:0;width:30px;height:30px}.day-controls button>span{display:none}.life-control{width:33px!important;height:38px!important;border-color:transparent!important;background:#eee4c599!important}.paper-compass{right:24px;top:112px}.paper-compass>svg{width:29px;height:29px}.paper-compass>span{font-size:12px}.journey-dock{left:14px;bottom:64px;width:calc(100% - 28px)}.dock-heading{padding:12px 14px 9px;gap:9px}.dock-heading h2{font-size:18px}.dock-heading>span{font-size:8px;letter-spacing:1.3px}.route-control{font-size:11px;padding-left:0;gap:5px}.journey-stops{padding:7px;gap:2px}.journey-stop{display:block;text-align:center;padding:9px 2px}.journey-number,.journey-stop>svg{display:none}.journey-stop strong{font-size:22px}.journey-stop small{font-size:10px;margin-top:5px}.living-footer{bottom:20px;left:19px;right:19px;gap:12px;font-size:8px}.living-footer>span{max-width:160px}.map-controls>button{width:27px;height:27px}.atlas-folio{left:14px;right:14px;bottom:207px;width:auto;max-height:220px;overflow:auto;padding:18px 21px}.atlas-folio h2{font-size:33px;margin:7px 0 5px}.folio-kicker{font-size:9px}.folio-subtitle{font-size:16px}.folio-description{font-size:14px;line-height:1.55;margin:10px 0}.folio-date{font-size:10px;padding-top:9px}.pin-title{font-size:26px}.pin-subtitle{font-size:14px}.map-vignette::after{inset:8px}.map-vignette{box-shadow:inset 0 0 65px 8px #66583522}
+}
+@media(prefers-reduced-motion:reduce){.map-loading>svg,.atlas-folio{animation:none}.map-art,.map-light-wash{transition:none}}
+@media(max-height:560px){
+ .living-atlas{min-height:0}.living-header{top:17px}.living-brand h1{font-size:31px}.living-brand>img{width:27px;height:27px}.journey-dock{bottom:56px}.dock-heading,.journey-caption,.map-edition{display:none}.journey-stops{padding:5px}.journey-stop{padding-top:7px;padding-bottom:7px}.paper-compass{top:86px}.living-footer{bottom:15px}.atlas-folio{left:auto;right:22px;top:87px;bottom:auto;width:270px;max-height:calc(100% - 215px);overflow:auto;padding:15px 20px}.atlas-folio h2{font-size:29px}.folio-description{font-size:13px}.map-controls>button{height:25px}
+}
+
+/* A continuous lighting field; time never advances the historical journey. */
+.has-day-cycle{--day-brightness:1.02;--day-saturation:.76;--day-night:0;--day-warmth:.24;--day-mist:.9;--day-birds:.8;--day-sunX:70;--life-strength:1}
+.has-day-cycle.motion-subtle{--life-strength:.45}
+.has-day-cycle .map-art{filter:saturate(var(--day-saturation)) brightness(var(--day-brightness));transition:none}
+.has-day-cycle .map-light-wash{background:linear-gradient(110deg,#ffe9a399 0%,#eb973388 38%,transparent 80%);opacity:var(--day-warmth);transition:none}
+.map-night-wash{position:absolute;inset:0;background:#133955;mix-blend-mode:color;opacity:calc(var(--day-night) * .75);mask-image:radial-gradient(ellipse,#000 45%,transparent 78%)}
+.has-day-cycle .map-vignette{background:linear-gradient(to bottom,#e7dec555,transparent 150px,transparent 65%,#d8caac55)}
+.has-day-cycle .map-vignette::before{content:'';position:absolute;inset:0;background:#0b2030;opacity:calc(var(--day-night) * .14)}
+.has-day-cycle .settlement-light{width:4px;height:4px;opacity:calc(.08 + var(--day-night) * .92 + var(--day-warmth) * .5);box-shadow:0 0 7px 3px #ffd18bbb,0 0 25px 8px #efa84677}
+.has-day-cycle .valley-mists{opacity:calc(var(--day-mist) * var(--life-strength))}
+.has-day-cycle .valley-mist{animation-duration:34s;filter:blur(10px)}
+.has-day-cycle .river-current{stroke-width:2.4;opacity:.65;animation-duration:10s}
+.has-day-cycle .river-underlight{stroke-width:5}
+.has-day-cycle .traveller{animation-duration:52s;animation-delay:-10s}
+.has-day-cycle .traveller-halo{width:27px;height:27px;left:-13.5px;top:-13.5px}
+.has-day-cycle.is-still .traveller{display:block}
+.is-asleep .map-content *{animation-play-state:paused!important}
+.weather-field{position:absolute;inset:0;overflow:hidden;opacity:calc((1 - var(--day-night) * .7) * var(--life-strength));mask-image:radial-gradient(ellipse,#000 38%,transparent 77%)}
+.cloud-shadow{position:absolute;width:680px;height:260px;background:radial-gradient(ellipse at 25% 50%,#3048387a,transparent 57%),radial-gradient(ellipse at 66% 40%,#2c40386b,transparent 52%);filter:blur(20px);mix-blend-mode:multiply;animation:cloud-crossing 48s linear infinite;opacity:0}
+.shadow-one{left:80px;top:210px;animation-delay:-17s}
+.shadow-two{left:630px;top:460px;animation-delay:-39s;animation-duration:62s}
+@keyframes cloud-crossing{0%{transform:translate(-250px,100px) scale(.9);opacity:0}18%,70%{opacity:.48}100%{transform:translate(350px,-130px) scale(1.15);opacity:0}}
+.sun-break{position:absolute;left:calc(var(--day-sunX) * 1% - 320px);top:160px;width:600px;height:560px;background:radial-gradient(ellipse,#ffe8a432,transparent 68%);mix-blend-mode:screen;transform:rotate(-24deg);opacity:calc(.4 + var(--day-warmth) * .4)}
+.hearths{position:absolute;inset:0;opacity:calc(.45 + var(--life-strength) * .55)}
+.chimney{position:absolute;width:1px;height:1px}
+.chimney-wisp{position:absolute;bottom:0;left:-7px;width:18px;height:45px;background:radial-gradient(ellipse at 50% 72%,#eee9dfb3,transparent 65%);filter:blur(2.5px);transform-origin:center bottom;animation:chimney-breath 10.2s ease-out infinite;opacity:0}
+@keyframes chimney-breath{0%{transform:translate(0,0) scale(.45);opacity:0}15%{opacity:.65}65%{opacity:.24}100%{transform:translate(28px,-60px) scale(1.9);opacity:0}}
+.birds-in-daylight{position:absolute;inset:0;overflow:hidden;opacity:calc(var(--day-birds) * var(--life-strength));mask-image:radial-gradient(ellipse,#000 46%,transparent 84%)}
+.bird-flock{position:absolute;left:0;top:0;width:1px;height:1px;offset-rotate:90deg;animation:bird-passage linear infinite;opacity:0}
+.atlas-bird{position:absolute;animation:bird-wingbeat 1.5s ease-in-out infinite;transform-origin:50% 50%;filter:drop-shadow(-9px 14px 1px #20302b30)}
+.atlas-bird img{display:block;width:100%;height:auto;max-width:none}
+@keyframes bird-passage{0%{offset-distance:0%;opacity:0}8%,84%{opacity:.75}100%{offset-distance:100%;opacity:0}}
+@keyframes bird-wingbeat{0%,100%{transform:scaleX(1) scaleY(1)}28%{transform:scaleX(.67) scaleY(.87)}44%{transform:scaleX(1) scaleY(1)}67%{transform:scaleX(.73) scaleY(.9)}}
+.motion-subtle .bird-flock:nth-child(n+2){display:none}
+.motion-subtle .valley-mist{animation-duration:62s}
+.motion-subtle .cloud-shadow{animation-duration:80s}
+.day-cycle-panel{position:absolute;right:36px;top:101px;width:278px;padding:13px 15px 9px;z-index:6;border:1px solid #fff6;border-radius:6px;background:#f1e8d2dd;backdrop-filter:blur(16px);box-shadow:0 7px 25px #34473512;color:#43563f}
+.cycle-heading{display:flex;align-items:center;gap:8px}
+.cycle-heading>div{flex:1}
+.cycle-status{display:block;font:500 10px 'DM Sans',sans-serif;letter-spacing:1px;text-transform:uppercase;opacity:.7}
+.cycle-heading strong{display:flex;align-items:baseline;gap:10px;font:500 24px/1.2 'Cormorant Garamond',Georgia,serif;text-transform:capitalize}
+.cycle-heading strong>span{font:400 12px 'DM Sans',sans-serif;opacity:.7;font-variant-numeric:tabular-nums}
+.cycle-heading button{height:30px;min-width:30px;padding:0 6px;border-radius:3px;color:#486043;font-size:13px;background:transparent}
+.cycle-heading .cycle-play{background:#344e3c;color:#f0e5c5}
+.time-scrubber{display:block;width:100%;height:14px;margin:9px 0 5px;appearance:none;background:transparent;cursor:ew-resize;accent-color:#6f8058;outline-offset:3px}
+.time-scrubber::-webkit-slider-runnable-track{height:4px;border-radius:4px;background:linear-gradient(90deg,#283f58,#9ca4a0 23%,#e8c98b 30%,#ddcf9a 57%,#bb8655 76%,#344454 88%,#283f58)}
+.time-scrubber::-webkit-slider-thumb{appearance:none;width:12px;height:12px;border-radius:50%;margin-top:-4px;background:#f3e7c7;border:2px solid #3c5741;box-shadow:0 1px 5px #2b412144}
+.time-scrubber::-moz-range-track{height:4px;border-radius:4px;background:linear-gradient(90deg,#283f58,#9ca4a0 23%,#e8c98b 30%,#ddcf9a 57%,#bb8655 76%,#344454 88%,#283f58)}
+.time-scrubber::-moz-range-thumb{width:9px;height:9px;border-radius:50%;background:#f3e7c7;border:2px solid #3c5741}
+.cycle-phase-buttons{display:grid;grid-template-columns:repeat(4,1fr);gap:2px}
+.cycle-phase-buttons button{height:28px;min-width:0;gap:4px;padding:0;border-radius:3px;color:#63735a;font-size:10px;text-transform:capitalize}
+.cycle-phase-buttons button[aria-pressed=true]{background:#52683f17;color:#3e5534}
+.cycle-phase-buttons button svg{width:12px;height:12px}
+.has-day-cycle .paper-compass{right:auto;left:44px;top:139px}
+.has-day-cycle .map-edition{left:47%}
+@media(max-width:1200px){.day-cycle-panel{right:28px;width:254px}.cycle-phase-buttons button{font-size:9px}}
+@media(max-width:800px){.day-cycle-panel{right:24px;top:93px;width:238px}.has-day-cycle .paper-compass{left:29px;top:124px}.cycle-phase-buttons button{gap:3px}.cycle-phase-buttons button svg{width:10px}}
+@media(max-width:600px){.day-cycle-panel{right:19px;top:91px;width:223px;padding:10px 12px 7px}.cycle-heading strong{font-size:22px}.cycle-heading strong>span{font-size:11px}.cycle-status{font-size:9px}.cycle-phase-buttons button{font-size:9px}.time-scrubber{margin:7px 0 3px}.has-day-cycle .paper-compass{left:24px;top:113px}.is-focused .cycle-phase-buttons{display:none}.has-day-cycle .atlas-folio{max-height:calc(100% - 391px)}}
+@media(max-height:560px){.day-cycle-panel{top:86px;right:24px;width:224px}.cycle-phase-buttons{display:none}.has-day-cycle .atlas-folio{left:22px;right:auto;top:90px;width:260px;max-height:calc(100% - 220px)}.has-day-cycle .paper-compass{display:none}}
+.cycle-phase-buttons button{font:500 14px 'Cormorant Garamond',Georgia,serif;flex-direction:column;gap:1px;height:37px}
+.folio-source{display:block;margin-top:10px;color:#6e7759;font-size:12px;text-decoration:underline;text-decoration-color:#7e875366;text-underline-offset:3px;line-height:1.5}
+@media(max-width:600px){.folio-source{font-size:12px}.day-cycle-panel{padding-bottom:7px}}

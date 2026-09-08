@@ -1,2 +1,66 @@
-# eriador-living-atlas
-A painterly, interactive Middle-earth atlas with a dynamic day/night cycle, from the Grey Havens to Rivendell.
+# Eriador — A Living Atlas
+
+An interactive, painterly atlas of western Middle-earth, from the Grey Havens and the Shire to Bree, Weathertop and Rivendell.
+
+![The painted landscape of Eriador](public/images/eriador-painted.jpg)
+
+## Explore the atlas
+
+- Pan and zoom across a continuous illustrated landscape, with West, Whole map and East views.
+- Discover seven locations, including Hobbiton, Michel Delving and Brandywine Bridge, with book-based reference notes.
+- Watch a continuous morning, day, evening and night cycle, with changing light, settlement windows, chimney smoke, mist, birds and moving water.
+- Adjust the cycle speed, hold a time of day, or pause motion.
+- Visit an illustrated study of the Prancing Pony in Bree, sharing the map's clock and atmosphere.
+- Navigate with a mouse, touch gestures or the keyboard. Arrow keys pan; plus and minus zoom.
+
+**[Explore the live atlas](https://smikhaylyuk.github.io/eriador-living-atlas/)** — no sign-in required.
+
+## Run locally
+
+Requires Node.js **22.13.0 or newer** and npm.
+
+```sh
+npm ci
+npm run dev
+```
+
+Open the local URL printed by the development server, normally `http://localhost:3000`.
+
+```sh
+npm run lint       # Lint the source
+npx tsc --noEmit   # Check TypeScript
+npm run build     # Create the production build
+npm start         # Preview the built Cloudflare Worker locally
+```
+
+The application uses React, TypeScript, Vinext, Vite and Tailwind CSS, with Cloudflare Workers build output. The current application needs no database or application API keys. The GitHub Actions workflow builds and publishes the static atlas to GitHub Pages whenever `main` changes. The original Worker deployment remains available through `npm run build`.
+
+## GitHub Pages
+
+`npm run build:pages` exports the complete website to `dist/client`, including the paintings and animations. The build adds the repository prefix to asset URLs so they work at `/eriador-living-atlas/`. Only this public output directory is deployed.
+
+The workflow in `.github/workflows/pages.yml` installs the locked dependencies, checks the source, builds the static site and deploys it using GitHub Pages. The repository uses **Settings → Pages → Source: GitHub Actions**. No personal access token or application secret is required by the workflow.
+
+## Project layout
+
+| Path | Purpose |
+| --- | --- |
+| `components/living-atlas.tsx` | Map navigation, place details and controls |
+| `components/atlas-artwork.tsx` | Eastern and western paintings with aligned effects |
+| `components/use-day-cycle.ts` | Shared animated clock |
+| `components/bree-discovery.tsx` | Prancing Pony detail scene |
+| `lib/atlas/places.ts` | Place descriptions and references |
+| `lib/atlas/world.ts` | World dimensions and place coordinates |
+| `lib/atlas/illustration.ts` | Eastern artwork anchors |
+| `lib/atlas/western-illustration.ts` | Western artwork anchors |
+| `lib/atlas/webmcp.ts` | Optional structured controls for compatible browser agents |
+| `public/images/` | Map paintings, detail art and sprites |
+| `docs/lore-and-cartography.md` | Geographic sources, alignment notes and artistic limits |
+
+## Geography and artwork
+
+The geographic reference is Christopher Tolkien's *The West of Middle-earth at the End of the Third Age*. Place notes refer to *The Lord of the Rings* and linked Tolkien Gateway references. See the [cartography notes](docs/lore-and-cartography.md) for sources and implementation details.
+
+The paintings use AI-generated artwork with manually aligned landmarks and effects. Major geographic relationships guide the composition; distances, local river bends, buildings and terrain remain pictorial interpretations. The highlighted road is geographic guidance rather than Frodo's exact itinerary. The day cycle changes the atmosphere, not the story's dates.
+
+This is an unofficial fan project. Middle-earth and its stories were created by J. R. R. Tolkien. The atlas is not affiliated with or endorsed by the Tolkien Estate or other rights holders.
