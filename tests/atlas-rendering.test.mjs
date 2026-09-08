@@ -10,6 +10,52 @@ const load=async file=>{
 };
 const {createFrameQueue,zoomDetail,wheelPixels}=await load('frame-queue');
 const {renderAtlasPainting}=await load('painting');
+const {renderMapLabels}=await load('map-labels');
+const {places}=await load('places');
+const {mapPlaces}=await load('map-view');
+
+await test('camera labels stay on device pixels and unchanged frames do not rewrite their styles',()=>{
+  const writes=[];
+  const tracked=(name)=>new Proxy({}, {set(target,key,value){writes.push([name,key,value]);target[key]=value;return true;}});
+  const layer={dataset:tracked('density'),children:places.map(p=>({style:tracked(p.id)}))};
+  const detail={names:false,major:false,minor:false};
+  const view={x:-143.317,y:17.239,scale:.7};
+  renderMapLabels(layer,view,null,detail,2);
+  for(const [i,p] of places.entries()){
+    const {left,top,visibility}=layer.children[i].style;
+    assert.equal(Number.parseFloat(left)*2,Math.round((view.x+mapPlaces[p.id].x*view.scale)*2));
+    assert.equal(Number.parseFloat(top)*2,Math.round((view.y+mapPlaces[p.id].y*view.scale)*2));
+    assert.equal(visibility,'visible');
+  }
+  writes.length=0;
+  renderMapLabels(layer,view,null,detail,2);
+  assert.deepEqual(writes,[],'Clock or selection renders must not reset positioned labels');
+  renderMapLabels(layer,{...view,x:view.x+10},null,detail,2);
+  assert.equal(writes.length,places.length);
+  assert.ok(writes.every(([,key])=>key==='left'),'Panning must not hide or recreate labels');
+});
+
+await test('label selection remains reachable at overview and density changes only outside the hysteresis band',()=>{
+  const layer={dataset:{},children:places.map(()=>({style:{}}))};
+  const detail={names:false,major:false,minor:false};
+  const minor=places.find(p=>!p.major),index=places.indexOf(minor);
+  const view={x:0,y:0,scale:.2};
+  renderMapLabels(layer,view,null,detail,1);
+  assert.equal(layer.children[index].style.visibility,'hidden');
+  renderMapLabels(layer,view,minor.id,detail,1);
+  assert.equal(layer.children[index].style.visibility,'visible');
+  renderMapLabels(layer,view,null,detail,1);
+  assert.equal(layer.children[index].style.visibility,'hidden');
+  for(const scale of [.379,.381,.377,.383]){
+    renderMapLabels(layer,{...view,scale},null,detail,1);
+    assert.equal(layer.dataset.density,'overview');
+  }
+  renderMapLabels(layer,{...view,scale:.42},null,detail,1);
+  for(const scale of [.379,.381,.377,.383]){
+    renderMapLabels(layer,{...view,scale},null,detail,1);
+    assert.equal(layer.dataset.density,'detail');
+  }
+});
 
 await test('a burst of camera input draws only the final accumulated view in one frame',()=>{
   const frames=new Map(),draws=[];let id=0;
