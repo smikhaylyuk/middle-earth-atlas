@@ -1,7 +1,6 @@
-import Image from 'next/image';
+import { assetPath } from '@/lib/atlas/asset-path';
 import { RohanArtwork } from './rohan-artwork';
 import { AnduinArtwork } from './anduin-artwork';
-import { assetPath } from '@/lib/atlas/asset-path';
 import { MapAtmosphere } from './map-atmosphere';
 import { SOUTH_OFFSET, SOUTH_HEIGHT, southernRivers, southernMist, southernFlocks, southernRoad } from '@/lib/atlas/southern-illustration';
 import { EAST_OFFSET } from '@/lib/atlas/world';
@@ -9,12 +8,11 @@ import { road, roadHighlight, river, warmLights, mistPatches } from '@/lib/atlas
 import { westernRoad, westernSpur, westernRivers, westernLights, westernMist, westernChimneys } from '@/lib/atlas/western-illustration';
 import { windowLightAt } from '@/lib/atlas/bree';
 
-export function AtlasArtwork({hour,route,onEastLoad,onWestLoad,onSouthLoad,onAnduinLoad,onRohanLoad,onError}:{hour:number;route:boolean;onEastLoad:()=>void;onWestLoad:()=>void;onSouthLoad:()=>void;onAnduinLoad:()=>void;onRohanLoad:()=>void;onError:()=>void}) {
+export function AtlasArtwork({hour,route}:{hour:number;route:boolean}) {
   return <>
-    <RohanArtwork onLoad={onRohanLoad} onError={onError}/>
-    <AnduinArtwork onLoad={onAnduinLoad} onError={onError}/>
-    <div className="southern-sheet" style={{top:SOUTH_OFFSET,height:SOUTH_HEIGHT}}>
-      <Image className="map-art" src={assetPath('/images/eriador-south.jpg')} alt="" width={2500} height={1300} unoptimized loading="eager" draggable={false} onLoad={onSouthLoad} onError={onError}/>
+    <RohanArtwork/>
+    <AnduinArtwork/>
+    <div className="southern-sheet" style={{top:SOUTH_OFFSET,height:SOUTH_HEIGHT,maskImage:`url('${assetPath('/images/atlas-masks/south.png')}')`}}>
       <div className="map-light-wash"/><div className="map-night-wash"/>
       <MapAtmosphere chimneyPoints={[]} flockPaths={southernFlocks}/>
       <svg className="map-ink" viewBox="0 0 2500 1300" fill="none" style={{height:1300}}>
@@ -32,9 +30,7 @@ export function AtlasArtwork({hour,route,onEastLoad,onWestLoad,onSouthLoad,onAnd
       </svg>
       <div className="valley-mists">{southernMist.map((p,i)=><span key={i} className="valley-mist" style={{left:p.x,top:p.y,width:p.w,height:p.h,animationDelay:`${p.delay}s`}}/>)}</div>
     </div>
-    <div className="eastern-sheet" style={{left:EAST_OFFSET}}>
-      <Image className="map-art" src={assetPath('/images/eriador-painted.jpg')} alt="" width={1500} height={1000} unoptimized loading="eager" draggable={false} onLoad={onEastLoad} onError={onError}/>
-      {[{x:1001,y:573,w:80,h:69},{x:1097,y:504,w:47,h:48}].map((p,i)=><div key={i} className="map-art-correction" style={{left:p.x*1500/1536,top:p.y*1000/1024,width:p.w*1500/1536,height:p.h*1000/1024}}><Image src={assetPath('/images/eriador-ford-correction.jpg')} alt="" width={1500} height={1000} unoptimized loading="eager" draggable={false} style={{left:-p.x*1500/1536,top:-p.y*1000/1024}} onError={onError}/></div>)}
+    <div className="eastern-sheet" style={{left:EAST_OFFSET,maskImage:`url('${assetPath('/images/atlas-masks/east.png')}')`}}>
       <div className="map-light-wash"/><div className="map-night-wash"/><MapAtmosphere/>
       <svg className="map-ink" viewBox="0 0 1500 1000" fill="none">
         <defs><filter id="river-soft"><feGaussianBlur stdDeviation="1.2"/></filter></defs>
@@ -48,8 +44,7 @@ export function AtlasArtwork({hour,route,onEastLoad,onWestLoad,onSouthLoad,onAnd
       {warmLights.map((p,i)=><span key={i} className="settlement-light" style={{left:p.x,top:p.y,animationDelay:`-${i*1.7}s`,...(i<3?{opacity:windowLightAt(hour,i*2)}:{})}}/>)}
       <div className="valley-mists">{mistPatches.map((p,i)=><span key={i} className="valley-mist" style={{left:p.x,top:p.y,width:p.w,height:p.h,animationDelay:`${p.delay}s`}}/>)}</div>
     </div>
-    <div className="western-sheet">
-      <Image className="map-art" src={assetPath('/images/eriador-west.jpg')} alt="" width={1500} height={1000} unoptimized loading="eager" draggable={false} onLoad={onWestLoad} onError={onError}/>
+    <div className="western-sheet" style={{maskImage:`url('${assetPath('/images/atlas-masks/west.png')}')`}}>
       <div className="map-light-wash"/><div className="map-night-wash"/>
       <div className="gulf-shimmer"/>
       <MapAtmosphere chimneyPoints={westernChimneys}/>

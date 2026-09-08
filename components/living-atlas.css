@@ -37,6 +37,9 @@
 .hearth-smoke.second{animation-delay:-4s;width:10px}
 @keyframes smoke-rise{0%{transform:translate(0,0) scale(.45);opacity:0}20%{opacity:.5}100%{transform:translate(18px,-38px) scale(1.8);opacity:0}}
 .is-still .map-content *{animation-play-state:paused!important}
+/* Keep the existing composite still while its camera moves. Lighting and
+   atmosphere resume after input settles; no artwork layer is removed. */
+.living-atlas[data-navigating=true] .map-content *{animation-play-state:paused!important}
 .is-still .journey-ink{animation:none;stroke-dashoffset:0}
 .is-still .traveller{display:none}
 .map-pins{position:absolute;inset:0;pointer-events:none;overflow:hidden;z-index:3}

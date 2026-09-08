@@ -1,12 +1,9 @@
-import Image from 'next/image';
 import { assetPath } from '@/lib/atlas/asset-path';
 import { ROHAN_OFFSET, ROHAN_WIDTH, ROHAN_HEIGHT, ROHAN_PAINT_HEIGHT, rohanRivers, rohanMist, rohanFlocks, rohanLights } from '@/lib/atlas/rohan-illustration';
 import { MapAtmosphere } from './map-atmosphere';
 
-export function RohanArtwork({onLoad,onError}:{onLoad:()=>void;onError:()=>void}) {
-  return <div className="rohan-sheet" style={{top:ROHAN_OFFSET,width:ROHAN_WIDTH,height:ROHAN_HEIGHT}}>
-    <div className="rohan-sea" style={{backgroundImage:`url('${assetPath('/images/rohan-painted.jpg')}')`}}/>
-    <Image className="map-art" src={assetPath('/images/rohan-painted.jpg')} alt="" width={3420} height={ROHAN_PAINT_HEIGHT} unoptimized loading="eager" draggable={false} onLoad={onLoad} onError={onError}/>
+export function RohanArtwork() {
+  return <div className="rohan-sheet" style={{top:ROHAN_OFFSET,width:ROHAN_WIDTH,height:ROHAN_HEIGHT,maskImage:`url('${assetPath('/images/atlas-masks/rohan.png')}')`}}>
     <div className="map-light-wash"/><div className="map-night-wash"/>
     <MapAtmosphere chimneyPoints={rohanLights.slice(0,2)} flockPaths={rohanFlocks}/>
     <svg className="map-ink" viewBox={`0 0 ${ROHAN_WIDTH} ${ROHAN_PAINT_HEIGHT}`} fill="none" style={{width:ROHAN_WIDTH,height:ROHAN_PAINT_HEIGHT}}>

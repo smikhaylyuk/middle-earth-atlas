@@ -27,6 +27,7 @@ npm run dev
 Open the local URL printed by the development server, normally `http://localhost:3000`.
 
 ```sh
+npm test           # Rendering and navigation regression checks
 npm run lint       # Lint the source
 npx tsc --noEmit   # Check TypeScript
 npm run build     # Create the production build
@@ -67,3 +68,9 @@ The geographic reference is Christopher Tolkien's *The West of Middle-earth at t
 The paintings use AI-generated artwork with manually aligned landmarks and effects. Major geographic relationships guide the composition; distances, local river bends, buildings and terrain remain pictorial interpretations. The highlighted road is geographic guidance rather than Frodo's exact itinerary. The day cycle changes the atmosphere, not the story's dates.
 
 This is an unofficial fan project. Middle-earth and its stories were created by J. R. R. Tolkien. The atlas is not affiliated with or endorsed by the Tolkien Estate or other rights holders.
+
+## Map rendering
+
+The approved paintings are precomposed into `public/images/atlas-painted.webp`. A canvas draws this image into a viewport-sized backing surface, capped at two device pixels per CSS pixel and approximately eight million pixels. Zoom changes the sampled view, never the canvas allocation. Place markers and effects share the same animation-frame camera update. The clock and effect animations briefly hold during navigation, then resume without skipping time.
+
+To update a painting or its alignment, run `npm run build:atlas` and commit the regenerated painting and five masks in `public/images/atlas-masks/`. The script uses Sharp, already supplied by Vinext, to bake the existing artwork and geographic correction patches. It does not create new terrain. The source paintings remain available for subsequent map expansions.

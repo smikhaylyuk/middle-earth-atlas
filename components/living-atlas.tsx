@@ -9,15 +9,18 @@ import { places, majorPlaces, type PlaceId } from '@/lib/atlas/places';
 import { MAP_WIDTH, MAP_HEIGHT, type RegionId } from '@/lib/atlas/world';
 import { boundView, mapPlaces, placeView, regionView, zoomView, type MapSize, type MapView } from '@/lib/atlas/map-view';
 import { registerAtlasTools } from '@/lib/atlas/webmcp';
+import { createFrameQueue, wheelPixels, zoomDetail } from '@/lib/atlas/frame-queue';
 import { clockLabel, dayPhase, phaseHours, type DayPhase, type MotionIntensity } from '@/lib/atlas/day-cycle';
 import { useDayCycle } from './use-day-cycle';
 import { AtlasArtwork } from './atlas-artwork';
+import { AtlasPainting, type AtlasPaintingHandle } from './atlas-painting';
 import { BreeDiscovery } from './bree-discovery';
 import { type BreeDetail } from '@/lib/atlas/bree';
 import './living-atlas.css';
 import './expanded-atlas.css';
 import './anduin-atlas.css';
 import './rohan-atlas.css';
+import './atlas-rendering.css';
 
 function subscribeMotion(callback:()=>void){const media=window.matchMedia('(prefers-reduced-motion: reduce)');media.addEventListener('change',callback);return()=>media.removeEventListener('change',callback);}
 function subscribeVisibility(callback:()=>void){document.addEventListener('visibilitychange',callback);return()=>document.removeEventListener('visibilitychange',callback);}
@@ -32,45 +35,74 @@ const regionLabels:Record<RegionId,{label:string;description:string}>={
 };
 const phaseIcons={morning:Sunrise,day:Sun,evening:Sunset,night:Moon};
 const motionSnapshot=()=>window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-function animateView(from:MapView,target:MapView,paint:(view:MapView)=>void,rememberFrame:(id:number)=>void){
+function animateView(from:MapView,target:MapView,paint:(view:MapView)=>void,rememberFrame:(id:number)=>void,complete:()=>void){
   const start=performance.now();
-  function tick(now:number){const t=Math.min(1,(now-start)/1150),ease=1-Math.pow(1-t,3);paint({x:from.x+(target.x-from.x)*ease,y:from.y+(target.y-from.y)*ease,scale:from.scale+(target.scale-from.scale)*ease});if(t<1)rememberFrame(requestAnimationFrame(tick));}
+  function tick(now:number){const t=Math.min(1,(now-start)/1150),ease=1-Math.pow(1-t,3);paint({x:from.x+(target.x-from.x)*ease,y:from.y+(target.y-from.y)*ease,scale:from.scale+(target.scale-from.scale)*ease});if(t<1)rememberFrame(requestAnimationFrame(tick));else complete();}
   rememberFrame(requestAnimationFrame(tick));
 }
 
 export default function LivingAtlas(){
   const stage=useRef<HTMLDivElement>(null),world=useRef<HTMLDivElement>(null),labels=useRef<(HTMLButtonElement|null)[]>([]);
   const size=useRef<MapSize>({width:1000,height:760}),view=useRef<MapView>({x:0,y:0,scale:1}),animation=useRef(0),viewInitialized=useRef(false);
+  const painting=useRef<AtlasPaintingHandle>(null);
   const pointers=useRef(new Map<number,{x:number;y:number}>());
+  const navigating=useRef(false),settleTimer=useRef<ReturnType<typeof setTimeout>|null>(null);
+  const labelDetail=useRef({names:false,major:false,minor:false});
   const regionNavigation=useRef<HTMLElement>(null);
   const reduced=useSyncExternalStore(subscribeMotion,motionSnapshot,()=>false);
   const [selected,setSelected]=useState<PlaceId|null>(null),[intensity,setIntensity]=useState<MotionIntensity>('lively'),[route,setRoute]=useState(true),[motion,setMotion]=useState<boolean|null>(null);
   const [ready,setReady]=useState(false),[failed,setFailed]=useState(false),[dragging,setDragging]=useState(false);
   const [breeDetail,setBreeDetail]=useState<BreeDetail|null>(null);
-  const [southReady,setSouthReady]=useState(false),[anduinReady,setAnduinReady]=useState(false),[rohanReady,setRohanReady]=useState(false);
-  const [westReady,setWestReady]=useState(false),[region,setRegion]=useState<RegionId|null>('all');
+  const [region,setRegion]=useState<RegionId|null>('all');
+  const paintingLoaded=useCallback(()=>setReady(true),[]),paintingFailed=useCallback(()=>setFailed(true),[]);
   useEffect(()=>{regionNavigation.current?.querySelector<HTMLButtonElement>('button[aria-pressed="true"]')?.scrollIntoView({block:'nearest',inline:'nearest'});},[region]);
   const visible=useSyncExternalStore(subscribeVisibility,visibilitySnapshot,()=>true);
   const running=motion??!reduced,place=places.find(p=>p.id===selected);
   const dockRegion=place?.region??region;
   const dockPlaces=dockRegion&&dockRegion!=='all'?places.filter(p=>p.region===dockRegion):majorPlaces;
-  const {root,hour,displayHour,cycleEnabled,cycleDuration,setTime,setCycle,setDuration}=useDayCycle(running,visible);
+  const {root,hour,displayHour,cycleEnabled,cycleDuration,setTime,setCycle,setDuration,holdForNavigation}=useDayCycle(running,visible,navigating);
+  const beginNavigation=useCallback(()=>{
+    if(settleTimer.current!==null)clearTimeout(settleTimer.current);
+    navigating.current=true;
+    holdForNavigation(true);
+  },[holdForNavigation]);
+  const settleNavigation=useCallback(()=>{
+    if(settleTimer.current!==null)clearTimeout(settleTimer.current);
+    settleTimer.current=setTimeout(()=>{
+      settleTimer.current=null;
+      if(pointers.current.size)return;
+      navigating.current=false;
+      holdForNavigation(false);
+    },180);
+  },[holdForNavigation]);
   const phase=dayPhase(displayHour);
   const state=useRef({place:selected,breeDetail,region,routeVisible:route,motionEnabled:running,motionIntensity:intensity,cycleEnabled,cycleDuration});
   useEffect(()=>{state.current={place:selected,breeDetail,region,routeVisible:route,motionEnabled:running,motionIntensity:intensity,cycleEnabled,cycleDuration};},[selected,breeDetail,region,route,running,intensity,cycleEnabled,cycleDuration]);
   const choosePhase=useCallback((value:DayPhase)=>{setTime(phaseHours[value]);setCycle(false);},[setTime,setCycle]);
   const setLight=useCallback((value:LightMode)=>choosePhase(value==='golden'?'evening':'morning'),[choosePhase]);
+  const renderView=useCallback((next:MapView)=>{
+    painting.current?.paint(next,size.current);
+    if(world.current)world.current.style.transform=`translate3d(${next.x}px,${next.y}px,0) scale(${next.scale})`;
+    const detail=labelDetail.current;
+    detail.names=zoomDetail(next.scale,detail.names,.38);
+    detail.major=zoomDetail(next.scale,detail.major,.28);
+    detail.minor=zoomDetail(next.scale,detail.minor,.62);
+    if(stage.current)stage.current.dataset.density=detail.names?'detail':'overview';
+    places.forEach((p,i)=>{const point=mapPlaces[p.id],label=labels.current[i];if(label){label.style.transform=`translate(${next.x+point.x*next.scale}px,${next.y+point.y*next.scale}px) translate(-50%, 20px)`;const shownAtOverview=['grey-havens','bree','rivendell','tharbad','moria-west-gate','isengard','caras-galadhon','dol-guldur','gladden-fields','edoras','argonath'].includes(p.id);label.style.visibility=(p.major&&(detail.major||shownAtOverview))||detail.minor||state.current.place===p.id?'visible':'hidden';}});
+  },[]);
+  const painter=useRef<ReturnType<typeof createFrameQueue<MapView>>|null>(null);
   const paint=useCallback((next:MapView)=>{
     view.current=next;
-    if(world.current)world.current.style.transform=`translate3d(${next.x}px,${next.y}px,0) scale(${next.scale})`;
-    if(stage.current)stage.current.dataset.density=next.scale<.38?'overview':'detail';
-    places.forEach((p,i)=>{const point=mapPlaces[p.id],label=labels.current[i];if(label){label.style.transform=`translate(${next.x+point.x*next.scale}px,${next.y+point.y*next.scale}px) translate(-50%, 20px)`;const shownAtOverview=['grey-havens','bree','rivendell','tharbad','moria-west-gate','isengard','caras-galadhon','dol-guldur','gladden-fields','edoras','argonath'].includes(p.id);label.style.visibility=(p.major&&(next.scale>=.28||shownAtOverview))||next.scale>=.62||state.current.place===p.id?'visible':'hidden';}});
-  },[]);
+    if(!painter.current)painter.current=createFrameQueue(renderView,callback=>requestAnimationFrame(callback),id=>cancelAnimationFrame(id));
+    painter.current.push(next);
+  },[renderView]);
+  useEffect(()=>()=>{painter.current?.cancel();painter.current=null;if(settleTimer.current!==null)clearTimeout(settleTimer.current);},[]);
   const fly=useCallback((target:MapView)=>{
     cancelAnimationFrame(animation.current);
-    if(reduced){paint(target);return;}
-    animateView({...view.current},target,paint,id=>{animation.current=id;});
-  },[paint,reduced]);
+    if(reduced){paint(target);settleNavigation();return;}
+    beginNavigation();
+    animateView({...view.current},target,paint,id=>{animation.current=id;},settleNavigation);
+  },[paint,reduced,beginNavigation,settleNavigation]);
   const focus=useCallback((id:PlaceId)=>{setBreeDetail(null);setRegion(null);setSelected(id);fly(placeView(id,size.current));},[fly]);
   const frameRegion=useCallback((value:RegionId)=>{setBreeDetail(null);setSelected(null);setRegion(value);fly(regionView(value,size.current));},[fly]);
   const overview=useCallback(()=>frameRegion('all'),[frameRegion]);
@@ -78,19 +110,19 @@ export default function LivingAtlas(){
   const zoom=useCallback((factor:number)=>{setRegion(null);fly(zoomView(view.current,size.current,factor));},[fly]);
   useEffect(()=>{
     const element=stage.current;if(!element)return;
-    const resize=()=>{cancelAnimationFrame(animation.current);size.current={width:element.clientWidth,height:element.clientHeight};if(!viewInitialized.current){const initialRegion='rohan';state.current.region=initialRegion;setRegion(initialRegion);viewInitialized.current=true;}paint(state.current.place?placeView(state.current.place,size.current):state.current.region?regionView(state.current.region,size.current):boundView(view.current,size.current));};
+    const resize=()=>{cancelAnimationFrame(animation.current);settleNavigation();size.current={width:element.clientWidth,height:element.clientHeight};if(!viewInitialized.current){const initialRegion='rohan';state.current.region=initialRegion;setRegion(initialRegion);viewInitialized.current=true;}paint(state.current.place?placeView(state.current.place,size.current):state.current.region?regionView(state.current.region,size.current):boundView(view.current,size.current));};
     const observer=new ResizeObserver(resize);observer.observe(element);resize();
-    const wheel=(event:WheelEvent)=>{event.preventDefault();setRegion(null);cancelAnimationFrame(animation.current);const r=element.getBoundingClientRect();paint(zoomView(view.current,size.current,Math.exp(-event.deltaY*.0013),{x:event.clientX-r.left,y:event.clientY-r.top}));};
+    const wheel=(event:WheelEvent)=>{event.preventDefault();setRegion(null);cancelAnimationFrame(animation.current);beginNavigation();const r=element.getBoundingClientRect();paint(zoomView(view.current,size.current,Math.exp(-wheelPixels(event.deltaY,event.deltaMode,size.current.height)*.0013),{x:event.clientX-r.left,y:event.clientY-r.top}));settleNavigation();};
     element.addEventListener('wheel',wheel,{passive:false});
     return()=>{observer.disconnect();element.removeEventListener('wheel',wheel);cancelAnimationFrame(animation.current);};
-  },[paint]);
+  },[paint,beginNavigation,settleNavigation]);
   useEffect(()=>{
-    if(!ready||!westReady||!southReady||!anduinReady||!rohanReady)return;
+    if(!ready)return;
     return registerAtlasTools({read:()=>({...state.current,lighting:dayPhase(hour.current),timeOfDay:Math.round(hour.current*100)/100}),focus,overview,lighting:setLight,route:setRoute,motion:setMotion,intensity:setIntensity,time:setTime,cycle:setCycle,duration:setDuration,bree:exploreBree,region:frameRegion});
-  },[ready,westReady,southReady,anduinReady,rohanReady,frameRegion,focus,overview,setLight,setTime,setCycle,setDuration,hour,exploreBree]);
+  },[ready,frameRegion,focus,overview,setLight,setTime,setCycle,setDuration,hour,exploreBree]);
   function pointerDown(event:ReactPointerEvent<HTMLDivElement>){
     if((event.target as Element).closest('button')||event.button>0)return;
-    setRegion(null);event.currentTarget.focus({preventScroll:true});cancelAnimationFrame(animation.current);event.currentTarget.setPointerCapture(event.pointerId);
+    setRegion(null);beginNavigation();event.currentTarget.focus({preventScroll:true});cancelAnimationFrame(animation.current);event.currentTarget.setPointerCapture(event.pointerId);
     pointers.current.set(event.pointerId,{x:event.clientX,y:event.clientY});setDragging(true);
   }
   function pointerMove(event:ReactPointerEvent<HTMLDivElement>){
@@ -103,16 +135,17 @@ export default function LivingAtlas(){
       if(oldDistance>1)paint(zoomView(view.current,size.current,newDistance/oldDistance,center));
     }else paint(boundView({...view.current,x:view.current.x+event.clientX-previous.x,y:view.current.y+event.clientY-previous.y},size.current));
   }
-  function pointerUp(event:ReactPointerEvent<HTMLDivElement>){pointers.current.delete(event.pointerId);if(!pointers.current.size)setDragging(false);}
+  function pointerUp(event:ReactPointerEvent<HTMLDivElement>){pointers.current.delete(event.pointerId);if(!pointers.current.size){setDragging(false);settleNavigation();}}
   return <main ref={root} className={`living-atlas has-day-cycle expanded-atlas ${selected?'is-focused':''} ${running?'is-living':'is-still'} ${!visible?'is-asleep':''} motion-${intensity}`} aria-label="Eriador living illustrated atlas">
     {/* eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions, jsx-a11y/no-noninteractive-tabindex -- This composite map application implements pointer and keyboard navigation. */}
-    <div className={`map-stage ${dragging?'is-dragging':''}`} ref={stage} role="application" aria-label="Interactive map. Drag to pan, scroll or pinch to zoom. Arrow keys pan; plus and minus zoom." tabIndex={0} onPointerDown={pointerDown} onPointerMove={pointerMove} onPointerUp={pointerUp} onPointerCancel={pointerUp} onKeyDown={event=>{
+    <div className={`map-stage ${dragging?'is-dragging':''}`} ref={stage} role="application" aria-label="Interactive map. Drag to pan, scroll or pinch to zoom. Arrow keys pan; plus and minus zoom." tabIndex={0} onPointerDown={pointerDown} onPointerMove={pointerMove} onPointerUp={pointerUp} onPointerCancel={pointerUp} onLostPointerCapture={pointerUp} onKeyDown={event=>{
       const delta=45,moves:Record<string,[number,number]>={ArrowLeft:[delta,0],ArrowRight:[-delta,0],ArrowUp:[0,delta],ArrowDown:[0,-delta]};
-      if(moves[event.key]){event.preventDefault();setRegion(null);cancelAnimationFrame(animation.current);const [x,y]=moves[event.key];paint(boundView({...view.current,x:view.current.x+x,y:view.current.y+y},size.current));}
+      if(moves[event.key]){event.preventDefault();setRegion(null);cancelAnimationFrame(animation.current);beginNavigation();const [x,y]=moves[event.key];paint(boundView({...view.current,x:view.current.x+x,y:view.current.y+y},size.current));settleNavigation();}
       else if(event.key==='+'||event.key==='='){event.preventDefault();zoom(1.25);}else if(event.key==='-'){event.preventDefault();zoom(.8);}else if(event.key==='Escape')overview();
     }}>
+      <AtlasPainting ref={painting} onLoad={paintingLoaded} onError={paintingFailed}/>
       <div className="map-content" ref={world} style={{width:MAP_WIDTH,height:MAP_HEIGHT}} aria-hidden="true">
-        <AtlasArtwork hour={displayHour} route={route} onEastLoad={()=>setReady(true)} onWestLoad={()=>setWestReady(true)} onSouthLoad={()=>setSouthReady(true)} onAnduinLoad={()=>setAnduinReady(true)} onRohanLoad={()=>setRohanReady(true)} onError={()=>setFailed(true)}/>
+        <AtlasArtwork hour={displayHour} route={route}/>
       </div>
       <div className="map-pins">{places.map((p,i)=><button key={p.id} className={`map-pin pin-${p.id} ${p.major?'pin-major':'pin-minor'}`} ref={el=>{labels.current[i]=el;}} style={{visibility:'hidden'}} aria-label={`Explore ${p.name} on the map`} aria-pressed={selected===p.id} onClick={()=>focus(p.id)}><span className="pin-stem"/><span className="pin-title"><span className="pin-full-name">{p.name}</span><span className="pin-overview-name">{p.overviewLabel}</span></span><span className="pin-subtitle">{p.pinSubtitle}</span></button>)}</div>
     </div>
@@ -130,7 +163,7 @@ export default function LivingAtlas(){
     {place&&<article className="atlas-folio" key={place.id} aria-live="polite"><Button variant="ghost" className="folio-close" size="icon" aria-label="Close place details" onClick={()=>setSelected(null)}><X size={16}/></Button><span className="folio-kicker">{place.kind}</span><h2>{place.name}</h2><p className="folio-subtitle">{place.subtitle}</p>{place.id==='bree'&&<Button className="bree-invitation" onClick={()=>exploreBree('prancing-pony')} aria-haspopup="dialog"><div><small>At the inn</small><span>The Prancing Pony</span></div><ArrowRight size={20}/></Button>}<p className="folio-description">{place.description}</p>{place.date&&<div className="folio-date"><Clock3 size={13}/>{place.date}</div>}<a className="folio-source" href={place.source} target="_blank" rel="noreferrer">{place.sourceLabel} ↗</a></article>}
     <BreeDiscovery detail={breeDetail} onDetail={exploreBree} hour={displayHour} cyclePlaying={cycleEnabled&&running} motionEnabled={running} onTime={value=>{setTime(value);setCycle(false);}} onPlayCycle={()=>{if(!running){setMotion(true);setCycle(true);}else setCycle(!cycleEnabled);}} onPauseMotion={()=>setMotion(!running)}/>
     <footer className="living-footer"><span>Illustrated interpretation · Unofficial fan atlas</span><div className="map-gesture-hint">Drag to wander <i/> Scroll to look closer</div><div className="map-controls" aria-label="Map controls"><Button variant="ghost" size="icon" aria-label="Zoom in" onClick={()=>zoom(1.25)}><Plus size={17}/></Button><Button variant="ghost" size="icon" aria-label="Zoom out" onClick={()=>zoom(.8)}><Minus size={17}/></Button><span/><Button variant="ghost" size="icon" aria-label="Return to overview" onClick={overview}><Home size={16}/></Button></div></footer>
-    {(!ready||!westReady||!southReady||!anduinReady||!rohanReady)&&!failed&&<output className="map-loading"><Compass size={36} strokeWidth={.7}/><span>Unfolding the map…</span></output>}
+    {(!ready)&&!failed&&<output className="map-loading"><Compass size={36} strokeWidth={.7}/><span>Unfolding the map…</span></output>}
     {failed&&<div className="map-failure" role="alert"><h2>The map couldn’t load.</h2><p>Please refresh to try again.</p><Button onClick={()=>window.location.reload()}>Try again</Button></div>}
   </main>;
 }

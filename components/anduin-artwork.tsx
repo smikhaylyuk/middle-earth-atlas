@@ -1,11 +1,9 @@
-import Image from 'next/image';
 import { assetPath } from '@/lib/atlas/asset-path';
 import { ANDUIN_OFFSET, ANDUIN_WIDTH, ANDUIN_PAINT_HEIGHT, anduinRivers, anduinMist, anduinFlocks, lorienLights } from '@/lib/atlas/anduin-illustration';
 import { MapAtmosphere } from './map-atmosphere';
 
-export function AnduinArtwork({onLoad,onError}:{onLoad:()=>void;onError:()=>void}) {
-  return <div className="anduin-sheet" style={{left:ANDUIN_OFFSET,width:ANDUIN_WIDTH}}>
-    <Image className="map-art" src={assetPath('/images/anduin-painted.jpg')} alt="" width={1500} height={ANDUIN_PAINT_HEIGHT} unoptimized loading="eager" draggable={false} onLoad={onLoad} onError={onError}/>
+export function AnduinArtwork() {
+  return <div className="anduin-sheet" style={{left:ANDUIN_OFFSET,width:ANDUIN_WIDTH,maskImage:`url('${assetPath('/images/atlas-masks/anduin.png')}')`}}>
     <div className="map-light-wash"/><div className="map-night-wash"/>
     <MapAtmosphere chimneyPoints={[]} flockPaths={anduinFlocks}/>
     <svg className="map-ink" viewBox={`0 0 1500 ${ANDUIN_PAINT_HEIGHT}`} fill="none" style={{height:ANDUIN_PAINT_HEIGHT}}>

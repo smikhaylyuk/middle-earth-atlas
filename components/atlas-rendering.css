@@ -1,0 +1,5 @@
+/* Only the screen-sized canvas holds the painted background. The world layer
+   contains effects and annotation, with precomputed alpha masks per region. */
+.atlas-painting{position:absolute;inset:0;width:100%;height:100%;display:block;pointer-events:none;filter:saturate(var(--day-saturation)) brightness(var(--day-brightness))}
+.expanded-atlas .map-content{mask-image:none}
+.eastern-sheet,.western-sheet,.southern-sheet,.anduin-sheet,.rohan-sheet{mask-size:100% 100%;mask-repeat:no-repeat;mask-composite:add}
