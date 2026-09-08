@@ -21,7 +21,7 @@ export function useDayCycle(enabled: boolean, visible: boolean, navigating?:RefO
   const setDuration = useCallback((value: number) => {seconds.current=value;setCycleDuration(value);}, []);
   const holdForNavigation = useCallback((value:boolean)=>{
     const element=root.current;
-    if(element)element.dataset.navigating=String(value);
+    if(element&&element.dataset.navigating!==String(value))element.dataset.navigating=String(value);
   },[]);
   useEffect(() => {
     apply(hour.current);

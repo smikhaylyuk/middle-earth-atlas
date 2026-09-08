@@ -4,9 +4,14 @@ export type MapView={x:number;y:number;scale:number};
 export type MapSize={width:number;height:number};
 export type MapPlaceId=keyof typeof mapPlaces;
 const clamp=(n:number,min:number,max:number)=>Math.min(max,Math.max(min,n));
+// The atlas combines paintings with less native detail than the world grid.
+// Beyond this scale, magnification exposes texture without useful new detail.
+const detailScale=.9;
+const zoomLimits=(size:MapSize)=>({min:homeView(size).scale*.78,max:Math.max(homeView(size).scale,detailScale)});
 export function homeView(size:MapSize):MapView{
-  const scale=Math.max(.06,Math.min((size.width-32)/MAP_WIDTH,(size.height-225)/MAP_HEIGHT));
-  return {scale,x:size.width/2-MAP_WIDTH*.5*scale,y:size.height*.47-MAP_HEIGHT*.5*scale};
+  const top=size.width<650?100:110,bottom=size.height-(size.width<650?205:232);
+  const scale=Math.max(.06,Math.min((size.width-40)/MAP_WIDTH,(bottom-top)/MAP_HEIGHT));
+  return {scale,x:size.width/2-MAP_WIDTH*.5*scale,y:(top+bottom-MAP_HEIGHT*scale)/2};
 }
 export function regionView(region:RegionId,size:MapSize):MapView{
   if(region==='all')return homeView(size);
@@ -27,17 +32,17 @@ export function regionView(region:RegionId,size:MapSize):MapView{
   return boundView({scale,x:size.width*.5-center*scale,y:size.height*.47-470*scale},size);
 }
 export function boundView(view:MapView,size:MapSize):MapView{
-  const home=homeView(size),scale=clamp(view.scale,home.scale*.78,Math.max(home.scale*3.2,1.65));
+  const limits=zoomLimits(size),scale=clamp(view.scale,limits.min,limits.max);
   const w=MAP_WIDTH*scale,h=MAP_HEIGHT*scale;
   const x=w<size.width-40?(size.width-w)/2:clamp(view.x,size.width-w-90,90);
   const y=clamp(view.y,Math.min(size.height*.45-h,80),Math.max(size.height*.55,80));
   return {x,y,scale};
 }
 export function zoomView(view:MapView,size:MapSize,factor:number,point={x:size.width*.5,y:size.height*.44}):MapView{
-  const home=homeView(size),scale=clamp(view.scale*factor,home.scale*.78,Math.max(home.scale*3.2,1.65)),ratio=scale/view.scale;
+  const limits=zoomLimits(size),scale=clamp(view.scale*factor,limits.min,limits.max),ratio=scale/view.scale;
   return boundView({scale,x:point.x-(point.x-view.x)*ratio,y:point.y-(point.y-view.y)*ratio},size);
 }
 export function placeView(id:MapPlaceId,size:MapSize):MapView{
-  const p=mapPlaces[id],scale=Math.min(1.5,Math.max(homeView(size).scale*2.5,.9));
+  const p=mapPlaces[id],scale=Math.min(.8,Math.max(homeView(size).scale*2.2,.66));
   return boundView({scale,x:size.width*(size.width<700?.5:.46)-p.x*scale,y:size.height*(size.width<700?.30:.40)-p.y*scale},size);
 }

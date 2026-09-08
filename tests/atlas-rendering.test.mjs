@@ -12,7 +12,22 @@ const {createFrameQueue,zoomDetail,wheelPixels}=await load('frame-queue');
 const {renderAtlasPainting}=await load('painting');
 const {renderMapLabels}=await load('map-labels');
 const {places}=await load('places');
-const {mapPlaces}=await load('map-view');
+const {mapPlaces,homeView,placeView,zoomView,boundView,MAP_WIDTH,MAP_HEIGHT}=await load('map-view');
+
+await test('the whole atlas fits between the header and dock and detail zoom stays within the painting limit',()=>{
+  for(const size of [{width:390,height:844},{width:828,height:755},{width:1440,height:900}]){
+    const home=homeView(size);
+    assert.ok(home.x>=20);
+    assert.ok(home.x+MAP_WIDTH*home.scale<=size.width-20);
+    assert.ok(home.y>=100);
+    assert.ok(home.y+MAP_HEIGHT*home.scale<=size.height-(size.width<650?205:232));
+    assert.equal(boundView({...home,scale:10},size).scale,.9);
+    for(const id of Object.keys(mapPlaces))assert.ok(placeView(id,size).scale<=.8);
+    const anchor={x:size.width*.5,y:size.height*.5};
+    const atLimit=boundView({x:-1200,y:-1200,scale:.9},size);
+    assert.deepEqual(zoomView(atLimit,size,3,anchor),atLimit,'Extra zoom at the limit must not move the camera');
+  }
+});
 
 await test('camera labels stay on device pixels and unchanged frames do not rewrite their styles',()=>{
   const writes=[];

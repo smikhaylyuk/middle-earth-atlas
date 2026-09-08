@@ -6,11 +6,11 @@ Geographic authority: Christopher Tolkien, *The West of Middle-earth at the End 
 
 The reference crop is source x=1050, y=400, width=1050, height=750, from a 3840×2931 image. Within it: Bree (181,408); Weathertop (366,372); Last Bridge (589,366); Ford (774,396); Rivendell (809,378). The Weather Hills extend north from Weathertop. East Road passes south of it. Last Bridge crosses Hoarwell west of Trollshaws. Two upper Bruinen streams join southwest of Rivendell, with the Ford just downstream. Bruinen joins Hoarwell farther southwest at roughly (553,590).
 
-The expanded world is 3700×1940. `lib/atlas/world.ts` places the original 1500×1000 eastern sheet at x=1000. Keep its artwork and interaction geometry aligned through `lib/atlas/illustration.ts`; those local coordinates are unchanged. `lib/atlas/western-illustration.ts` uses the western sheet's 1500×1000 display plane. All are illustration coordinates rather than geographic coordinates. Any different artwork requires re-aligning pins, lights, smoke, moving water and road overlays together.
+The expanded world is 3700×2800. `lib/atlas/world.ts` places the original 1500×1000 eastern sheet at x=1000. Keep its artwork and interaction geometry aligned through `lib/atlas/illustration.ts`; those local coordinates are unchanged. `lib/atlas/western-illustration.ts` uses the western sheet's 1500×1000 display plane. All are illustration coordinates rather than geographic coordinates. Any different artwork requires re-aligning pins, lights, smoke, moving water and road overlays together.
 
 The user chose regional expansion before further landmark detail: extend west through the Shire to the Grey Havens. A future “look closer” should reveal a whole town, then individual buildings. Retain the existing Prancing Pony study without presenting it as a complete view of Bree. This revision adds no new interior/town screens.
 
-The western painting is `public/images/eriador-west.jpg`, generated once from the approved eastern painting and the published map as references. A shaped feather joins it near Bree and extends farther east in the south to keep the painted Brandywine intact without exposing a second river underneath. The original Bree, Weathertop, Rivendell, Last Bridge, and corrected Bruinen ford remain on the eastern sheet. All, West, East, South and Anduin controls frame the expanded geography; smaller labels appear as the viewer zooms in. The latest expansion initially frames the Anduin valley; All returns to the complete atlas.
+The western painting is `public/images/eriador-west.jpg`, generated once from the approved eastern painting and the published map as references. A shaped feather joins it near Bree and extends farther east in the south to keep the painted Brandywine intact without exposing a second river underneath. The original Bree, Weathertop, Rivendell, Last Bridge, and corrected Bruinen ford remain on the eastern sheet. All, West, East, South, Anduin and Rohan controls frame the expanded geography; smaller labels appear as the viewer zooms in. The latest expansion initially frames Rohan; All returns to the complete atlas.
 
 Western relationships checked: the Grey Havens occupy opposing shores of a gulf opening west; the Lhûn and Brandywine have separate drainage; the Brandywine emerges from Lake Evendim and crosses the East Road at a bridge north of Old Forest. Hobbiton's selected village symbol is north of the East Road and west/north of the bridge; Michel Delving is southwest of Hobbiton. The road highlight is geographic guidance, not Frodo's outward route: he used the ferry. New place notes have no invented journey dates.
 
@@ -103,3 +103,40 @@ The painting brings the Entwash to the Anduin too close below Rauros. The easter
 ## Rendering without changing the map
 
 The September 2026 navigation fix precomposes the approved sheets, the eastern ford correction patches, their overlaps and outer feathering. `scripts/bake-atlas.mjs` records these placements. A viewport-sized canvas displays the resulting painting; separate precomputed alpha masks constrain the atmosphere to the visible portion of each sheet. All place coordinates and lore notes remain unchanged. This avoids recalculating large SVG masks around the painted background while zooming.
+
+
+## Presentation polish review — September 2026
+
+Expansion is paused for a presentation pass. The runtime painting is now
+`public/images/atlas-painted-polished.webp`, baked from the same five approved
+regional sources and the two bounded Bruinen corrections. The earlier
+`atlas-painted.webp` is retained. Only the southern sheet's existing overlap
+with Rohan changes: its fade now uses world y=1800–1940, rather than y=1840–1940.
+Source positions, crop endpoints, river paths, settlement anchors and the
+southeastern exclusion remain unchanged. The corresponding atmosphere masks
+are rebaked together so that paint and effects share the same blend.
+
+A single built-in ImageGen restoration was reviewed and rejected. Its prompt
+requested preservation of the frame, shorelines, rivers, mountains, forests and
+settlements while simplifying repetitive texture and harmonizing the regional
+paintings. The result was 1441×1091 RGB, included painted transparency checks,
+altered buildings, and broke the lower Anduin connection. Even the open-terrain
+crop changed incidental paths and was too soft. No pixels from this edit are
+included in the atlas.
+
+The presentation pass reduces label halos and title sizes, shows secondary
+pin captions only for the selected place, softens moving water and settlement
+light bloom, and starts with subtle ambient motion. The dynamic clock and the
+lively setting remain available. Place focus now frames surrounding terrain
+at 0.66–0.8 world scale; gesture zoom stops at 0.9 on ordinary viewports.
+The complete-atlas camera reserves space for the header and place dock so
+Rohan is no longer covered at overview. Fixed controls retain their separate
+rendering subtree from the preceding flicker investigation.
+
+Remaining artwork work, before further expansion: repetitive woodland forms
+and merged roof/rock detail need local, geographically constrained retouching.
+Regional color differences are still visible; the longer seam feather only
+softens their transition. Do not claim this presentation pass replaces or
+fully restores the underlying paintings. Any future retouch must preserve the
+existing river topology and landmarks, then pass the region-specific checks
+above before replacing an asset.

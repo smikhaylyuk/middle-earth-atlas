@@ -5,10 +5,14 @@
 .expanded-atlas .map-content{mask-image:none;will-change:auto;transform:none}
 .eastern-sheet,.western-sheet,.southern-sheet,.anduin-sheet,.rohan-sheet{mask-size:100% 100%;mask-repeat:no-repeat;mask-composite:add}
 
-/* Keep overlays in ordinary viewport painting. Forced GPU promotion competes
-   with masked atmosphere surfaces and can make unrelated text tiles flash. */
+/* Lighting, masks, and camera layout are confined to the map subtree. The HUD
+   is a sibling, so it never inherits the map's changing lighting properties. */
+.atlas-shell{position:relative;width:100%;height:100svh;min-height:530px;overflow:hidden;isolation:isolate;color:#2c4236;font-family:'DM Sans',sans-serif}
+.atlas-shell>.living-atlas{position:absolute;inset:0;height:100%;min-height:0;contain:strict;z-index:0}
 .map-pins{contain:layout paint;isolation:isolate}
 .map-stage{-webkit-user-select:none;user-select:none}
-.atlas-interface{position:absolute;inset:0;z-index:5;pointer-events:none;isolation:isolate}
+.atlas-interface{position:absolute;inset:0;z-index:5;pointer-events:none;isolation:isolate;contain:layout style;transform:translateZ(0);backface-visibility:hidden;will-change:transform}
 .atlas-interface :is(.day-cycle-panel,.journey-dock,.atlas-folio){pointer-events:auto}
 .atlas-interface button{transition-property:color,background-color,border-color,box-shadow,opacity}
+@media(max-width:600px){.atlas-shell{min-height:540px}}
+@media(max-height:560px){.atlas-shell{min-height:0}}

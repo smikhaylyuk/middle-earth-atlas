@@ -50,7 +50,7 @@ export default function LivingAtlas(){
   const navigating=useRef(false),settleTimer=useRef<ReturnType<typeof setTimeout>|null>(null);
   const regionNavigation=useRef<HTMLElement>(null);
   const reduced=useSyncExternalStore(subscribeMotion,motionSnapshot,()=>false);
-  const [selected,setSelected]=useState<PlaceId|null>(null),[intensity,setIntensity]=useState<MotionIntensity>('lively'),[route,setRoute]=useState(true),[motion,setMotion]=useState<boolean|null>(null);
+  const [selected,setSelected]=useState<PlaceId|null>(null),[intensity,setIntensity]=useState<MotionIntensity>('subtle'),[route,setRoute]=useState(true),[motion,setMotion]=useState<boolean|null>(null);
   const [ready,setReady]=useState(false),[failed,setFailed]=useState(false),[dragging,setDragging]=useState(false);
   const [breeDetail,setBreeDetail]=useState<BreeDetail|null>(null);
   const [region,setRegion]=useState<RegionId|null>('all');
@@ -64,6 +64,7 @@ export default function LivingAtlas(){
   const {root,hour,displayHour,cycleEnabled,cycleDuration,setTime,setCycle,setDuration,holdForNavigation}=useDayCycle(running,visible,navigating);
   const beginNavigation=useCallback(()=>{
     if(settleTimer.current!==null)clearTimeout(settleTimer.current);
+    if(navigating.current)return;
     navigating.current=true;
     holdForNavigation(true);
   },[holdForNavigation]);
@@ -137,7 +138,7 @@ export default function LivingAtlas(){
     }else paint(boundView({...view.current,x:view.current.x+event.clientX-previous.x,y:view.current.y+event.clientY-previous.y},size.current));
   }
   function pointerUp(event:ReactPointerEvent<HTMLDivElement>){pointers.current.delete(event.pointerId);if(!pointers.current.size){setDragging(false);settleNavigation();}}
-  return <main ref={root} className={`living-atlas has-day-cycle expanded-atlas ${selected?'is-focused':''} ${running?'is-living':'is-still'} ${!visible?'is-asleep':''} motion-${intensity}`} aria-label="Eriador living illustrated atlas">
+  return <div className="atlas-shell"><main ref={root} className={`living-atlas has-day-cycle expanded-atlas ${selected?'is-focused':''} ${running?'is-living':'is-still'} ${!visible?'is-asleep':''} motion-${intensity}`} aria-label="Eriador living illustrated atlas">
     {/* eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions, jsx-a11y/no-noninteractive-tabindex -- This composite map application implements pointer and keyboard navigation. */}
     <div className={`map-stage ${dragging?'is-dragging':''}`} ref={stage} role="application" aria-label="Interactive map. Drag to pan, scroll or pinch to zoom. Arrow keys pan; plus and minus zoom." tabIndex={0} onPointerDown={pointerDown} onPointerMove={pointerMove} onPointerUp={pointerUp} onPointerCancel={pointerUp} onLostPointerCapture={pointerUp} onKeyDown={event=>{
       const delta=45,moves:Record<string,[number,number]>={ArrowLeft:[delta,0],ArrowRight:[-delta,0],ArrowUp:[0,delta],ArrowDown:[0,-delta]};
@@ -151,7 +152,8 @@ export default function LivingAtlas(){
       <AtlasLabels ref={labels} selected={selected} onSelect={focus}/>
     </div>
     <div className="map-vignette"/>
-    <div className="atlas-interface">
+    </main>
+    <div className={`atlas-interface has-day-cycle expanded-atlas ${selected?'is-focused':''}`}>
     <header className="living-header"><div className="living-brand"><Image src={assetPath('/favicon.svg')} width={36} height={36} alt="" unoptimized/><div><span className="atlas-kicker">A living atlas of Middle-earth</span><h1>Eriador</h1></div></div><div className="atmosphere-controls"><Button variant="ghost" className="life-control intensity-control" aria-label="Lively map motion" aria-pressed={intensity==='lively'} title="Switch between lively and subtle motion" onClick={()=>setIntensity(intensity==='lively'?'subtle':'lively')}><Wind size={15}/><span>{intensity==='lively'?'Lively':'Subtle'}</span></Button><Button variant="ghost" className="life-control" aria-label={running?'Pause all map motion':'Play all map motion'} aria-pressed={running} onClick={()=>setMotion(!running)}>{running?<Pause size={14}/>:<Play size={14}/>}<span>{running?'Pause map':'Motion paused'}</span></Button></div></header>
     <section className="day-cycle-panel" aria-label="Dynamic day and night cycle">
       <div className="cycle-heading"><div><span className="cycle-status">{cycleEnabled&&running?'Day cycle':'Time held'}</span><strong>{phase}<span>{clockLabel(displayHour)}</span></strong></div><Button variant="ghost" className="cycle-speed" aria-label={`Cycle speed ${120/cycleDuration} times. Change speed.`} onClick={()=>setDuration(cycleDuration===120?60:cycleDuration===60?30:120)}>{120/cycleDuration}×</Button><Button variant="ghost" size="icon" className="cycle-play" aria-label={cycleEnabled&&running?'Pause day cycle':'Play day cycle'} aria-pressed={cycleEnabled&&running} onClick={()=>{if(!running){setMotion(true);setCycle(true);}else setCycle(!cycleEnabled);}}>{cycleEnabled&&running?<Pause size={14}/>:<Play size={14}/>}</Button></div>
@@ -160,7 +162,6 @@ export default function LivingAtlas(){
     </section>
     <div className="map-edition"><span>WESTERN MIDDLE-EARTH</span><i/>Late Third Age · From Lindon to Rohan</div>
     <div className="paper-compass" aria-hidden="true"><span>N</span><Compass size={40} strokeWidth={.75}/></div>
-    <div className="journey-caption"><span className="caption-line"/><span>There is a road beyond every familiar place.</span></div>
     <aside className="journey-dock" aria-label="Explore Eriador"><div className="dock-heading"><h2>Explore the atlas</h2><nav ref={regionNavigation} className="region-controls" aria-label="Map regions">{(Object.keys(regionLabels) as RegionId[]).map(id=><Button key={id} variant="ghost" aria-label={regionLabels[id].description} aria-pressed={region===id} onClick={()=>frameRegion(id)}>{regionLabels[id].label}</Button>)}</nav><button aria-label="Show illustrated roads" aria-pressed={route} onClick={()=>setRoute(!route)} className="route-control"><Route size={14}/><span>Road</span><i/></button></div><nav className="journey-stops" aria-label="Choose a place">{dockPlaces.map(p=><button key={p.id} className="journey-stop" aria-pressed={selected===p.id} onClick={()=>focus(p.id)}><span><strong>{p.name}</strong><small>{p.pinSubtitle}</small></span><ArrowRight size={15}/></button>)}</nav></aside>
     {place&&<article className="atlas-folio" key={place.id} aria-live="polite"><Button variant="ghost" className="folio-close" size="icon" aria-label="Close place details" onClick={()=>setSelected(null)}><X size={16}/></Button><span className="folio-kicker">{place.kind}</span><h2>{place.name}</h2><p className="folio-subtitle">{place.subtitle}</p>{place.id==='bree'&&<Button className="bree-invitation" onClick={()=>exploreBree('prancing-pony')} aria-haspopup="dialog"><div><small>At the inn</small><span>The Prancing Pony</span></div><ArrowRight size={20}/></Button>}<p className="folio-description">{place.description}</p>{place.date&&<div className="folio-date"><Clock3 size={13}/>{place.date}</div>}<a className="folio-source" href={place.source} target="_blank" rel="noreferrer">{place.sourceLabel} ↗</a></article>}
     <footer className="living-footer"><span>Illustrated interpretation · Unofficial fan atlas</span><div className="map-gesture-hint">Drag to wander <i/> Scroll to look closer</div><div className="map-controls" aria-label="Map controls"><Button variant="ghost" size="icon" aria-label="Zoom in" onClick={()=>zoom(1.25)}><Plus size={17}/></Button><Button variant="ghost" size="icon" aria-label="Zoom out" onClick={()=>zoom(.8)}><Minus size={17}/></Button><span/><Button variant="ghost" size="icon" aria-label="Return to overview" onClick={overview}><Home size={16}/></Button></div></footer>
@@ -168,5 +169,5 @@ export default function LivingAtlas(){
     <BreeDiscovery detail={breeDetail} onDetail={exploreBree} hour={displayHour} cyclePlaying={cycleEnabled&&running} motionEnabled={running} onTime={value=>{setTime(value);setCycle(false);}} onPlayCycle={()=>{if(!running){setMotion(true);setCycle(true);}else setCycle(!cycleEnabled);}} onPauseMotion={()=>setMotion(!running)}/>
     {(!ready)&&!failed&&<output className="map-loading"><Compass size={36} strokeWidth={.7}/><span>Unfolding the map…</span></output>}
     {failed&&<div className="map-failure" role="alert"><h2>The map couldn’t load.</h2><p>Please refresh to try again.</p><Button onClick={()=>window.location.reload()}>Try again</Button></div>}
-  </main>;
+  </div>;
 }

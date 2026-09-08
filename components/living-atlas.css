@@ -15,7 +15,7 @@
 .river-underlight{opacity:.19;mix-blend-mode:screen;animation:water-light 8s ease-in-out infinite}
 .river-current{opacity:.43;stroke-linecap:round;animation:water-flow 16s linear infinite}
 @keyframes water-flow{to{stroke-dashoffset:-208}}
-@keyframes water-light{0%,100%{opacity:.12}50%{opacity:.37}}
+@keyframes water-light{0%,100%{opacity:.05}50%{opacity:.12}}
 .route-shadow{stroke:#4e4929;opacity:.19;stroke-linecap:round;stroke-linejoin:round}
 .journey-ink{stroke:#dfbf72;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:1;stroke-dashoffset:0;animation:draw-road 5s cubic-bezier(.22,.61,.36,1) both;filter:drop-shadow(0 1px 1px #67522666)}
 .journey-dashes{stroke:#f9ecc7;opacity:.8;stroke-linecap:round}
@@ -43,13 +43,15 @@
 .is-still .journey-ink{animation:none;stroke-dashoffset:0}
 .is-still .traveller{display:none}
 .map-pins{position:absolute;inset:0;pointer-events:none;overflow:hidden;z-index:3}
-.map-pin{position:absolute;left:0;top:0;padding:0 10px 7px;display:flex;align-items:center;flex-direction:column;background:transparent;border:0;color:#263b2e;pointer-events:auto;white-space:nowrap;visibility:hidden;transform:translate(-50%,20px);text-shadow:0 1px 2px #f1e5c9,0 0 8px #f1e5c9,0 0 19px #f1e5c9;cursor:pointer}
+.map-pin{position:absolute;left:0;top:0;padding:0 10px 7px;min-height:34px;display:flex;align-items:center;flex-direction:column;background:transparent;border:0;color:#263b2e;pointer-events:auto;white-space:nowrap;visibility:hidden;transform:translate(-50%,20px);text-shadow:0 1px 1px #eee4cc,0 0 5px #eee4cccc;cursor:pointer}
 .pin-stem{height:14px;width:1px;background:#34483280;position:absolute;top:-17px}
 .pin-stem::before{content:'';position:absolute;width:4px;height:4px;left:-1.5px;top:-2px;transform:rotate(45deg);background:#d3bc76;border:1px solid #4c593ccc;box-shadow:0 0 0 3px #eee1b733}
-.pin-title{font:600 29px/1.05 'Cormorant Garamond',Georgia,serif;letter-spacing:.5px}
-.pin-subtitle{font:italic 15px/1.4 'Cormorant Garamond',Georgia,serif;color:#4c604b}
+.pin-title{font:600 24px/1.1 'Cormorant Garamond',Georgia,serif;letter-spacing:.3px}
+.pin-subtitle{display:none;font:italic 14px/1.4 'Cormorant Garamond',Georgia,serif;color:#4c604b}
+.map-pin[aria-pressed=true] .pin-subtitle{display:block}
+.map-pin:focus-visible{outline:1px solid #745b2d;outline-offset:3px;border-radius:3px;background:#eee4ccd9}
 .map-pin:hover .pin-title,.map-pin[aria-pressed=true] .pin-title{color:#8a6025}
-.map-pin[aria-pressed=true] .pin-stem::before{box-shadow:0 0 0 5px #f5dda64d,0 0 18px 3px #ffedb8a6}
+.map-pin[aria-pressed=true] .pin-stem::before{box-shadow:0 0 0 4px #f5dda670}
 .living-header{position:absolute;top:34px;left:36px;right:36px;z-index:5;display:flex;align-items:flex-start;justify-content:space-between;gap:18px;pointer-events:none}
 .living-brand{display:flex;gap:13px;align-items:center;text-shadow:0 1px 15px #eee4c9;pointer-events:auto}
 .living-brand>img{opacity:.88;width:38px;height:38px;box-shadow:0 1px 15px #ede4ca55;border-radius:9px}
@@ -121,11 +123,11 @@
 .map-night-wash{position:absolute;inset:0;background:#133955;mix-blend-mode:color;opacity:calc(var(--day-night) * .75);mask-image:radial-gradient(ellipse,#000 45%,transparent 78%)}
 .has-day-cycle .map-vignette{background:linear-gradient(to bottom,#e7dec555,transparent 150px,transparent 65%,#d8caac55)}
 .has-day-cycle .map-vignette::before{content:'';position:absolute;inset:0;background:#0b2030;opacity:calc(var(--day-night) * .14)}
-.has-day-cycle .settlement-light{width:4px;height:4px;opacity:calc(.08 + var(--day-night) * .92 + var(--day-warmth) * .5);box-shadow:0 0 7px 3px #ffd18bbb,0 0 25px 8px #efa84677}
+.has-day-cycle .settlement-light{width:3px;height:3px;opacity:calc(.02 + var(--day-night) * .8 + var(--day-warmth) * .2);box-shadow:0 0 5px 2px #ffd18ba6,0 0 13px 4px #efa84644}
 .has-day-cycle .valley-mists{opacity:calc(var(--day-mist) * var(--life-strength))}
 .has-day-cycle .valley-mist{animation-duration:34s;filter:blur(10px)}
-.has-day-cycle .river-current{stroke-width:2.4;opacity:.65;animation-duration:10s}
-.has-day-cycle .river-underlight{stroke-width:5}
+.has-day-cycle .river-current{stroke-width:1.4;opacity:.26;animation-duration:18s;stroke-linejoin:round}
+.has-day-cycle .river-underlight{stroke-width:3}
 .has-day-cycle .traveller{animation-duration:52s;animation-delay:-10s}
 .has-day-cycle .traveller-halo{width:27px;height:27px;left:-13.5px;top:-13.5px}
 .has-day-cycle.is-still .traveller{display:block}

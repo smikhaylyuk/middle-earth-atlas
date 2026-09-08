@@ -12,7 +12,7 @@
 .pin-overview-name{display:none}
 .expanded-atlas .pin-minor .pin-title{font-size:20px}
 .expanded-atlas .pin-minor .pin-subtitle{font-size:13px}
-.map-pins[data-density=overview] .pin-title{font-size:22px}
+.map-pins[data-density=overview] .pin-title{font-size:20px}
 .map-pins[data-density=overview] .pin-full-name,.map-pins[data-density=overview] .pin-subtitle{display:none}
 .map-pins[data-density=overview] .pin-overview-name{display:inline}
 .expanded-atlas .journey-dock{width:min(840px,calc(100% - 68px));max-width:none}
@@ -28,7 +28,8 @@
 .expanded-atlas .journey-stop>svg{width:13px;flex-shrink:0}
 .expanded-atlas .journey-caption{bottom:229px}
 .expanded-atlas .route-control{font-size:14px}
-.expanded-atlas .atlas-folio{max-height:calc(100% - 410px);overflow:auto}
+.expanded-atlas .atlas-folio{max-height:calc(100% - 460px);overflow:auto;scrollbar-width:thin;scrollbar-color:#8c967b66 transparent}
+.is-focused .cycle-phase-buttons{display:none}
 @media(min-width:1201px){.expanded-atlas .atlas-folio{bottom:232px;max-height:calc(100% - 470px)}}
 @media(max-width:800px){.expanded-atlas .journey-dock{left:23px;width:calc(100% - 46px)}.expanded-atlas .dock-heading{gap:12px}.expanded-atlas .dock-heading h2{font-size:21px}.region-controls button{padding:0 10px}.expanded-atlas .journey-stop{min-width:119px}.expanded-atlas .journey-stop strong{font-size:23px}.expanded-atlas .journey-stop>svg{display:none}}
 @media(max-width:600px){.expanded-atlas .journey-dock{left:14px;width:calc(100% - 28px)}.expanded-atlas .dock-heading{padding:8px 10px;gap:7px}.expanded-atlas .dock-heading h2{display:none}.region-controls{margin-right:auto}.region-controls button{height:31px;font-size:14px;padding:0 11px}.expanded-atlas .journey-stops{padding:6px;gap:4px}.expanded-atlas .journey-stop{min-width:113px;display:flex;flex:0 0 auto;text-align:left;padding:9px 10px}.expanded-atlas .journey-stop strong{font-size:23px}.expanded-atlas .journey-stop small{font-size:12px}.expanded-atlas .route-control{font-size:14px}.map-pins[data-density=overview] .pin-title{font-size:17px}.map-pins[data-density=overview] .map-pin{padding:0 2px 7px}.map-pins[data-density=overview] .pin-stem{height:9px;top:-12px}.expanded-atlas .atlas-folio{bottom:207px;max-height:calc(100% - 385px)}}

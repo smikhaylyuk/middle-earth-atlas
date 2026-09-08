@@ -11,7 +11,9 @@ const intersect=async (a,b)=>sharp(a).composite([{input:b,blend:'dest-in'}]).png
 const masks={
   rohan:await sharp(svg(3700,1000,`<defs><filter id="f" filterUnits="userSpaceOnUse" x="-100" y="-100" width="3900" height="1200"><feGaussianBlur stdDeviation="14"/></filter></defs><path fill="white" filter="url(#f)" d="M-100 -100H3800V780H3510L3130 900L3020 1100H-100Z"/>`)).png().toBuffer(),
   anduin:await sharp(fade(1500,1940,'y',[[0,1],[1800/1940,1],[1,0]])).png().toBuffer(),
-  south:await intersect(fade(2500,1140,'x',[[0,1],[.9,1],[.952,0],[1,0]]),fade(2500,1140,'y',[[0,1],[1040/1140,1],[1,0]])),
+  // Use the full existing 140-unit overlap with Rohan. Neither painting moves,
+  // and the fade still ends at the approved geographic crop at y=1940.
+  south:await intersect(fade(2500,1140,'x',[[0,1],[.9,1],[.952,0],[1,0]]),fade(2500,1140,'y',[[0,1],[1000/1140,1],[1,0]])),
   east:await intersect(fade(1500,1000,'x',[[0,1],[.88,1],[1,0]]),fade(1500,1000,'y',[[0,1],[.86,1],[1,0]])),
   west:await intersect(svg(1500,1000,`<defs><filter id="f" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="12"/></filter></defs><path fill="white" filter="url(#f)" d="M-100 -100H1150L1170 450L1190 520L1310 660L1445 900L1490 1100H-100Z"/>`),fade(1500,1000,'y',[[0,1],[.86,1],[1,0]])),
 };
@@ -39,7 +41,7 @@ const sheets=[
 let painting=await transparent(width,height).png().toBuffer();
 for(const s of sheets)painting=await sharp(painting).composite([{input:await intersect(s.paint,masks[s.id]),left:s.x,top:s.y}]).png().toBuffer();
 await mkdir('public/images/atlas-masks',{recursive:true});
-await sharp(await intersect(painting,whole)).webp({quality:94,alphaQuality:100,effort:6}).toFile('public/images/atlas-painted.webp');
+await sharp(await intersect(painting,whole)).webp({quality:94,alphaQuality:100,effort:6}).toFile('public/images/atlas-painted-polished.webp');
 // Each atmosphere layer gets only the portion visible above later paintings.
 let cover=await transparent(width,height).png().toBuffer();
 for(const s of [...sheets].reverse()){
