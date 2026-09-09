@@ -15,6 +15,10 @@ export function homeView(size:MapSize):MapView{
 }
 export function regionView(region:RegionId,size:MapSize):MapView{
   if(region==='all')return homeView(size);
+  if(region==='gondor'){
+    const scale=Math.max(.24,Math.min((size.width-64)/1780,(size.height-235)/1400));
+    return boundView({scale,x:size.width*.5-4050*scale,y:size.height*.43-3710*scale},size);
+  }
   if(region==='mordor'){
     const scale=Math.max(.24,Math.min((size.width-64)/1530,(size.height-235)/1330));
     return boundView({scale,x:size.width*.5-5320*scale,y:size.height*.43-3630*scale},size);

@@ -4,6 +4,7 @@ import layout from '../lib/atlas/rauros-layout.json' with {type:'json'};
 import {harmonizeAtlas} from './harmonize-atlas.mjs';
 import {extendMorannon} from './extend-morannon.mjs';
 import {extendMordor} from './extend-mordor.mjs';
+import {extendGondor} from './extend-gondor.mjs';
 
 const clamp=n=>Math.max(0,Math.min(1,n));
 const smooth=n=>{const t=clamp(n);return t*t*(3-2*t);};
@@ -47,4 +48,5 @@ export async function extendAtlas(){
   await harmonizeAtlas();
   await extendMorannon();
   await extendMordor();
+  await extendGondor();
 }

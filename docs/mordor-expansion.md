@@ -52,7 +52,8 @@ painting is then composited above it, protecting all previous opaque pixels.
   mountain spur to the Dark Tower’s foundation.
 - `public/images/repairs/isenmouthe-earthwork.webp`: the low barrier and dry
   crossing at the southern end of Udûn.
-- `public/images/atlas-mordor.webp`: displayed 6030 × 4330 atlas.
+- `public/images/atlas-mordor.webp`: this stage’s 6030 × 4330 atlas,
+  preserved by the subsequent [Gondor expansion](gondor-expansion.md).
 
 The original generated plate relocated the Gate and left the Tower’s rocky
 base detached from Ered Lithui. Coordinate registration and the two explicit
@@ -62,8 +63,8 @@ Sauron’s Road is a checked map annotation from the Tower’s western gate to
 Orodruin’s eastern approach, using the existing road layer and highlight control.
 Exact generation prompts are retained in `mordor-artwork-prompts.md`.
 
-`scripts/extend-mordor.mjs` runs after `extend-morannon.mjs` at the end of
-`npm run build:atlas`. The new regional alpha belongs only to uncovered
+`scripts/extend-mordor.mjs` runs after `extend-morannon.mjs` and before
+`extend-gondor.mjs` in `npm run build:atlas`. The new regional alpha belongs only to uncovered
 terrain. Atmospheric effects continue on the same viewport canvas and clock;
 the volcano’s gentle smoke uses the existing smoke renderer. No new river,
 water grid classification, ocean treatment or camera layer is introduced.

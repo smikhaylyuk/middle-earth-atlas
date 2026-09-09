@@ -6,6 +6,7 @@ import { rohanRivers, rohanMist, rohanFlocks, rohanLights } from './rohan-illust
 import rauros from './rauros-layout.json';
 import morannon from './morannon-layout.json';
 import mordor from './mordor-layout.json';
+import gondor from './gondor-layout.json';
 
 type Point={x:number;y:number};
 type Flock={path:string;duration:number;delay:number};
@@ -35,6 +36,12 @@ export const sceneRegions:SceneRegion[]=[
   {id:'morannon',x:morannon.x,y:morannon.y,width:morannon.width,height:morannon.height,rivers:'',roads:[],lights:[],chimneys:[],
     mist:[{x:470,y:410,w:250,h:65,delay:-13},{x:680,y:650,w:240,h:60,delay:-39}],flocks:[],
     labels:[{x:1330,y:1130,text:'ERED LITHUI',kind:'mountain',size:18,angle:9}],
+  },
+  {id:'gondor',x:gondor.x,y:gondor.y,width:gondor.width,height:gondor.height,
+    rivers:gondor.anduin.map(points=>points.map(([x,y],i)=>`${i?'L':'M'}${x-gondor.x} ${y-gondor.y}`).join(' ')).join(' '),roads:[],lights:[],chimneys:[],
+    mist:[{x:1400,y:1370,w:170,h:36,delay:-21}],
+    flocks:[{path:'M520 1530 C780 1150 1080 1020 1430 1230',duration:108,delay:-42}],
+    labels:[{x:610,y:815,text:'ANÓRIEN',size:27},{x:1530,y:740,text:'NORTH ITHILIEN',size:17,angle:63},{x:750,y:1640,text:'WHITE MOUNTAINS',kind:'mountain',size:18,angle:24}],
   },
   {id:'mordor',x:mordor.x,y:mordor.y,width:mordor.width,height:mordor.height,rivers:'',roads:[],lights:[],
     chimneys:[{x:mordor.crater.x-mordor.x,y:mordor.crater.y-mordor.y}],

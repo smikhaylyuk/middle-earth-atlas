@@ -172,6 +172,26 @@ export const places = [
     description:'Sauron’s fortress stands on the end of a long southwestern spur of the Ash Mountains, east of Mount Doom. Its western road leads to the volcano; another runs northwest toward Udûn and the Black Gate. The tower is shown intact, before the downfall of Sauron.',
     date:null,region:'mordor',major:true,source:'https://tolkiengateway.net/wiki/Barad-d%C3%BBr',sourceLabel:'Book VI, ch. 3 · Mount Doom · Published map',
   },
+  {
+    id:'cair-andros',name:'Cair Andros',overviewLabel:'Cair Andros',kind:'The Ship of Long-foam',pinSubtitle:'The island crossing',subtitle:'Between two arms of the Anduin',
+    description:'A long wooded island divides the Anduin east of Anórien. Its northern rocks split the current like a ship’s prow. Gondor guards this crossing north of Minas Tirith; the two channels remain open around the island.',
+    date:null,region:'gondor',major:true,source:'https://tolkiengateway.net/wiki/Cair_Andros',sourceLabel:'The Return of the King · The Siege of Gondor · Published map',
+  },
+  {
+    id:'henneth-annun',name:'Henneth Annûn',overviewLabel:'Henneth Annûn',kind:'The Window on the West',pinSubtitle:'North Ithilien',subtitle:'A refuge concealed behind falling water',
+    description:'Northeast of Cair Andros, a west-facing waterfall hides a cave used by the Rangers of Ithilien. The water falls into a shaded pool below. Faramir brings Frodo and Sam to this secret refuge, hidden in the wooded country west of Mordor.',
+    date:null,region:'gondor',major:true,source:'https://tolkiengateway.net/wiki/Henneth_Ann%C3%BBn',sourceLabel:'Book IV, ch. 5–6 · The Window on the West · The Forbidden Pool',
+  },
+  {
+    id:'druadan-forest',name:'Drúadan Forest',overviewLabel:'Drúadan Forest',kind:'The woods of the Drúedain',pinSubtitle:'Anórien',subtitle:'Beneath the northeastern White Mountains',
+    description:'The Drúadan Forest lies west of the Anduin, near the eastern end of the White Mountains. The Great West Road skirts its northern edge. These woods are home to the Drúedain, whose leader Ghân-buri-Ghân guides the Rohirrim through the hills.',
+    date:null,region:'gondor',major:true,source:'https://tolkiengateway.net/wiki/Dr%C3%BAadan_Forest',sourceLabel:'Book V, ch. 5 · The Ride of the Rohirrim · Published map',
+  },
+  {
+    id:'amon-din',name:'Amon Dîn',overviewLabel:'Amon Dîn',kind:'The easternmost beacon',pinSubtitle:'The Silent Hill',subtitle:'A watch above the eastern edge of the woods',
+    description:'Amon Dîn stands east of the Drúadan Forest. It is the first of Gondor’s seven warning beacons when counted from Minas Tirith. The hill overlooks the northern approaches and the crossings of the Anduin; its beacon remains unlit in this view.',
+    date:null,region:'gondor',major:false,source:'https://tolkiengateway.net/wiki/Amon_D%C3%AEn',sourceLabel:'Unfinished Tales · Cirion and Eorl · Published map',
+  },
   ...easternPlaces.map(p=>({...p,...eastNotes[p.id],overviewLabel:p.id==='weathertop'?'Amon Sûl':p.name,region:'east' as const,major:true})),
 ] as const;
 export type PlaceId = typeof places[number]['id'];

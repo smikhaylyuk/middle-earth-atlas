@@ -3,7 +3,7 @@ import { mapPlaces, type MapView } from './map-view';
 import { zoomDetail } from './frame-queue';
 
 export type LabelDetail = { names: boolean; major: boolean; minor: boolean };
-const overviewPlaces = new Set<PlaceId>(['grey-havens','bree','rivendell','tharbad','moria-west-gate','isengard','caras-galadhon','dol-guldur','gladden-fields','edoras','argonath','rauros','dead-marshes','black-gate','mount-doom','barad-dur']);
+const overviewPlaces = new Set<PlaceId>(['grey-havens','bree','rivendell','tharbad','moria-west-gate','isengard','caras-galadhon','dol-guldur','gladden-fields','edoras','argonath','rauros','dead-marshes','black-gate','mount-doom','barad-dur','cair-andros','henneth-annun']);
 
 // The camera owns label geometry. React owns their content and selection only.
 // Keep text on one viewport layer instead of promoting every moving button.
