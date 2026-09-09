@@ -6,7 +6,7 @@ import { renderAtlasPainting, lightAtlasPainting } from '@/lib/atlas/painting';
 import { loadCanvasScene, loadImage, drawCanvasScene, type CanvasScene } from '@/lib/atlas/canvas-scene';
 import { type MotionIntensity } from '@/lib/atlas/day-cycle';
 
-export type AtlasPaintingHandle={paint:(view:MapView,size:MapSize)=>void;diagnostics:()=>{renderer:string;frames:number;surfaceResizes:number;p95DrawMs:number;maxDrawMs:number;surfacePixels:number;animationSeconds:number;visibleBirds:number;waterHighlights:number}};
+export type AtlasPaintingHandle={paint:(view:MapView,size:MapSize)=>void;diagnostics:()=>{renderer:string;frames:number;surfaceResizes:number;p95DrawMs:number;maxDrawMs:number;surfacePixels:number;animationSeconds:number;visibleBirds:number;waterHighlights:number;shoreSegments:number}};
 type Props={onLoad:()=>void;onError:()=>void;hour:RefObject<number>;running:boolean;visible:boolean;intensity:MotionIntensity;route:boolean};
 
 // One opaque presentation surface. No live CSS masks, filters, blend layers,
@@ -16,7 +16,7 @@ export const AtlasPainting=memo(forwardRef<AtlasPaintingHandle,Props>(function A
   const assets=useRef<{image:HTMLImageElement;scene:CanvasScene}|null>(null);
   const camera=useRef<{view:MapView;size:MapSize}|null>(null),settings=useRef(props);
   useEffect(()=>{settings.current=props;},[props]);
-  const elapsed=useRef(0),measurements=useRef<number[]>([]),frames=useRef(0),resizes=useRef(0),lastScene=useRef(''),lastDraw=useRef(0),sceneCounts=useRef({visibleBirds:0,waterHighlights:0});
+  const elapsed=useRef(0),measurements=useRef<number[]>([]),frames=useRef(0),resizes=useRef(0),lastScene=useRef(''),lastDraw=useRef(0),sceneCounts=useRef({visibleBirds:0,waterHighlights:0,shoreSegments:0});
   const draw=useCallback(()=>{
     const element=canvas.current,current=camera.current,loaded=assets.current,back=buffer.current;
     if(!element||!current||!loaded||!back)return;

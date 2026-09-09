@@ -84,7 +84,7 @@ export const places = [
   },
   {
     id:'helms-deep',name:'Helm’s Deep',overviewLabel:'Helm’s Deep',kind:'A stronghold of the Westfold',pinSubtitle:'The Hornburg',subtitle:'A guarded gorge beneath the Thrihyrne',
-    description:'Helm’s Deep cuts into the northern White Mountains, southeast of the Fords of Isen. The Hornburg and the Deeping Wall defend its entrance. The Deeping-stream runs out of the gorge, while the Glittering Caves lie within the mountains behind the defences.',
+    description:'Helm’s Deep cuts into the northern White Mountains, southeast of the Fords of Isen. The Deeping-stream passes through the Deeping Wall and around the foot of the Hornburg. Its known course is shown within the gorge; its eventual confluence is not established in the published maps.',
     date:null,region:'rohan',major:true,source:'https://tolkiengateway.net/wiki/Helm%27s_Deep',sourceLabel:'Book III, ch. 7 · Helm’s Deep',
   },
   {

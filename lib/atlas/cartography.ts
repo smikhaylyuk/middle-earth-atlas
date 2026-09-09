@@ -6,7 +6,14 @@ import { westernRoad, westernSpur } from './western-illustration';
 export const cartographySources={
   general:'https://tolkiengateway.net/wiki/File:Christopher_Tolkien_-_The_West_of_Middle-earth.png',
   rohan:'https://tolkiengateway.net/wiki/File:Christopher_Tolkien_-_Map_of_Rohan,_Gondor,_and_Mordor.png',
+  shire:'https://tolkiengateway.net/wiki/File:Christopher_Tolkien_-_A_Part_of_the_Shire.jpg',
 };
+
+export const tributaryLabels=[
+  {text:'THE WATER',x:918,y:390,angle:0},
+  {text:'WITHYWINDLE',x:1158,y:656,angle:-27},
+  {text:'ADORN',x:1585,y:2310,angle:25},
+];
 export const roadNodes={
   havens:[435.55,538.09],shireJunction:[793.95,520.51],hobbiton:[804.69,369.14],
   bree:[1284.18,481.45],fordBruinen:[2035.16,595.7],

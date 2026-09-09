@@ -3,12 +3,13 @@ import { atmosphereAt, type MotionIntensity } from './day-cycle';
 import { sceneRegions, travellerPath, anduinJoinPath, type SceneRegion } from './scene-data';
 import { type MapSize, type MapView } from './map-view';
 import { cycleProgress, motionMetrics } from './motion';
-import { roadGuides, correctedRivers } from './cartography';
+import { roadGuides, correctedRivers, tributaryLabels } from './cartography';
+import { drawShoreWaves, type Shoreline } from './shore-waves';
 
 type Sample={x:number;y:number;alpha:number};
 type Track={points:Sample[];length:number};
 type Region=SceneRegion & {opacity:(x:number,y:number)=>number;water:Track[];roadTracks:Track[];birdTracks:Track[]};
-export type CanvasScene={regions:Region[];bird:HTMLImageElement;traveller:Track;join:Track;sea:(x:number,y:number)=>number;water:(x:number,y:number)=>number;roads:Track[];corrections:Track[]};
+export type CanvasScene={regions:Region[];bird:HTMLImageElement;traveller:Track;join:Track;sea:(x:number,y:number)=>number;water:(x:number,y:number)=>number;shore:Shoreline;roads:Track[];corrections:Track[]};
 export type SceneSettings={hour:number;elapsed:number;intensity:MotionIntensity;route:boolean};
 
 export const loadImage=(src:`/${string}`)=>new Promise<HTMLImageElement>((resolve,reject)=>{
@@ -52,10 +53,11 @@ export async function loadCanvasScene():Promise<CanvasScene>{
     if(region.id==='anduin'||region.id==='rohan')for(const t of water)for(const p of t.points)if(p.x>3200&&p.x<3460&&p.y>1780&&p.y<2040)p.alpha=0;
     return {...region,opacity,water,roadTracks:region.roads.flatMap(d=>paths(d).map(part=>samplePath(part,region.x,region.y,opacity))),birdTracks:region.flocks.map(f=>samplePath(f.path,region.x,region.y,opacity))};
   }));
-  const [sea,water]=await Promise.all([loadCoverage('sea'),loadCoverage('water')]);
+  const [sea,water,shore,tributaries]=await Promise.all([loadCoverage('sea'),loadCoverage('water'),fetch(assetPath('/images/atlas-masks/shoreline.json')).then(r=>{if(!r.ok)throw new Error('Could not load shoreline');return r.json() as Promise<Shoreline>;}),fetch(assetPath('/images/atlas-masks/tributaries.json')).then(r=>{if(!r.ok)throw new Error('Could not load watercourses');return r.json() as Promise<{points:[number,number][]}[]>;})]);
   const roads=roadGuides.flatMap(r=>paths(r.path).map(p=>samplePath(p,r.x??0,r.y??0,()=>1)));
   const corrections=Object.values(correctedRivers).map(p=>samplePath(p,0,0,()=>1));
-  return {regions,sea,water,roads,corrections,bird:await loadImage('/images/raven-overhead.png'),traveller:samplePath(travellerPath.path,travellerPath.x,travellerPath.y,()=>1),join:samplePath(anduinJoinPath,0,0,()=>1)};
+  for(const river of tributaries)corrections.push(samplePath(river.points.map(([x,y],i)=>`${i?'L':'M'}${x} ${y}`).join(' '),0,0,()=>1));
+  return {regions,sea,water,shore,roads,corrections,bird:await loadImage('/images/raven-overhead.png'),traveller:samplePath(travellerPath.path,travellerPath.x,travellerPath.y,()=>1),join:samplePath(anduinJoinPath,0,0,()=>1)};
 }
 
 function glow(ctx:CanvasRenderingContext2D,x:number,y:number,rx:number,ry:number,color:string,alpha:number){
@@ -113,6 +115,13 @@ export function drawCanvasScene(ctx:CanvasRenderingContext2D,scene:CanvasScene,v
   }
   waterHighlights+=currents(ctx,scene.join,time,metrics,scene.water);
   for(const track of scene.corrections)waterHighlights+=currents(ctx,track,time,metrics,scene.water);
+  const labelOpacity=Math.max(0,Math.min(1,(view.scale-.4)/.2));
+  if(labelOpacity>0)for(const label of tributaryLabels){
+    if(!inView(label.x,label.y))continue;
+    ctx.save();ctx.translate(label.x,label.y);ctx.rotate(label.angle*Math.PI/180);
+    ctx.font=`italic 500 ${Math.min(32,14/view.scale)}px "Cormorant Garamond", Georgia, serif`;ctx.textAlign='center';ctx.letterSpacing='1.6px';ctx.globalAlpha=.78*labelOpacity;
+    ctx.lineWidth=3;ctx.strokeStyle='#d8ceab';ctx.fillStyle='#354f48';ctx.strokeText(label.text,0,0);ctx.fillText(label.text,0,0);ctx.restore();
+  }
   // Open-water highlights use one coast mask; they never move across land.
   ctx.strokeStyle=a.night>.5?'#a9cbe2':'#e3eee3';ctx.lineWidth=Math.max(1,Math.min(4,.65/view.scale));
   for(let row=0;row<50;row++)for(let col=0;col<19;col++){
@@ -121,9 +130,10 @@ export function drawCanvasScene(ctx:CanvasRenderingContext2D,scene:CanvasScene,v
     ctx.globalAlpha=(.06+.17*Math.pow((Math.sin(time*1.1+col*2+row)+1)/2,2))*strength;
     ctx.beginPath();ctx.moveTo(x,y);ctx.quadraticCurveTo(x+18,y-3,x+38,y);ctx.stroke();waterHighlights++;
   }
+  const shoreSegments=drawShoreWaves(ctx,scene.shore,time,view,size,intensity,a.night,scene.water);
   // Weather coordinates span the atlas, not a separate field per painting.
   for(let i=0;i<4;i++){const x=((time*18+i*1100)%4500)-400,y=420+i*600+Math.sin(time/30+i)*60;glow(ctx,x,y,430,150,'#243d32',.18*(1-a.night)*strength);glow(ctx,x+210,y-40,270,100,'#243d32',.12*(1-a.night)*strength);}
   if(route){const p=trackPoint(scene.traveller,(time%65)/65);glow(ctx,p.x,p.y,13,13,'#f7d994',.5);ctx.globalAlpha=.7;ctx.fillStyle='#fff0bd';ctx.beginPath();ctx.arc(p.x,p.y,1.7,0,Math.PI*2);ctx.fill();}
   ctx.restore();
-  return {visibleBirds,waterHighlights};
+  return {visibleBirds,waterHighlights,shoreSegments};
 }

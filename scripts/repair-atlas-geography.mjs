@@ -54,6 +54,6 @@ export async function makeSeaMask(painting){
 export async function makeWaterMask(painting){
   const width=1850,height=1400,{data}=await sharp(painting).resize(width,height).ensureAlpha().raw().toBuffer({resolveWithObject:true});
   const mask=new Uint8Array(width*height);
-  for(let i=0;i<mask.length;i++){const p=i*4;if(data[p+3]>100&&data[p+1]>=data[p]+1&&data[p+2]>=data[p]-2)mask[i]=255;}
+  for(let i=0;i<mask.length;i++){const p=i*4;if(data[p+3]>100&&data[p+1]>=data[p]+1&&data[p+2]>=data[p]-16&&data[p+2]>=data[p+1]-22)mask[i]=255;}
   return sharp(mask,{raw:{width,height,channels:1}}).png().toBuffer();
 }
