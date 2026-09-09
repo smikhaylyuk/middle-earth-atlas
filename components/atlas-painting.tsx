@@ -42,7 +42,7 @@ export const AtlasPainting=memo(forwardRef<AtlasPaintingHandle,Props>(function A
   useEffect(()=>{
     let alive=true,frame=0,last=performance.now();
     buffer.current=document.createElement('canvas');
-    void Promise.all([loadImage('/images/atlas-cartographic.webp'),loadCanvasScene()]).then(([image,scene])=>{
+    void Promise.all([loadImage('/images/atlas-expanded.webp'),loadCanvasScene()]).then(([image,scene])=>{
       if(!alive)return;assets.current={image,scene};draw();settings.current.onLoad();
       void document.fonts.ready.then(()=>{if(alive)draw();});
     }).catch(()=>{if(alive)settings.current.onError();});
@@ -56,5 +56,5 @@ export const AtlasPainting=memo(forwardRef<AtlasPaintingHandle,Props>(function A
     frame=requestAnimationFrame(tick);
     return()=>{alive=false;cancelAnimationFrame(frame);assets.current=null;buffer.current=null;};
   },[draw]);
-  return <><link rel="preload" as="image" href={assetPath('/images/atlas-cartographic.webp')}/><canvas ref={canvas} className="atlas-painting" data-renderer="unified-canvas" aria-hidden="true"/></>;
+  return <><link rel="preload" as="image" href={assetPath('/images/atlas-expanded.webp')}/><canvas ref={canvas} className="atlas-painting" data-renderer="unified-canvas" aria-hidden="true"/></>;
 }));

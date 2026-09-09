@@ -1,4 +1,5 @@
 import { assetPath } from './asset-path';
+import { MAP_WIDTH, MAP_HEIGHT, BASE_MAP_WIDTH, BASE_MAP_HEIGHT } from './world';
 import { atmosphereAt, type MotionIntensity } from './day-cycle';
 import { sceneRegions, travellerPath, anduinJoinPath, type SceneRegion } from './scene-data';
 import { type MapSize, type MapView } from './map-view';
@@ -17,12 +18,12 @@ export const loadImage=(src:`/${string}`)=>new Promise<HTMLImageElement>((resolv
 });
 
 async function loadCoverage(name:'sea'|'water'){
-  const image=await loadImage(`/images/atlas-masks/${name}.png`),canvas=document.createElement('canvas');
+  const image=await loadImage(`/images/atlas-masks/${name==='water'?'expanded-water':name}.png`),canvas=document.createElement('canvas');
   const width=image.naturalWidth,height=image.naturalHeight;canvas.width=width;canvas.height=height;
   const ctx=canvas.getContext('2d',{willReadFrequently:true});if(!ctx)throw new Error('Canvas unavailable');
   ctx.drawImage(image,0,0);const rgba=ctx.getImageData(0,0,width,height).data,values=new Uint8Array(width*height);
   for(let i=0;i<values.length;i++)values[i]=rgba[i*4];canvas.width=canvas.height=1;
-  return (x:number,y:number)=>{const sx=Math.floor(x/3700*width),sy=Math.floor(y/2800*height);return sx<0||sy<0||sx>=width||sy>=height?0:values[sy*width+sx]/255;};
+  return (x:number,y:number)=>{const sx=Math.floor(x/(name==='water'?MAP_WIDTH:BASE_MAP_WIDTH)*width),sy=Math.floor(y/(name==='water'?MAP_HEIGHT:BASE_MAP_HEIGHT)*height);return sx<0||sy<0||sx>=width||sy>=height?0:values[sy*width+sx]/255;};
 }
 
 function samplePath(d:string,x:number,y:number,opacity:(x:number,y:number)=>number):Track{
@@ -38,7 +39,7 @@ export function trackPoint(track:Track,progress:number):Sample{
 }
 export async function loadCanvasScene():Promise<CanvasScene>{
   const regions=await Promise.all(sceneRegions.map(async region=>{
-    const image=await loadImage(`/images/atlas-masks/${region.id}.png`);
+    const image=await loadImage(`/images/atlas-masks/${region.id==='rohan'?'rohan-expanded':region.id}.png`);
     const mask=document.createElement('canvas');mask.width=image.naturalWidth;mask.height=image.naturalHeight;
     const ctx=mask.getContext('2d',{willReadFrequently:true});if(!ctx)throw new Error('Canvas unavailable');
     ctx.drawImage(image,0,0);const rgba=ctx.getImageData(0,0,mask.width,mask.height).data;

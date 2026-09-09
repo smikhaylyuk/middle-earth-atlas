@@ -12,6 +12,12 @@
 .pin-overview-name{display:none}
 .expanded-atlas .pin-minor .pin-title{font-size:20px}
 .expanded-atlas .pin-minor .pin-subtitle{font-size:13px}
+.expanded-atlas .pin-amon-hen,.expanded-atlas .pin-parth-galen{transform:translate(calc(-100% + 10px),20px)}
+.expanded-atlas .pin-amon-hen .pin-stem,.expanded-atlas .pin-parth-galen .pin-stem{left:calc(100% - 10px)}
+.expanded-atlas .pin-parth-galen{transform:translate(calc(-100% + 10px),40px)}
+.expanded-atlas .pin-parth-galen .pin-stem{top:-37px;height:34px}
+.expanded-atlas .pin-tol-brandir{transform:translate(-10px,20px)}
+.expanded-atlas .pin-tol-brandir .pin-stem{left:10px}
 .map-pins[data-density=overview] .pin-title{font-size:20px}
 .map-pins[data-density=overview] .pin-full-name,.map-pins[data-density=overview] .pin-subtitle{display:none}
 .map-pins[data-density=overview] .pin-overview-name{display:inline}

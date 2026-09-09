@@ -15,6 +15,10 @@ export function homeView(size:MapSize):MapView{
 }
 export function regionView(region:RegionId,size:MapSize):MapView{
   if(region==='all')return homeView(size);
+  if(region==='rauros'){
+    const scale=Math.max(.24,Math.min((size.width-60)/1250,(size.height-230)/1040));
+    return boundView({scale,x:size.width*.5-3650*scale,y:size.height*.43-2750*scale},size);
+  }
   if(region==='rohan'){
     const scale=Math.max(.22,Math.min((size.width-64)/1770,(size.height-225)/1200));
     return boundView({scale,x:size.width*.5-2640*scale,y:size.height*.43-2390*scale},size);

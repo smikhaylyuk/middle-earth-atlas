@@ -5,6 +5,7 @@ import { bakeShoreline, bakeShoreWaveField } from './bake-shoreline.mjs';
 import { repairTributaries } from './register-tributaries.mjs';
 import { repairAtlasJoins } from './repair-atlas-joins.mjs';
 import { repairAtlasGeography, makeSeaMask, makeWaterMask } from './repair-atlas-geography.mjs';
+import { extendAtlas } from './extend-atlas.mjs';
 const width=3700,height=2800;
 const svg=(w,h,body)=>Buffer.from(`<svg xmlns="http://www.w3.org/2000/svg" width="${w}" height="${h}">${body}</svg>`);
 const gradient=(id,x1,y1,x2,y2,stops)=>`<linearGradient id="${id}" gradientUnits="userSpaceOnUse" x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}">${stops.map(([offset,opacity])=>`<stop offset="${offset}" stop-color="white" stop-opacity="${opacity}"/>`).join('')}</linearGradient>`;
@@ -61,3 +62,4 @@ for(const s of [...sheets].reverse()){
   cover=await sharp(cover).composite([{input:mask}]).png().toBuffer();
 }
 console.log('Baked 3700 × 2800 atlas and five atmosphere masks from the existing paintings.');
+await extendAtlas();

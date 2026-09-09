@@ -102,6 +102,36 @@ export const places = [
     description:'The stone figures of Isildur and Anárion stand on opposite banks of the Anduin, facing north with their left hands raised. Below them, the river passes through a chasm into Nen Hithoel. The falls of Rauros lie beyond the lake’s southern end.',
     date:null,region:'rohan',major:true,source:'https://tolkiengateway.net/wiki/Argonath',sourceLabel:'Book II, ch. 9 · The Great River',
   },
+  {
+    id:'nen-hithoel',name:'Nen Hithoel',overviewLabel:'Nen Hithoel',kind:'The lake within the hills',pinSubtitle:'The Great River',subtitle:'Between the Argonath and Rauros',
+    description:'South of the Argonath, the Anduin opens into the long lake of Nen Hithoel. Wooded slopes and bare grey hilltops enclose its shores. At its southern outlet, Tol Brandir stands between the western hill of Amon Hen and Amon Lhaw on the east.',
+    date:null,region:'rauros',major:true,source:'https://tolkiengateway.net/wiki/Nen_Hithoel',sourceLabel:'Book II, ch. 9–10 · The Great River · The Breaking of the Fellowship',
+  },
+  {
+    id:'amon-hen',name:'Amon Hen',overviewLabel:'Amon Hen',kind:'The Hill of Seeing',pinSubtitle:'The western shore',subtitle:'Above the green lawn of Parth Galen',
+    description:'Amon Hen rises on the western side of Nen Hithoel’s southern end. An ancient stone seat stands on its summit. Across the water is Amon Lhaw, the Hill of Hearing; Tol Brandir stands between them in the river.',
+    date:null,region:'rauros',major:false,source:'https://tolkiengateway.net/wiki/Amon_Hen',sourceLabel:'Book II, ch. 10 · The Breaking of the Fellowship',
+  },
+  {
+    id:'parth-galen',name:'Parth Galen',overviewLabel:'Parth Galen',kind:'A green lawn beside the lake',pinSubtitle:'At the foot of Amon Hen',subtitle:'On the western shore above the falls',
+    description:'Parth Galen is a grassy clearing at the foot of Amon Hen, beside the southern end of Nen Hithoel. Here the Fellowship camps before its breaking. Frodo and Sam leave this shore to cross toward the eastern Emyn Muil.',
+    date:null,region:'rauros',major:false,source:'https://tolkiengateway.net/wiki/Parth_Galen',sourceLabel:'Book II, ch. 10 · The Breaking of the Fellowship',
+  },
+  {
+    id:'tol-brandir',name:'Tol Brandir',overviewLabel:'Tol Brandir',kind:'The Tindrock',pinSubtitle:'The island above Rauros',subtitle:'A steep rock between the river’s arms',
+    description:'Tol Brandir rises from the southern end of Nen Hithoel, between Amon Hen and Amon Lhaw. Its steep sides descend directly into the water. It is an uninhabited island, with no bridge or landing linking it to either shore.',
+    date:null,region:'rauros',major:false,source:'https://tolkiengateway.net/wiki/Tol_Brandir',sourceLabel:'Book II, ch. 10 · The Breaking of the Fellowship',
+  },
+  {
+    id:'rauros',name:'Rauros',overviewLabel:'Rauros',kind:'The roaring falls',pinSubtitle:'The southern edge of Emyn Muil',subtitle:'Where the Anduin leaves the lake',
+    description:'Below Nen Hithoel, the Anduin plunges over Rauros into the lower country beside Nindalf. A portage known as the North Stair bypasses the falls on the western side. The Entwash joins the Great River farther downstream, below the lake and falls.',
+    date:null,region:'rauros',major:true,source:'https://tolkiengateway.net/wiki/Rauros',sourceLabel:'Book III, ch. 1 · The Departure of Boromir · Published map',
+  },
+  {
+    id:'nindalf',name:'Nindalf',overviewLabel:'Nindalf',kind:'The Wetwang',pinSubtitle:'Below the Emyn Muil',subtitle:'Marshland east of the Anduin',
+    description:'Nindalf is the broad wetland east of the Anduin below Rauros. Across the river, the Entwash spreads into several mouths before meeting the Great River. The Dead Marshes lie farther northeast, beyond this atlas’s present edge.',
+    date:null,region:'rauros',major:true,source:'https://tolkiengateway.net/wiki/Nindalf',sourceLabel:'The Return of the King · Map of Rohan, Gondor, and Mordor',
+  },
   ...easternPlaces.map(p=>({...p,...eastNotes[p.id],overviewLabel:p.id==='weathertop'?'Amon Sûl':p.name,region:'east' as const,major:true})),
 ] as const;
 export type PlaceId = typeof places[number]['id'];

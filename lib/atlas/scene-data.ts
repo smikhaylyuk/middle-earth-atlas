@@ -3,12 +3,14 @@ import { westernRoad, westernSpur, westernRivers, westernLights, westernMist, we
 import { southernRivers, southernMist, southernFlocks, southernRoad } from './southern-illustration';
 import { anduinRivers, anduinMist, anduinFlocks, lorienLights } from './anduin-illustration';
 import { rohanRivers, rohanMist, rohanFlocks, rohanLights } from './rohan-illustration';
+import rauros from './rauros-layout.json';
 
 type Point={x:number;y:number};
 type Flock={path:string;duration:number;delay:number};
 export type InkLabel=Point & {text:string;angle?:number;kind?:'forest'|'water'|'mountain';size?:number};
 export type SceneRegion={id:string;x:number;y:number;width:number;height:number;rivers:string;roads:string[];lights:readonly Point[];chimneys:readonly Point[];mist:readonly (Point & {w:number;h:number;delay:number})[];flocks:readonly Flock[];labels:InkLabel[]};
 const flocks:Flock[]=[{path:'M70 700 C330 460 710 190 1270 180',duration:64,delay:-12},{path:'M400 990 C480 720 950 450 1450 290',duration:76,delay:-36}];
+const localRiver=(points:number[][])=>points.map(([x,y],i)=>`${i?'L':'M'}${x-rauros.x} ${y-rauros.y}`).join(' ');
 export const sceneRegions:SceneRegion[]=[
   {id:'west',x:0,y:0,width:1500,height:1000,rivers:westernRivers,roads:[westernRoad,westernSpur],lights:westernLights,chimneys:westernChimneys,mist:westernMist,flocks,labels:[
     {x:765,y:315,text:'THE SHIRE'},{x:255,y:466,text:'GULF OF LUNE',kind:'water'},{x:795,y:166,text:'LAKE EVENDIM',kind:'water',size:16},{x:1110,y:600,text:'OLD FOREST',kind:'forest'},{x:410,y:185,text:'BLUE MOUNTAINS',kind:'mountain',angle:-68},
@@ -21,8 +23,13 @@ export const sceneRegions:SceneRegion[]=[
     {x:415,y:545,text:'VALES OF ANDUIN',angle:-85},{x:1170,y:700,text:'MIRKWOOD',kind:'forest',angle:84},{x:590,y:1460,text:'LOTHLÓRIEN',kind:'forest'},{x:1200,y:1720,text:'BROWN LANDS'},
   ]},
   {id:'rohan',x:0,y:1800,width:3700,height:1000,rivers:rohanRivers,roads:[],lights:rohanLights,chimneys:rohanLights.slice(0,2),mist:rohanMist,flocks:rohanFlocks,labels:[
-    {x:2540,y:400,text:'ROHAN',size:34},{x:2050,y:430,text:'GAP OF ROHAN',size:16},{x:2220,y:960,text:'WHITE MOUNTAINS',kind:'mountain',angle:10},{x:3100,y:470,text:'EAST EMNET',size:16},{x:3300,y:340,text:'EMYN MUIL',size:16},{x:3510,y:740,text:'NEN HITHOEL',kind:'water',size:16},
+    {x:2540,y:400,text:'ROHAN',size:34},{x:2050,y:430,text:'GAP OF ROHAN',size:16},{x:2220,y:960,text:'WHITE MOUNTAINS',kind:'mountain',angle:10},{x:3100,y:470,text:'EAST EMNET',size:16},
   ]},
+  {id:'rauros',x:rauros.x,y:rauros.y,width:rauros.width,height:rauros.height,rivers:`${localRiver(rauros.anduin)} ${localRiver(rauros.entwash)}`,roads:[],lights:[],chimneys:[],
+    mist:[{x:560,y:590,w:160,h:90,delay:-17},{x:965,y:860,w:230,h:80,delay:-31}],
+    flocks:[{path:'M290 650 C540 430 790 290 1170 370',duration:92,delay:-23}],
+    labels:[{x:1050,y:385,text:'EMYN MUIL',kind:'mountain',size:25,angle:22},{x:505,y:958,text:'MOUTHS OF ENTWASH',kind:'water',size:18,angle:18},{x:920,y:1080,text:'ANDUIN',kind:'water',size:18,angle:49}],
+  },
 ];
 export const travellerPath={path:road,x:1000,y:0};
 // One guide through the repaired joining band. Ends overlap the existing

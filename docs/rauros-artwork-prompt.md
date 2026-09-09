@@ -1,0 +1,22 @@
+Use case: compositing.
+Asset type: one final seamless painted atlas extension tile, 1400 × 1200 composition, landscape aspect 7:6.
+
+Edit target: reference image 1, the 1400×1200 padded registration canvas. Its painted upper-left fragment occupies precisely x0–750 and y0–700. Preserve its SCALE and POSITION; do not stretch this fragment to fill the image. Transparent/black empty canvas and horizontal fringe artifacts are unfinished area to replace with coherent painted terrain.
+Reference image 2 is the full approved atlas painting, for brushwork, scale, color palette and oblique overhead map perspective only. Do not copy the full atlas composition.
+Reference image 3 is the published geographical map, for regional river relationships only, not its labels or graphic style. Render zero words or symbols from it.
+
+Primary request: finish the southeast extension from the Argonath through Nen Hithoel to the Falls of Rauros, Emyn Muil, mouths of the Entwash and Nindalf. The finished tile must look like one contiguous part of the same physical atlas painting. North is up. Match uniform daylight, olive/sage/golden grass, muted blue/teal water, grey rock, softly detailed painterly map brushwork. No new dramatic lighting. Fill all edges with finished art.
+
+Registration is essential: keep the original northern river, Argonath statues, rocks and grass in the top 250 pixels as close to reference 1 as possible. Argonath pair is around (530,200), Anduin enters at (490,0), runs south between the two statues. Original pixels there will be retained by the compositor. All following coordinates are on the entire 1400×1200 canvas.
+
+Continue into a long north–south oval lake, Nen Hithoel, centered x620, from y300 to y610. Shape the lake naturally within grey hills. Correct the existing unfinished lower lake: remove the reference fragment's random mid-lake islands. There is ONE steep uninhabited rocky island, Tol Brandir, centered (630,565) at the SOUTH end of the lake, water visible around its sides, a craggy grey pinnacle with limited trees clinging low. The western wooded hill Amon Hen is (490,590); eastern wooded hill Amon Lhaw is (770,590). Make their slopes and crests readable as separate landforms. A small bright green lawn, Parth Galen, is on the western lake shore at (540,565), at the foot of Amon Hen; show its shoreline. No castle, settlement, bridge or structures on either hill or island.
+
+Emyn Muil: rough low grey ridges occupy BOTH banks near the lake and the eastern half of the upper/middle tile, with wooded lower slopes and bare rocky crests. They are irregular eroded hills, NOT tall alpine/snow mountains. The western edge meets the open grassy plains of Rohan, not the White Mountains; replace any partial snowy-rock fringe at lower left with low terrain.
+
+Rauros: the lake outlet continues SOUTH from the southern end into a broad, unmistakable waterfall centered (645,685). Render connected water pouring across a rocky lip and visibly descending south, readable white water and natural mist, flowing into a real lower channel. No disconnected floating white line. Below falls, river continues SOUTH through (680,780), (735,940), (850,1100), leaving bottom at approximately x950. The lower country is green/tawny reed marsh.
+
+The Entwash river enters along the existing crop's western lower quarter, near (150,500), continues through (280,580) then (410,740), and divides into just 2–3 modest delta arms, all joining the lower Anduin around (735,940), WELL BELOW Rauros. All arms must reach the Anduin. CRITICAL: the Entwash does not enter Nen Hithoel, does not join above the waterfall, and does not cross the lake's enclosing hills. Repair the cropped unsupported confluence by directing this river southeast across lower ground, west of the lake and falls, before its lower confluences.
+
+Nindalf reed marshes occupy the southeastern region EAST of lower Anduin. Sparse shallow pools, reeds and tawny mud patches, not dense forest. The Entwash delta stays west of the lower Anduin.
+
+Avoid invented roads, buildings, bridges, extra major rivers, random blue tributaries, generic lake archipelagos, magical marsh lights, people/characters, lettering, labels, border, legend, UI, compass and watermark. The only human-shaped features are the existing Argonath statues. No repeated speckles, texture stamps, excessive sharp noise, glowing edges, black gaps or horizontal strips. Produce a single finished illustration, no alternate variants.
