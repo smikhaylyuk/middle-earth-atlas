@@ -1,7 +1,7 @@
 // Precompose the paintings and reviewed local geography corrections.
 import sharp from 'sharp';
 import { readFile, mkdir, writeFile } from 'node:fs/promises';
-import { bakeShoreline } from './bake-shoreline.mjs';
+import { bakeShoreline, bakeShoreWaveField } from './bake-shoreline.mjs';
 import { repairTributaries } from './register-tributaries.mjs';
 import { repairAtlasJoins } from './repair-atlas-joins.mjs';
 import { repairAtlasGeography, makeSeaMask, makeWaterMask } from './repair-atlas-geography.mjs';
@@ -49,7 +49,9 @@ const cartography=await repairTributaries(await repairAtlasGeography(await readF
 await sharp(cartography).webp({quality:94,alphaQuality:100,effort:6}).toFile('public/images/atlas-cartographic.webp');
 await sharp(await makeSeaMask(cartography)).png().toFile('public/images/atlas-masks/sea.png');
 await sharp(await makeWaterMask(cartography)).png().toFile('public/images/atlas-masks/water.png');
-await writeFile('public/images/atlas-masks/shoreline.json',JSON.stringify(await bakeShoreline('public/images/atlas-masks/sea.png'))+'\n');
+const shoreline=await bakeShoreline('public/images/atlas-masks/water.png');
+await writeFile('public/images/atlas-masks/shoreline.json',JSON.stringify(shoreline)+'\n');
+await writeFile('public/images/atlas-masks/shore-wave-field.json',JSON.stringify(bakeShoreWaveField(shoreline))+'\n');
 // Each atmosphere layer gets only the portion visible above later paintings.
 let cover=await transparent(width,height).png().toBuffer();
 for(const s of [...sheets].reverse()){

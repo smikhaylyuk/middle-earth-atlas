@@ -118,10 +118,14 @@ still check water coverage. The Water flows east; the other added reaches
 flow toward their downstream ends rather than using the input image’s drawing
 order. These samples constrain animation, not independent geographic evidence.
 
-Coastal surf is traced from the same connected ocean mask as the painting.
-Three staggered wave fronts travel toward shore, brighten, fragment and
-fade over twelve seconds. Bays and headlands shape their approach. Every
-segment checks both endpoints and midpoint against the water mask; narrow
-inland channels and the feathered paper edge are excluded. Surf respects
-Subtle/Lively, pause, reduced motion and the common day/night clock. It adds
-no visible canvas, CSS blend layer, moving region sheet or new lighting boundary.
+Coastal surf uses full connected water coverage, including the pale Gulf of
+Lune shallows that the open-sea highlight mask excludes. A narrow baked distance
+field follows the mainland shore. Enclosed paint-texture holes do not seed surf.
+Small rocks retain their painted wave detail.
+
+Short, staggered patches of granular foam approach shore on an 8.4-second
+cycle. Each has a brighter breaking edge and a softer wash that dissolves
+behind it. Fixed world-space grains and smooth envelopes avoid crawling noise
+and continuous contour lines. Their full footprint checks the water mask.
+Surf respects Subtle/Lively, pause, reduced motion and the common day/night
+clock. It uses the existing canvas without new DOM layers or lighting boundaries.

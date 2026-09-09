@@ -4,12 +4,12 @@ import { sceneRegions, travellerPath, anduinJoinPath, type SceneRegion } from '.
 import { type MapSize, type MapView } from './map-view';
 import { cycleProgress, motionMetrics } from './motion';
 import { roadGuides, correctedRivers, tributaryLabels } from './cartography';
-import { drawShoreWaves, type Shoreline } from './shore-waves';
+import { drawShoreWaves, type ShoreWaveField } from './shore-waves';
 
 type Sample={x:number;y:number;alpha:number};
 type Track={points:Sample[];length:number};
 type Region=SceneRegion & {opacity:(x:number,y:number)=>number;water:Track[];roadTracks:Track[];birdTracks:Track[]};
-export type CanvasScene={regions:Region[];bird:HTMLImageElement;traveller:Track;join:Track;sea:(x:number,y:number)=>number;water:(x:number,y:number)=>number;shore:Shoreline;roads:Track[];corrections:Track[]};
+export type CanvasScene={regions:Region[];bird:HTMLImageElement;traveller:Track;join:Track;sea:(x:number,y:number)=>number;water:(x:number,y:number)=>number;shore:ShoreWaveField;roads:Track[];corrections:Track[]};
 export type SceneSettings={hour:number;elapsed:number;intensity:MotionIntensity;route:boolean};
 
 export const loadImage=(src:`/${string}`)=>new Promise<HTMLImageElement>((resolve,reject)=>{
@@ -53,7 +53,7 @@ export async function loadCanvasScene():Promise<CanvasScene>{
     if(region.id==='anduin'||region.id==='rohan')for(const t of water)for(const p of t.points)if(p.x>3200&&p.x<3460&&p.y>1780&&p.y<2040)p.alpha=0;
     return {...region,opacity,water,roadTracks:region.roads.flatMap(d=>paths(d).map(part=>samplePath(part,region.x,region.y,opacity))),birdTracks:region.flocks.map(f=>samplePath(f.path,region.x,region.y,opacity))};
   }));
-  const [sea,water,shore,tributaries]=await Promise.all([loadCoverage('sea'),loadCoverage('water'),fetch(assetPath('/images/atlas-masks/shoreline.json')).then(r=>{if(!r.ok)throw new Error('Could not load shoreline');return r.json() as Promise<Shoreline>;}),fetch(assetPath('/images/atlas-masks/tributaries.json')).then(r=>{if(!r.ok)throw new Error('Could not load watercourses');return r.json() as Promise<{points:[number,number][]}[]>;})]);
+  const [sea,water,shore,tributaries]=await Promise.all([loadCoverage('sea'),loadCoverage('water'),fetch(assetPath('/images/atlas-masks/shore-wave-field.json')).then(r=>{if(!r.ok)throw new Error('Could not load shoreline');return r.json() as Promise<ShoreWaveField>;}),fetch(assetPath('/images/atlas-masks/tributaries.json')).then(r=>{if(!r.ok)throw new Error('Could not load watercourses');return r.json() as Promise<{points:[number,number][]}[]>;})]);
   const roads=roadGuides.flatMap(r=>paths(r.path).map(p=>samplePath(p,r.x??0,r.y??0,()=>1)));
   const corrections=Object.values(correctedRivers).map(p=>samplePath(p,0,0,()=>1));
   for(const river of tributaries)corrections.push(samplePath(river.points.map(([x,y],i)=>`${i?'L':'M'}${x} ${y}`).join(' '),0,0,()=>1));
