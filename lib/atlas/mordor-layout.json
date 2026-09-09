@@ -1,0 +1,15 @@
+{
+  "x": 4430,
+  "y": 2830,
+  "width": 1600,
+  "height": 1500,
+  "worldWidth": 6030,
+  "worldHeight": 4330,
+  "places": {
+    "udun": { "x": 5160, "y": 3330 },
+    "isenmouthe": { "x": 5067, "y": 3571 },
+    "mount-doom": { "x": 5347, "y": 3991 },
+    "barad-dur": { "x": 5830, "y": 3880 }
+  },
+  "crater": { "x": 5347, "y": 3816 }
+}

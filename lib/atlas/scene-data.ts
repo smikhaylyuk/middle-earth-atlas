@@ -5,6 +5,7 @@ import { anduinRivers, anduinMist, anduinFlocks, lorienLights } from './anduin-i
 import { rohanRivers, rohanMist, rohanFlocks, rohanLights } from './rohan-illustration';
 import rauros from './rauros-layout.json';
 import morannon from './morannon-layout.json';
+import mordor from './mordor-layout.json';
 
 type Point={x:number;y:number};
 type Flock={path:string;duration:number;delay:number};
@@ -33,7 +34,12 @@ export const sceneRegions:SceneRegion[]=[
   },
   {id:'morannon',x:morannon.x,y:morannon.y,width:morannon.width,height:morannon.height,rivers:'',roads:[],lights:[],chimneys:[],
     mist:[{x:470,y:410,w:250,h:65,delay:-13},{x:680,y:650,w:240,h:60,delay:-39}],flocks:[],
-    labels:[{x:1330,y:1130,text:'ERED LITHUI',kind:'mountain',size:18,angle:9},{x:1200,y:1290,text:'UDÛN',kind:'mountain',size:20}],
+    labels:[{x:1330,y:1130,text:'ERED LITHUI',kind:'mountain',size:18,angle:9}],
+  },
+  {id:'mordor',x:mordor.x,y:mordor.y,width:mordor.width,height:mordor.height,rivers:'',roads:[],lights:[],
+    chimneys:[{x:mordor.crater.x-mordor.x,y:mordor.crater.y-mordor.y}],
+    mist:[{x:810,y:1170,w:230,h:38,delay:-29}],flocks:[],
+    labels:[{x:1040,y:1360,text:'GORGOROTH',kind:'mountain',size:28,angle:0},{x:375,y:1130,text:'EPHEL DÚATH',kind:'mountain',size:18,angle:64}],
   },
 ];
 export const travellerPath={path:road,x:1000,y:0};

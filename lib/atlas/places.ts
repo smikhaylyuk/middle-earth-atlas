@@ -152,6 +152,26 @@ export const places = [
     description:'The Black Gate closes the northern mouth of Cirith Gorgor, between the Ephel Dúath and Ered Lithui. A stone rampart and iron doors guard the pass, watched by the Towers of the Teeth. Beyond the entrance lies Udûn. The gate is shown intact, before Sauron’s fall.',
     date:null,region:'morannon',major:true,source:'https://tolkiengateway.net/wiki/Black_Gate',sourceLabel:'Book IV, ch. 3 · The Black Gate is Closed',
   },
+  {
+    id:'udun',name:'Udûn',overviewLabel:'Udûn',kind:'The basin behind the Gate',pinSubtitle:'Within the mountain walls',subtitle:'The northern threshold of Mordor',
+    description:'Udûn lies inside the northwestern corner of Mordor, enclosed where the Ephel Dúath and Ered Lithui meet. The Morannon guards its northern entrance; the Isenmouthe opens south toward the plateau of Gorgoroth. The fortress of Durthang overlooks the valley from the western mountains.',
+    date:null,region:'mordor',major:true,source:'https://tolkiengateway.net/wiki/Ud%C3%BBn_(valley)',sourceLabel:'The Return of the King · Map of Rohan, Gondor, and Mordor',
+  },
+  {
+    id:'isenmouthe',name:'Isenmouthe',overviewLabel:'Isenmouthe',kind:'Carach Angren',pinSubtitle:'The southern jaws of Udûn',subtitle:'A narrow passage into Gorgoroth',
+    description:'Mountain spurs constrict the southern end of Udûn into the Isenmouthe. An earthen rampart and a fence of iron posts guard the opening, with a bridge across a deep ditch. Beyond these defences the country opens onto Gorgoroth.',
+    date:null,region:'mordor',major:false,source:'https://tolkiengateway.net/wiki/Carach_Angren',sourceLabel:'Book VI, ch. 2 · The Land of Shadow · Published map',
+  },
+  {
+    id:'mount-doom',name:'Mount Doom',overviewLabel:'Mount Doom',kind:'Orodruin · Amon Amarth',pinSubtitle:'The fire beneath the ash',subtitle:'An isolated volcano on Gorgoroth',
+    description:'Orodruin rises alone from the desolate plateau of Gorgoroth. Sauron forged the One Ring in the Sammath Naur within the mountain. A road approaches its eastern flank from Barad-dûr. The mountain is shown before the Ring’s destruction, with its fire still stirring.',
+    date:null,region:'mordor',major:true,source:'https://tolkiengateway.net/wiki/Mount_Doom',sourceLabel:'Book VI, ch. 3 · Mount Doom',
+  },
+  {
+    id:'barad-dur',name:'Barad-dûr',overviewLabel:'Barad-dûr',kind:'The Dark Tower',pinSubtitle:'The stronghold of Sauron',subtitle:'At the end of a spur of Ered Lithui',
+    description:'Sauron’s fortress stands on the end of a long southwestern spur of the Ash Mountains, east of Mount Doom. Its western road leads to the volcano; another runs northwest toward Udûn and the Black Gate. The tower is shown intact, before the downfall of Sauron.',
+    date:null,region:'mordor',major:true,source:'https://tolkiengateway.net/wiki/Barad-d%C3%BBr',sourceLabel:'Book VI, ch. 3 · Mount Doom · Published map',
+  },
   ...easternPlaces.map(p=>({...p,...eastNotes[p.id],overviewLabel:p.id==='weathertop'?'Amon Sûl':p.name,region:'east' as const,major:true})),
 ] as const;
 export type PlaceId = typeof places[number]['id'];

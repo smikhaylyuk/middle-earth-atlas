@@ -10,11 +10,15 @@ const detailScale=.9;
 const zoomLimits=(size:MapSize)=>({min:homeView(size).scale*.78,max:Math.max(homeView(size).scale,detailScale)});
 export function homeView(size:MapSize):MapView{
   const top=size.width<650?100:110,bottom=size.height-(size.width<650?205:232);
-  const scale=Math.max(.06,Math.min((size.width-40)/MAP_WIDTH,(bottom-top)/MAP_HEIGHT));
+  const scale=Math.max(.01,Math.min((size.width-40)/MAP_WIDTH,(bottom-top)/MAP_HEIGHT));
   return {scale,x:size.width/2-MAP_WIDTH*.5*scale,y:(top+bottom-MAP_HEIGHT*scale)/2};
 }
 export function regionView(region:RegionId,size:MapSize):MapView{
   if(region==='all')return homeView(size);
+  if(region==='mordor'){
+    const scale=Math.max(.24,Math.min((size.width-64)/1530,(size.height-235)/1330));
+    return boundView({scale,x:size.width*.5-5320*scale,y:size.height*.43-3630*scale},size);
+  }
   if(region==='morannon'){
     const scale=Math.max(.24,Math.min((size.width-64)/1480,(size.height-235)/1250));
     return boundView({scale,x:size.width*.5-4720*scale,y:size.height*.43-2770*scale},size);

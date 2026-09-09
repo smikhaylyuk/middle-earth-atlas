@@ -3,6 +3,7 @@ import {readFile,writeFile} from 'node:fs/promises';
 import layout from '../lib/atlas/rauros-layout.json' with {type:'json'};
 import {harmonizeAtlas} from './harmonize-atlas.mjs';
 import {extendMorannon} from './extend-morannon.mjs';
+import {extendMordor} from './extend-mordor.mjs';
 
 const clamp=n=>Math.max(0,Math.min(1,n));
 const smooth=n=>{const t=clamp(n);return t*t*(3-2*t);};
@@ -45,4 +46,5 @@ export async function extendAtlas(){
   console.log(`Extended the atlas to ${worldWidth} × ${worldHeight}; one joined painting and shared water coverage.`);
   await harmonizeAtlas();
   await extendMorannon();
+  await extendMordor();
 }

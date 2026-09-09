@@ -6,7 +6,7 @@ import layout from '../lib/atlas/rauros-layout.json' with {type:'json'};
 const bundle=await rolldown({input:'lib/atlas/river-surface.ts'});
 const {output}=await bundle.generate({format:'esm'});await bundle.close();
 const {buildRiverField,riverPhase,shadeRiverPixel}=await import('data:text/javascript;base64,'+Buffer.from(output[0].code).toString('base64'));
-const {data,info}=await sharp('public/images/atlas-masks/morannon-water.png').greyscale().raw().toBuffer({resolveWithObject:true});
+const {data,info}=await sharp('public/images/atlas-masks/mordor-water.png').greyscale().raw().toBuffer({resolveWithObject:true});
 const water=(x,y)=>{const sx=Math.floor(x/2),sy=Math.floor(y/2);return sx<0||sy<0||sx>=info.width||sy>=info.height?0:data[sy*info.width+sx]/255;};
 function track(points){
   const sampled=[];let length=0;
@@ -15,7 +15,7 @@ function track(points){
   sampled.push({x:points.at(-1)[0],y:points.at(-1)[1],alpha:1});return {points:sampled,length};
 }
 const field=buildRiverField([track(layout.anduin),track(layout.entwash)],water);
-const {data:paint,info:paintInfo}=await sharp('public/images/atlas-morannon.webp').ensureAlpha().raw().toBuffer({resolveWithObject:true});
+const {data:paint,info:paintInfo}=await sharp('public/images/atlas-mordor.webp').ensureAlpha().raw().toBuffer({resolveWithObject:true});
 const source={data:paint,width:paintInfo.width,height:paintInfo.height};
 function frame(t){const rgba=new Uint8ClampedArray(field.pixels.length*4);field.pixels.forEach((p,i)=>shadeRiverPixel(p,source,p.x,p.y,t,'subtle',rgba,i*4));return rgba;}
 

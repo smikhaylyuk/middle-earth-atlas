@@ -19,6 +19,7 @@ export const roadNodes={
   bree:[1284.18,481.45],fordBruinen:[2035.16,595.7],
   tharbad:[1457,1347],isenJunction:[1745,1710],isengard:[1839,1789],
   fordsIsen:[1842.92,2069.45],edoras:[2628.42,2510.36],southernEdge:[2945,2800],
+  darkTowerGate:[5690,3826],doomEastEntrance:[5435,3870],
 } as const;
 type RoadNode=keyof typeof roadNodes;
 export type RoadGuide={name:string;from:RoadNode;to:RoadNode;path:string;x?:number;y?:number};
@@ -34,6 +35,9 @@ export const roadGuides:RoadGuide[]=[
   {name:'North–South Road to the Fords',from:'isenJunction',to:'fordsIsen',path:'M1745 1710 L1750 1752 L1733 1779 L1725 1815 L1741 1867 L1734 1909 L1748 1938 L1757 1966 L1750 2000 L1755 2021 L1777 2038 L1842.92 2069.45'},
   {name:'Great West Road',from:'fordsIsen',to:'edoras',path:'M1842.92 2069.45 C1940 2124 2030 2160 2150 2230 S2338 2310 2400 2400 S2500 2510 2628.42 2510.36'},
   {name:'Great West Road toward Gondor',from:'edoras',to:'southernEdge',path:'M2628.42 2510.36 C2710 2580 2810 2675 2945 2800'},
+  // Book VI, ch. 3: the Tower's western gate connects to Orodruin's
+  // eastern flank. Keep this documented connection explicit.
+  {name:'Sauron’s Road',from:'darkTowerGate',to:'doomEastEntrance',path:'M5690 3826 C5644 3840 5611 3863 5563 3870 S5505 3890 5490 3915 L5468 3910 L5455 3886 L5435 3870'},
 ];
 
 // Water highlights follow the inspected corrected channels. The Glanduin
