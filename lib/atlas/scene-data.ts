@@ -7,6 +7,7 @@ import rauros from './rauros-layout.json';
 import morannon from './morannon-layout.json';
 import mordor from './mordor-layout.json';
 import gondor from './gondor-layout.json';
+import pelennor from './pelennor-layout.json';
 
 type Point={x:number;y:number};
 type Flock={path:string;duration:number;delay:number};
@@ -42,6 +43,13 @@ export const sceneRegions:SceneRegion[]=[
     mist:[{x:1400,y:1370,w:170,h:36,delay:-21}],
     flocks:[{path:'M520 1530 C780 1150 1080 1020 1430 1230',duration:108,delay:-42}],
     labels:[{x:610,y:815,text:'ANÓRIEN',size:27},{x:1530,y:740,text:'NORTH ITHILIEN',size:17,angle:63},{x:750,y:1640,text:'WHITE MOUNTAINS',kind:'mountain',size:18,angle:24}],
+  },
+  {id:"pelennor",x:pelennor.x,y:pelennor.y,width:pelennor.width,height:pelennor.height,
+    rivers:pelennor.anduin.map(([x,y],i)=>`${i?"L":"M"}${x-pelennor.x} ${y-pelennor.y}`).join(" "),roads:[],
+    lights:[{x:650,y:655},{x:740,y:685},{x:920,y:840}],chimneys:[{x:650,y:655}],
+    mist:[{x:1050,y:1040,w:160,h:32,delay:-27}],
+    flocks:[{path:"M1350 1140 C1200 900 1140 550 1530 420",duration:116,delay:-47}],
+    labels:[{x:880,y:445,text:"PELENNOR FIELDS",size:20,angle:0},{x:395,y:485,text:"MINDOLLUIN",kind:"mountain",size:17,angle:57},{x:1560,y:1240,text:"SOUTH ITHILIEN",size:20,angle:0}],
   },
   {id:'mordor',x:mordor.x,y:mordor.y,width:mordor.width,height:mordor.height,rivers:'',roads:[],lights:[],
     chimneys:[{x:mordor.crater.x-mordor.x,y:mordor.crater.y-mordor.y}],

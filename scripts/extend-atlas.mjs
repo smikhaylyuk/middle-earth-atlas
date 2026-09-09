@@ -5,6 +5,7 @@ import {harmonizeAtlas} from './harmonize-atlas.mjs';
 import {extendMorannon} from './extend-morannon.mjs';
 import {extendMordor} from './extend-mordor.mjs';
 import {extendGondor} from './extend-gondor.mjs';
+import {extendPelennor} from './extend-pelennor.mjs';
 
 const clamp=n=>Math.max(0,Math.min(1,n));
 const smooth=n=>{const t=clamp(n);return t*t*(3-2*t);};
@@ -49,4 +50,5 @@ export async function extendAtlas(){
   await extendMorannon();
   await extendMordor();
   await extendGondor();
+  await extendPelennor();
 }

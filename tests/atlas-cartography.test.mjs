@@ -21,6 +21,9 @@ await test('road annotations have joined endpoints from the Havens through Bree 
   const seen=new Set(['havens']),queue=['havens'];
   for(const node of queue)for(const next of neighbours.get(node)??[])if(!seen.has(next)){seen.add(next);queue.push(next);}
   for(const node of ['hobbiton','bree','fordBruinen','tharbad','fordsIsen','isengard','edoras','southernEdge'])assert.ok(seen.has(node),`${node} is disconnected`);
+  const southern=new Set(['gondorApproach']),southQueue=['gondorApproach'];
+  for(const node of southQueue)for(const next of neighbours.get(node)??[])if(!southern.has(next)){southern.add(next);southQueue.push(next);}
+  for(const node of ['minasGreatGate','osgiliathWest','harlondQuays','pelennorSouthGate','southGondorEdge'])assert.ok(southern.has(node),`${node} is disconnected from the North-way`);
 });
 
 await test('birds remain visible at overview and motion loops do not stall at negative offsets',()=>{

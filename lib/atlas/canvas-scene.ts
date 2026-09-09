@@ -18,7 +18,7 @@ export const loadImage=(src:`/${string}`)=>new Promise<HTMLImageElement>((resolv
 });
 
 async function loadCoverage(name:'sea'|'water'){
-  const image=await loadImage(`/images/atlas-masks/${name==='water'?'gondor-water':name}.png`),canvas=document.createElement('canvas');
+  const image=await loadImage(`/images/atlas-masks/${name==='water'?'pelennor-water':name}.png`),canvas=document.createElement('canvas');
   const width=image.naturalWidth,height=image.naturalHeight;canvas.width=width;canvas.height=height;
   const ctx=canvas.getContext('2d',{willReadFrequently:true});if(!ctx)throw new Error('Canvas unavailable');
   ctx.drawImage(image,0,0);const rgba=ctx.getImageData(0,0,width,height).data,values=new Uint8Array(width*height);

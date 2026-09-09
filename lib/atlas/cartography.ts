@@ -20,6 +20,8 @@ export const roadNodes={
   tharbad:[1457,1347],isenJunction:[1745,1710],isengard:[1839,1789],
   fordsIsen:[1842.92,2069.45],edoras:[2628.42,2510.36],southernEdge:[2945,2800],
   darkTowerGate:[5690,3826],doomEastEntrance:[5435,3870],
+  gondorApproach:[4313,4350],minasGreatGate:[4198,4831],osgiliathWest:[4555,4605],
+  harlondJunction:[4307,5010],harlondQuays:[4380,4990],pelennorSouthGate:[4341,5177],southGondorEdge:[4420,5470],
 } as const;
 type RoadNode=keyof typeof roadNodes;
 export type RoadGuide={name:string;from:RoadNode;to:RoadNode;path:string;x?:number;y?:number};
@@ -38,6 +40,13 @@ export const roadGuides:RoadGuide[]=[
   // Book VI, ch. 3: the Tower's western gate connects to Orodruin's
   // eastern flank. Keep this documented connection explicit.
   {name:'Sauron’s Road',from:'darkTowerGate',to:'doomEastEntrance',path:'M5690 3826 C5644 3840 5611 3863 5563 3870 S5505 3890 5490 3915 L5468 3910 L5455 3886 L5435 3870'},
+  {name:'North-way into Minas Tirith',from:'gondorApproach',to:'minasGreatGate',path:'M4313 4350 C4340 4410 4342 4460 4358 4515 L4380 4580 L4414 4661 L4379 4709 L4329 4785 L4198 4831'},
+  // Stop on Osgiliath’s western bank: the last bridge fell in 3018.
+  {name:'Causeway to Osgiliath',from:'minasGreatGate',to:'osgiliathWest',path:'M4198 4831 L4329 4785 L4379 4709 L4414 4661 L4474 4641 L4555 4605'},
+  {name:'South Road from the White City',from:'minasGreatGate',to:'harlondJunction',path:'M4198 4831 C4209 4874 4253 4952 4307 5010'},
+  {name:'Harlond quay road',from:'harlondJunction',to:'harlondQuays',path:'M4307 5010 L4333 4976 L4380 4990'},
+  {name:'South Road through the Rammas',from:'harlondJunction',to:'pelennorSouthGate',path:'M4307 5010 C4340 5044 4339 5110 4341 5177'},
+  {name:'South Road toward lower Gondor',from:'pelennorSouthGate',to:'southGondorEdge',path:'M4341 5177 C4360 5220 4420 5250 4430 5320 S4460 5410 4420 5470'},
 ];
 
 // Water highlights follow the inspected corrected channels. The Glanduin

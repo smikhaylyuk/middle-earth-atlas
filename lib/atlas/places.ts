@@ -192,6 +192,26 @@ export const places = [
     description:'Amon Dîn stands east of the Drúadan Forest. It is the first of Gondor’s seven warning beacons when counted from Minas Tirith. The hill overlooks the northern approaches and the crossings of the Anduin; its beacon remains unlit in this view.',
     date:null,region:'gondor',major:false,source:'https://tolkiengateway.net/wiki/Amon_D%C3%AEn',sourceLabel:'Unfinished Tales · Cirion and Eorl · Published map',
   },
+  {
+    id:'minas-tirith',name:'Minas Tirith',overviewLabel:'Minas Tirith',kind:'The Tower of Guard',pinSubtitle:'The White City',subtitle:'Seven levels beneath Mindolluin',
+    description:'Minas Tirith rises on a hill joined to Mount Mindolluin by a narrow shoulder. Its seven walled levels face east across the Pelennor toward Osgiliath. A black outer wall guards the white city; the Tower of Ecthelion stands above the Citadel.',
+    date:null,region:'pelennor',major:true,source:'https://tolkiengateway.net/wiki/Minas_Tirith',sourceLabel:'Book V, ch. 1 · Minas Tirith · Published map',
+  },
+  {
+    id:'osgiliath',name:'Osgiliath',overviewLabel:'Osgiliath',kind:'The Citadel of the Stars',pinSubtitle:'The ruined capital',subtitle:'An old city on both banks of the Anduin',
+    description:'Gondor’s first capital stood across the Anduin, northeast of Minas Tirith. By the War of the Ring its streets and halls lie in ruins. Its last bridge fell in June 3018, leaving the river crossing contested between Gondor and the forces of Mordor.',
+    date:null,region:'pelennor',major:true,source:'https://tolkiengateway.net/wiki/Osgiliath',sourceLabel:'Book II, ch. 2 · The Council of Elrond · Appendix B',
+  },
+  {
+    id:'harlond',name:'Harlond',overviewLabel:'Harlond',kind:'The southern quays',pinSubtitle:'The harbour of Minas Tirith',subtitle:'Along the western bank of the Great River',
+    description:'Harlond is the river port of Minas Tirith, a few miles south of the city. Its quays receive vessels from the southern lands of Gondor, beside the Rammas Echor. During the Battle of the Pelennor Fields, Aragorn and his company land here from the fleet brought upriver.',
+    date:null,region:'pelennor',major:true,source:'https://tolkiengateway.net/wiki/Harlond_(Gondor)',sourceLabel:'Book V, ch. 1 & 6 · Minas Tirith · The Battle of the Pelennor Fields',
+  },
+  {
+    id:'emyn-arnen',name:'Emyn Arnen',overviewLabel:'Emyn Arnen',kind:'The hills beside the water',pinSubtitle:'South Ithilien',subtitle:'Within the bend of the Anduin',
+    description:'Emyn Arnen rises east of the Anduin and south of Osgiliath. The river curves around the feet of these hills, an outlier of the Ephel Dúath. After the War of the Ring, Faramir becomes Lord of Emyn Arnen; this view shows the country before his new household is established.',
+    date:null,region:'pelennor',major:false,source:'https://tolkiengateway.net/wiki/Emyn_Arnen',sourceLabel:'Unfinished index · Appendix A · Published map',
+  },
   ...easternPlaces.map(p=>({...p,...eastNotes[p.id],overviewLabel:p.id==='weathertop'?'Amon Sûl':p.name,region:'east' as const,major:true})),
 ] as const;
 export type PlaceId = typeof places[number]['id'];

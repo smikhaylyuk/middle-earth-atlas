@@ -2,7 +2,8 @@
 
 The atlas now follows the Anduin south from Nindalf to Cair Andros, with
 Henneth Annûn in North Ithilien and Drúadan Forest and Amon Dîn to the west.
-Minas Tirith, Osgiliath and the southern approaches remain outside this sheet.
+Minas Tirith, Osgiliath and the southern approaches are covered by the
+subsequent [Pelennor expansion](pelennor-expansion.md).
 
 ## Reference and interpretation
 
@@ -43,7 +44,8 @@ woodland insert places Henneth Annûn in visible North Ithilien; generated
 surrounding river geometry is discarded. Exact prompts are retained in
 `gondor-artwork-prompts.md`.
 
-The current displayed asset is `public/images/atlas-gondor.webp`.
+This stage’s asset is `public/images/atlas-gondor.webp`, retained beneath
+the subsequent Pelennor sheet.
 `scripts/extend-gondor.mjs` runs after the Mordor stage of `build:atlas`.
 All earlier positive water coverage and all water/land values under previous
 opaque terrain remain exact on the two-world-unit grid. New river coverage
