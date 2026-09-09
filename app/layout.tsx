@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import './globals.css';
 export const metadata: Metadata = {
   title: 'Eriador — A Living Atlas',
-  description: 'Explore a painted Eriador from the Grey Havens and the Shire to Bree and Rivendell, south through Eregion and Moria to Isengard, east to Lórien and the Anduin valley, and south into Rohan to Edoras, Helm’s Deep and the Argonath, with a continuous day and night cycle, drifting mist and warm settlement lights.',
+  description: 'Explore a living painted atlas of Middle-earth from the Grey Havens through Eriador, Lórien and Rohan, past Rauros to the Dead Marshes and the Black Gate, with flowing rivers, drifting mist and a shared day and night cycle.',
 };
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return <html lang="en"><body>{children}</body></html>;

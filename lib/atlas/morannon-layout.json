@@ -1,0 +1,14 @@
+{
+  "x": 3900,
+  "y": 2100,
+  "width": 1600,
+  "height": 1400,
+  "worldWidth": 5500,
+  "worldHeight": 3500,
+  "places": {
+    "emyn-muil": { "x": 4310, "y": 2450 },
+    "dead-marshes": { "x": 4560, "y": 2620 },
+    "dagorlad": { "x": 5080, "y": 2690 },
+    "black-gate": { "x": 5025, "y": 3070 }
+  }
+}

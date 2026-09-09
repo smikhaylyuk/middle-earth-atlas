@@ -33,6 +33,7 @@ const regionLabels:Record<RegionId,{label:string;description:string}>={
   anduin:{label:'Anduin',description:'Explore Lórien and the Anduin valley'},
   rohan:{label:'Rohan',description:'Explore Rohan and the Argonath'},
   rauros:{label:'Rauros',description:'Explore Nen Hithoel, Rauros and the Emyn Muil'},
+  morannon:{label:'Marshes',description:'Explore the Dead Marshes, Dagorlad and the Black Gate'},
 };
 const phaseIcons={morning:Sunrise,day:Sun,evening:Sunset,night:Moon};
 const motionSnapshot=()=>window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -54,7 +55,7 @@ export default function LivingAtlas(){
   const [ready,setReady]=useState(false),[failed,setFailed]=useState(false),[dragging,setDragging]=useState(false);
   const [breeDetail,setBreeDetail]=useState<BreeDetail|null>(null);
   const [region,setRegion]=useState<RegionId|null>('all');
-  const [browseRegion,setBrowseRegion]=useState<RegionId>('rauros');
+  const [browseRegion,setBrowseRegion]=useState<RegionId>('morannon');
   const paintingLoaded=useCallback(()=>setReady(true),[]),paintingFailed=useCallback(()=>setFailed(true),[]);
   useEffect(()=>{regionNavigation.current?.querySelector<HTMLButtonElement>('button[aria-pressed="true"]')?.scrollIntoView({block:'nearest',inline:'nearest'});},[region]);
   const visible=useSyncExternalStore(subscribeVisibility,visibilitySnapshot,()=>true);
@@ -107,7 +108,7 @@ export default function LivingAtlas(){
   const zoom=useCallback((factor:number)=>{setRegion(null);fly(zoomView(view.current,size.current,factor));},[fly]);
   useEffect(()=>{
     const element=stage.current;if(!element)return;
-    const resize=()=>{cancelAnimationFrame(animation.current);settleNavigation();size.current={width:element.clientWidth,height:element.clientHeight};if(!viewInitialized.current){const initialRegion='rauros';state.current.region=initialRegion;setRegion(initialRegion);viewInitialized.current=true;}paint(state.current.place?placeView(state.current.place,size.current):state.current.region?regionView(state.current.region,size.current):boundView(view.current,size.current));};
+    const resize=()=>{cancelAnimationFrame(animation.current);settleNavigation();size.current={width:element.clientWidth,height:element.clientHeight};if(!viewInitialized.current){const initialRegion='morannon';state.current.region=initialRegion;setRegion(initialRegion);viewInitialized.current=true;}paint(state.current.place?placeView(state.current.place,size.current):state.current.region?regionView(state.current.region,size.current):boundView(view.current,size.current));};
     const observer=new ResizeObserver(resize);observer.observe(element);resize();
     const wheel=(event:WheelEvent)=>{event.preventDefault();setRegion(null);cancelAnimationFrame(animation.current);beginNavigation();const r=element.getBoundingClientRect();paint(zoomView(view.current,size.current,Math.exp(-wheelPixels(event.deltaY,event.deltaMode,size.current.height)*.0013),{x:event.clientX-r.left,y:event.clientY-r.top}));settleNavigation();};
     element.addEventListener('wheel',wheel,{passive:false});
@@ -153,7 +154,7 @@ export default function LivingAtlas(){
       <input className="time-scrubber" type="range" min="0" max="24" step="0.01" value={displayHour} aria-label="Time of day" aria-valuetext={`${phase}, ${clockLabel(displayHour)}`} onChange={event=>{setTime(Number(event.target.value));setCycle(false);}}/>
       <div className="cycle-phase-buttons">{(Object.keys(phaseHours) as DayPhase[]).map(value=>{const Icon=phaseIcons[value];return <Button key={value} variant="ghost" aria-label={`Hold ${value} light`} aria-pressed={phase===value} onClick={()=>choosePhase(value)}><Icon size={13}/><span>{value}</span></Button>;})}</div>
     </section>
-    <div className="map-edition"><span>WESTERN MIDDLE-EARTH</span><i/>Late Third Age · From Lindon to Rohan</div>
+    <div className="map-edition"><span>WESTERN MIDDLE-EARTH</span><i/>Late Third Age · From Lindon to the Black Gate</div>
     <div className="paper-compass" aria-hidden="true"><span>N</span><Compass size={40} strokeWidth={.75}/></div>
     <aside className="journey-dock" aria-label="Explore Eriador"><div className="dock-heading"><h2>Explore the atlas</h2><nav ref={regionNavigation} className="region-controls" aria-label="Map regions">{(Object.keys(regionLabels) as RegionId[]).map(id=><Button key={id} variant="ghost" aria-label={regionLabels[id].description} aria-pressed={region===id} onClick={()=>frameRegion(id)}>{regionLabels[id].label}</Button>)}</nav><button aria-label="Highlight mapped roads" aria-pressed={route} onClick={()=>setRoute(!route)} className="route-control"><Route size={14}/><span>Road</span><i/></button></div><nav className="journey-stops" aria-label="Choose a place">{dockPlaces.map(p=><button key={p.id} className="journey-stop" aria-pressed={selected===p.id} onClick={()=>focus(p.id)}><span><strong>{p.name}</strong><small>{p.pinSubtitle}</small></span><ArrowRight size={15}/></button>)}</nav></aside>
     {place&&<article className="atlas-folio" key={place.id} aria-live="polite"><Button variant="ghost" className="folio-close" size="icon" aria-label="Close place details" onClick={()=>setSelected(null)}><X size={16}/></Button><span className="folio-kicker">{place.kind}</span><h2>{place.name}</h2><p className="folio-subtitle">{place.subtitle}</p>{place.id==='bree'&&<Button className="bree-invitation" onClick={()=>exploreBree('prancing-pony')} aria-haspopup="dialog"><div><small>At the inn</small><span>The Prancing Pony</span></div><ArrowRight size={20}/></Button>}<p className="folio-description">{place.description}</p>{place.date&&<div className="folio-date"><Clock3 size={13}/>{place.date}</div>}<a className="folio-source" href={place.source} target="_blank" rel="noreferrer">{place.sourceLabel} ↗</a></article>}

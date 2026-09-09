@@ -4,6 +4,7 @@ import { southernRivers, southernMist, southernFlocks, southernRoad } from './so
 import { anduinRivers, anduinMist, anduinFlocks, lorienLights } from './anduin-illustration';
 import { rohanRivers, rohanMist, rohanFlocks, rohanLights } from './rohan-illustration';
 import rauros from './rauros-layout.json';
+import morannon from './morannon-layout.json';
 
 type Point={x:number;y:number};
 type Flock={path:string;duration:number;delay:number};
@@ -29,6 +30,10 @@ export const sceneRegions:SceneRegion[]=[
     mist:[{x:560,y:590,w:160,h:90,delay:-17},{x:965,y:860,w:230,h:80,delay:-31}],
     flocks:[{path:'M290 650 C540 430 790 290 1170 370',duration:92,delay:-23}],
     labels:[{x:1050,y:385,text:'EMYN MUIL',kind:'mountain',size:25,angle:22},{x:505,y:958,text:'MOUTHS OF ENTWASH',kind:'water',size:18,angle:18},{x:920,y:1080,text:'ANDUIN',kind:'water',size:18,angle:49}],
+  },
+  {id:'morannon',x:morannon.x,y:morannon.y,width:morannon.width,height:morannon.height,rivers:'',roads:[],lights:[],chimneys:[],
+    mist:[{x:470,y:410,w:250,h:65,delay:-13},{x:680,y:650,w:240,h:60,delay:-39}],flocks:[],
+    labels:[{x:1330,y:1130,text:'ERED LITHUI',kind:'mountain',size:18,angle:9},{x:1200,y:1290,text:'UDÛN',kind:'mountain',size:20}],
   },
 ];
 export const travellerPath={path:road,x:1000,y:0};

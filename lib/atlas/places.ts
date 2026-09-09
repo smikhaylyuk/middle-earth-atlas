@@ -129,8 +129,28 @@ export const places = [
   },
   {
     id:'nindalf',name:'Nindalf',overviewLabel:'Nindalf',kind:'The Wetwang',pinSubtitle:'Below the Emyn Muil',subtitle:'Marshland east of the Anduin',
-    description:'Nindalf is the broad wetland east of the Anduin below Rauros. Across the river, the Entwash spreads into several mouths before meeting the Great River. The Dead Marshes lie farther northeast, beyond this atlas’s present edge.',
+    description:'Nindalf is the broad wetland east of the Anduin below Rauros. Across the river, the Entwash spreads into several mouths before meeting the Great River. The Dead Marshes lie farther northeast, beyond the eastern Emyn Muil.',
     date:null,region:'rauros',major:true,source:'https://tolkiengateway.net/wiki/Nindalf',sourceLabel:'The Return of the King · Map of Rohan, Gondor, and Mordor',
+  },
+  {
+    id:'emyn-muil',name:'Emyn Muil',overviewLabel:'Emyn Muil',kind:'The eastern crags',pinSubtitle:'A maze of grey ridges',subtitle:'Above the lowlands east of the Great River',
+    description:'The Emyn Muil enclose Nen Hithoel and extend east of the Anduin. Their eastern ridges end in a steep descent toward the lower country. Frodo and Sam struggle through these hills after leaving the Fellowship, before Gollum guides them toward the marshes.',
+    date:null,region:'morannon',major:false,source:'https://tolkiengateway.net/wiki/Emyn_Muil',sourceLabel:'Book IV, ch. 1 · The Taming of Sméagol',
+  },
+  {
+    id:'dead-marshes',name:'Dead Marshes',overviewLabel:'Dead Marshes',kind:'The haunted wetlands',pinSubtitle:'Pools beneath the mist',subtitle:'Between Emyn Muil and Dagorlad',
+    description:'Southeast of Emyn Muil, reeds and treacherous pools cover the Dead Marshes. Over long years the wetlands have spread over ancient graves from the battle on Dagorlad. Frodo, Sam and Gollum cross here on their way toward the Black Gate; strange lights draw the eye after dark.',
+    date:null,region:'morannon',major:true,source:'https://tolkiengateway.net/wiki/Dead_Marshes',sourceLabel:'Book IV, ch. 2 · The Passage of the Marshes',
+  },
+  {
+    id:'dagorlad',name:'Dagorlad',overviewLabel:'Dagorlad',kind:'The Battle Plain',pinSubtitle:'Before the gates of Mordor',subtitle:'Dry country east of the marshes',
+    description:'Dagorlad lies north of the Morannon, beyond the eastern edge of the Dead Marshes. Here the Last Alliance fought Sauron’s armies in the Second Age. By the time of the War of the Ring, this is a desolate approach to Mordor, rather than a settled land.',
+    date:null,region:'morannon',major:false,source:'https://tolkiengateway.net/wiki/Dagorlad',sourceLabel:'The Return of the King · Published map · Appendix B',
+  },
+  {
+    id:'black-gate',name:'Black Gate',overviewLabel:'Black Gate',kind:'The Morannon',pinSubtitle:'The gate of Mordor',subtitle:'Where the mountain ranges meet',
+    description:'The Black Gate closes the northern mouth of Cirith Gorgor, between the Ephel Dúath and Ered Lithui. A stone rampart and iron doors guard the pass, watched by the Towers of the Teeth. Beyond the entrance lies Udûn. The gate is shown intact, before Sauron’s fall.',
+    date:null,region:'morannon',major:true,source:'https://tolkiengateway.net/wiki/Black_Gate',sourceLabel:'Book IV, ch. 3 · The Black Gate is Closed',
   },
   ...easternPlaces.map(p=>({...p,...eastNotes[p.id],overviewLabel:p.id==='weathertop'?'Amon Sûl':p.name,region:'east' as const,major:true})),
 ] as const;

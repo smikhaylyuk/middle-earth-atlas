@@ -44,7 +44,7 @@ export const AtlasPainting=memo(forwardRef<AtlasPaintingHandle,Props>(function A
   useEffect(()=>{
     let alive=true,frame=0,last=performance.now();
     buffer.current=document.createElement('canvas');
-    void Promise.all([loadImage('/images/atlas-harmonized.webp'),loadCanvasScene()]).then(([image,scene])=>{
+    void Promise.all([loadImage('/images/atlas-morannon.webp'),loadCanvasScene()]).then(([image,scene])=>{
       if(!alive)return;
       const tracks=[...scene.regions.flatMap(region=>region.water),scene.join,...scene.corrections];
       const rivers=createRiverSurface(image,buildRiverField(tracks,scene.water));
@@ -61,5 +61,5 @@ export const AtlasPainting=memo(forwardRef<AtlasPaintingHandle,Props>(function A
     frame=requestAnimationFrame(tick);
     return()=>{alive=false;cancelAnimationFrame(frame);assets.current=null;buffer.current=null;};
   },[draw]);
-  return <><link rel="preload" as="image" href={assetPath('/images/atlas-harmonized.webp')}/><canvas ref={canvas} className="atlas-painting" data-renderer="unified-canvas" aria-hidden="true"/></>;
+  return <><link rel="preload" as="image" href={assetPath('/images/atlas-morannon.webp')}/><canvas ref={canvas} className="atlas-painting" data-renderer="unified-canvas" aria-hidden="true"/></>;
 }));
