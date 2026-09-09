@@ -9,9 +9,6 @@ export function motionMetrics(scale:number,intensity:MotionIntensity){
   return {
     strength,
     birdWidth:Math.max(20,Math.min(180,(intensity==='subtle'?13:16)/scale)),
-    currentWidth:Math.max(1.5,Math.min(5,.8/scale)),
-    currentLength:Math.max(12,Math.min(35,5/scale)),
-    currentSpeed:intensity==='subtle'?20:29,
     smokeScale:Math.max(1,Math.min(2.5,.75/scale)),
   };
 }

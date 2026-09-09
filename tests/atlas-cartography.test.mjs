@@ -25,7 +25,7 @@ await test('road annotations have joined endpoints from the Havens through Bree 
 
 await test('birds remain visible at overview and motion loops do not stall at negative offsets',()=>{
   for(const scale of [.09,.15,.4,.8]){
-    const m=motionMetrics(scale,'subtle');assert.ok(m.birdWidth*scale>=12.9);assert.ok(m.currentWidth*scale>=.44);
+    const m=motionMetrics(scale,'subtle');assert.ok(m.birdWidth*scale>=12.9);
   }
   for(const t of [-100,-1,0,1,64,129])assert.ok(cycleProgress(t,64,-12)>=0&&cycleProgress(t,64,-12)<1);
   assert.equal(cycleProgress(2,64,12),cycleProgress(66,64,12));

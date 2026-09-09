@@ -5,27 +5,29 @@ import { type MapSize, type MapView } from '@/lib/atlas/map-view';
 import { renderAtlasPainting, lightAtlasPainting } from '@/lib/atlas/painting';
 import { loadCanvasScene, loadImage, drawCanvasScene, type CanvasScene } from '@/lib/atlas/canvas-scene';
 import { type MotionIntensity } from '@/lib/atlas/day-cycle';
+import {buildRiverField,createRiverSurface,drawRiverSurface,type RiverSurface} from '@/lib/atlas/river-surface';
 
-export type AtlasPaintingHandle={paint:(view:MapView,size:MapSize)=>void;diagnostics:()=>{renderer:string;frames:number;surfaceResizes:number;p95DrawMs:number;maxDrawMs:number;surfacePixels:number;animationSeconds:number;visibleBirds:number;waterHighlights:number;shoreSegments:number}};
+export type AtlasPaintingHandle={paint:(view:MapView,size:MapSize)=>void;diagnostics:()=>{renderer:string;frames:number;surfaceResizes:number;p95DrawMs:number;maxDrawMs:number;surfacePixels:number;animationSeconds:number;visibleBirds:number;waterHighlights:number;shoreSegments:number;riverPixels:number}};
 type Props={onLoad:()=>void;onError:()=>void;hour:RefObject<number>;running:boolean;visible:boolean;intensity:MotionIntensity;route:boolean};
 
 // One opaque presentation surface. No live CSS masks, filters, blend layers,
 // world-sized transforms, or separate regional clock rendering in the DOM.
 export const AtlasPainting=memo(forwardRef<AtlasPaintingHandle,Props>(function AtlasPainting(props,ref){
   const canvas=useRef<HTMLCanvasElement>(null),buffer=useRef<HTMLCanvasElement|null>(null);
-  const assets=useRef<{image:HTMLImageElement;scene:CanvasScene}|null>(null);
+  const assets=useRef<{image:HTMLImageElement;scene:CanvasScene;rivers:RiverSurface}|null>(null);
   const camera=useRef<{view:MapView;size:MapSize}|null>(null),settings=useRef(props);
   useEffect(()=>{settings.current=props;},[props]);
-  const elapsed=useRef(0),measurements=useRef<number[]>([]),frames=useRef(0),resizes=useRef(0),lastScene=useRef(''),lastDraw=useRef(0),sceneCounts=useRef({visibleBirds:0,waterHighlights:0,shoreSegments:0});
+  const elapsed=useRef(0),measurements=useRef<number[]>([]),frames=useRef(0),resizes=useRef(0),lastScene=useRef(''),lastDraw=useRef(0),sceneCounts=useRef({visibleBirds:0,waterHighlights:0,shoreSegments:0,riverPixels:0});
   const draw=useCallback(()=>{
     const element=canvas.current,current=camera.current,loaded=assets.current,back=buffer.current;
     if(!element||!current||!loaded||!back)return;
     const started=performance.now(),{view,size}=current;
     if(!renderAtlasPainting(back,loaded.image,view,size,window.devicePixelRatio)){settings.current.onError();return;}
     const layer=back.getContext('2d');if(!layer)return;
+    const riverPixels=drawRiverSurface(layer,loaded.rivers,elapsed.current,view,size,settings.current.intensity);
     lightAtlasPainting(layer,size,settings.current.hour.current);
     layer.save();layer.globalCompositeOperation='source-atop';
-    sceneCounts.current=drawCanvasScene(layer,loaded.scene,view,size,{hour:settings.current.hour.current,elapsed:elapsed.current,intensity:settings.current.intensity,route:settings.current.route});
+    sceneCounts.current={...drawCanvasScene(layer,loaded.scene,view,size,{hour:settings.current.hour.current,elapsed:elapsed.current,intensity:settings.current.intensity,route:settings.current.route}),riverPixels};
     layer.restore();
     if(element.width!==back.width||element.height!==back.height){element.width=back.width;element.height=back.height;resizes.current++;}
     const ctx=element.getContext('2d',{alpha:false});if(!ctx){settings.current.onError();return;}
@@ -43,7 +45,10 @@ export const AtlasPainting=memo(forwardRef<AtlasPaintingHandle,Props>(function A
     let alive=true,frame=0,last=performance.now();
     buffer.current=document.createElement('canvas');
     void Promise.all([loadImage('/images/atlas-expanded.webp'),loadCanvasScene()]).then(([image,scene])=>{
-      if(!alive)return;assets.current={image,scene};draw();settings.current.onLoad();
+      if(!alive)return;
+      const tracks=[...scene.regions.flatMap(region=>region.water),scene.join,...scene.corrections];
+      const rivers=createRiverSurface(image,buildRiverField(tracks,scene.water));
+      assets.current={image,scene,rivers};draw();settings.current.onLoad();
       void document.fonts.ready.then(()=>{if(alive)draw();});
     }).catch(()=>{if(alive)settings.current.onError();});
     function tick(now:number){

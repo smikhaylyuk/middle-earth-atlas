@@ -67,16 +67,6 @@ function glow(ctx:CanvasRenderingContext2D,x:number,y:number,rx:number,ry:number
   const gradient=ctx.createRadialGradient(0,0,0,0,0,1);gradient.addColorStop(0,color);gradient.addColorStop(1,'transparent');
   ctx.fillStyle=gradient;ctx.fillRect(-1,-1,2,2);ctx.restore();
 }
-function currents(ctx:CanvasRenderingContext2D,track:Track,time:number,metrics:ReturnType<typeof motionMetrics>,coverage:(x:number,y:number)=>number){
-  let count=0;
-  ctx.strokeStyle='#e1f1e9';ctx.lineWidth=metrics.currentWidth;ctx.lineCap='round';
-  for(let distance=(time*metrics.currentSpeed)%78;distance<track.length;distance+=78){
-    const a=trackPoint(track,distance/track.length),b=trackPoint(track,Math.min(1,(distance+metrics.currentLength)/track.length));
-    if(a.alpha<.1||b.alpha<.1||coverage(a.x,a.y)<.5||coverage(b.x,b.y)<.5)continue;
-    ctx.globalAlpha=.47*metrics.strength*Math.min(a.alpha,b.alpha);ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);ctx.stroke();count++;
-  }
-  return count;
-}
 export function drawCanvasScene(ctx:CanvasRenderingContext2D,scene:CanvasScene,view:MapView,size:MapSize,settings:SceneSettings){
   const {elapsed:time,hour,intensity,route}=settings,a=atmosphereAt(hour),metrics=motionMetrics(view.scale,intensity),{strength}=metrics;
   let visibleBirds=0,waterHighlights=0;
@@ -87,7 +77,6 @@ export function drawCanvasScene(ctx:CanvasRenderingContext2D,scene:CanvasScene,v
     ctx.beginPath();track.points.forEach((p,i)=>{if(i===0)ctx.moveTo(p.x,p.y);else ctx.lineTo(p.x,p.y);});ctx.stroke();ctx.setLineDash([]);
   }
   for(const region of scene.regions){
-    for(const track of region.water)waterHighlights+=currents(ctx,track,time,metrics,scene.water);
     for(const label of region.labels){
       const x=label.x+region.x,y=label.y+region.y,opacity=region.opacity(label.x,label.y);if(opacity<.2||!inView(x,y))continue;
       const light=label.kind==='forest'||label.kind==='mountain'||label.kind==='water';
@@ -114,8 +103,6 @@ export function drawCanvasScene(ctx:CanvasRenderingContext2D,scene:CanvasScene,v
       ctx.restore();
     });
   }
-  waterHighlights+=currents(ctx,scene.join,time,metrics,scene.water);
-  for(const track of scene.corrections)waterHighlights+=currents(ctx,track,time,metrics,scene.water);
   const labelOpacity=Math.max(0,Math.min(1,(view.scale-.4)/.2));
   if(labelOpacity>0)for(const label of tributaryLabels){
     if(!inView(label.x,label.y))continue;
