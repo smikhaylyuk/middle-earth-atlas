@@ -9,7 +9,7 @@ const load=async file=>{
   return import('data:text/javascript;base64,'+Buffer.from(output[0].code).toString('base64'));
 };
 const {createFrameQueue,zoomDetail,wheelPixels}=await load('frame-queue');
-const {renderAtlasPainting,lightAtlasPainting}=await load('painting');
+const {renderAtlasPainting,renderCachedPainting,lightAtlasPainting}=await load('painting');
 const {trackPoint}=await load('canvas-scene');
 const {renderMapLabels}=await load('map-labels');
 const {places}=await load('places');
@@ -133,4 +133,21 @@ await test('zoom never reallocates the viewport canvas or separates clearing fro
   for(let i=0;i<calls.length;i+=3){assert.equal(calls[i][0],'transform');assert.equal(calls[i+1][0],'clear');assert.equal(calls[i+2][0],'draw');assert.equal(calls[i+2][1],image);}
   renderAtlasPainting(canvas,image,{x:0,y:0,scale:1.65},{width:3840,height:2160},3);
   assert.ok(width*height<8_010_000,'High-density displays have bounded allocation');
+});
+
+await test('stationary animation reuses the full-resolution painting; navigation and resizing invalidate it',()=>{
+  const sourceDraws=[],copies=[];
+  const sourceContext={setTransform(){},clearRect(){},drawImage(...args){sourceDraws.push(args);}};
+  const targetContext={setTransform(){},drawImage(...args){copies.push({args,operation:this.globalCompositeOperation});}};
+  const cache={canvas:{width:0,height:0,getContext:()=>sourceContext},key:'',builds:0};
+  const target={width:0,height:0,getContext:()=>targetContext},image={},view={x:-420,y:20,scale:.5},size={width:1440,height:900};
+  for(let i=0;i<120;i++)assert.ok(renderCachedPainting(target,cache,image,view,size,2));
+  assert.equal(sourceDraws.length,1,'Animation must not rescale the atlas every frame');
+  assert.equal(cache.builds,1);assert.equal(target.width,2880);assert.equal(target.height,1800);
+  assert.ok(copies.every(c=>c.operation==='copy'&&c.args[0]===cache.canvas),'Transparent edges replace the previous frame without trails');
+  renderCachedPainting(target,cache,image,{...view,x:-400},size,2);
+  renderCachedPainting(target,cache,image,{...view,scale:.7},size,2);
+  renderCachedPainting(target,cache,image,view,{width:1000,height:800},2);
+  renderCachedPainting(target,cache,image,view,size,1);
+  assert.equal(cache.builds,5,'Pan, zoom, viewport and display density changes must all refresh geography');
 });

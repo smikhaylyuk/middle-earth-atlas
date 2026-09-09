@@ -6,12 +6,13 @@ export function useDayCycle(enabled: boolean, visible: boolean) {
   const root = useRef<HTMLElement>(null);
   const hour = useRef(8), playing = useRef(true), seconds = useRef(120);
   const [displayHour, setDisplayHour] = useState(8);
+  const [timeRevision,setTimeRevision] = useState(0);
   const [cycleEnabled, setCycleEnabled] = useState(true);
   const [cycleDuration, setCycleDuration] = useState(120);
   const apply = useCallback((value: number) => {
     hour.current = wrapHour(value);
   }, []);
-  const setTime = useCallback((value: number) => {apply(value);setDisplayHour(hour.current);}, [apply]);
+  const setTime = useCallback((value: number) => {apply(value);setDisplayHour(hour.current);setTimeRevision(v=>v+1);}, [apply]);
   const setCycle = useCallback((value: boolean) => {playing.current=value;setCycleEnabled(value);}, []);
   const setDuration = useCallback((value: number) => {seconds.current=value;setCycleDuration(value);}, []);
   const holdForNavigation = useCallback((value:boolean)=>{
@@ -34,5 +35,5 @@ export function useDayCycle(enabled: boolean, visible: boolean) {
     frame=requestAnimationFrame(tick);
     return () => cancelAnimationFrame(frame);
   }, [apply, enabled, visible, cycleEnabled]);
-  return {root, hour, displayHour, cycleEnabled, cycleDuration, setTime, setCycle, setDuration, holdForNavigation};
+  return {root, hour, displayHour, timeRevision, cycleEnabled, cycleDuration, setTime, setCycle, setDuration, holdForNavigation};
 }

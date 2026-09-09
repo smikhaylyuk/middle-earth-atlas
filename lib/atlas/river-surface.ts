@@ -62,7 +62,8 @@ export function riverReflection(p:RiverPixel,time:number){
 }
 
 type PixelSource={data:Uint8ClampedArray;width:number;height:number};
-type TilePixel=RiverPixel & {index:number;sourceX:number;sourceY:number};
+type PreparedRiverPixel=RiverPixel & {offset:number;phaseSin:number;phaseCos:number;driftSin:number;driftCos:number;waveSin:number;waveCos:number;fineSin:number;fineCos:number};
+type TilePixel=PreparedRiverPixel & {index:number;sourceX:number;sourceY:number};
 type RiverTile={x:number;y:number;canvas:HTMLCanvasElement;context:CanvasRenderingContext2D;frame:ImageData;source:PixelSource;pixels:TilePixel[];lastTime:number;lastIntensity:MotionIntensity|null};
 export type RiverSurface={tiles:RiverTile[];pixelCount:number};
 
@@ -73,11 +74,14 @@ export function createRiverSurface(image:HTMLImageElement,field:RiverField):Rive
   const read=scratch.getContext('2d',{willReadFrequently:true});if(!read)throw new Error('Canvas unavailable');
   const tiles=[...groups.values()].map(group=>{
     read.clearRect(0,0,scratch.width,scratch.height);read.drawImage(image,-group.x+PAD,-group.y+PAD);
-    const source=read.getImageData(0,0,scratch.width,scratch.height);
+    const readback=read.getImageData(0,0,scratch.width,scratch.height);
+    // Copy metadata once: ImageData's native getters are costly when called
+    // for every sample in the hot loop. The pixel buffer itself is shared.
+    const source={data:readback.data,width:readback.width,height:readback.height};
     const canvas=document.createElement('canvas');canvas.width=canvas.height=TILE;
     const context=canvas.getContext('2d');if(!context)throw new Error('Canvas unavailable');
     const frame=context.createImageData(TILE,TILE);
-    const pixels=group.pixels.map(p=>({...p,index:((p.y-group.y-1)/STEP*TILE+(p.x-group.x-1)/STEP)*4,sourceX:p.x-group.x+PAD,sourceY:p.y-group.y+PAD}));
+    const pixels=group.pixels.map(p=>({...prepareRiverPixel(p),index:((p.y-group.y-1)/STEP*TILE+(p.x-group.x-1)/STEP)*4,sourceX:p.x-group.x+PAD,sourceY:p.y-group.y+PAD}));
     for(const p of pixels)frame.data[p.index+3]=Math.round(p.alpha*218);
     return {...group,canvas,context,frame,source,pixels,lastTime:NaN,lastIntensity:null};
   });
@@ -85,27 +89,43 @@ export function createRiverSurface(image:HTMLImageElement,field:RiverField):Rive
   return {tiles,pixelCount:field.pixels.length};
 }
 
-const bilinear=(source:PixelSource,x:number,y:number,c:number)=>{
-  const ix=Math.floor(x),iy=Math.floor(y),u=x-ix,v=y-iy,i=(iy*source.width+ix)*4+c,row=source.width*4;
-  return source.data[i]*(1-u)*(1-v)+source.data[i+4]*u*(1-v)+source.data[i+row]*(1-u)*v+source.data[i+row+4]*u*v;
-};
+// Factor sin(a ± time) into fixed spatial coefficients and eight shared
+// frame values. This preserves the original waves without running trig,
+// allocating coordinate arrays, or repeating interpolation weights per RGB
+// channel for every water pixel on every frame.
+export function prepareRiverPixel(p:RiverPixel):PreparedRiverPixel{
+  const offset=p.x*.0017+p.y*.0023,wave=p.along*.24+Math.sin(p.across*.17+p.along*.037)*1.7,fine=p.along*.51+p.across*.12;
+  return {...p,offset,phaseSin:Math.sin(offset*TAU),phaseCos:Math.cos(offset*TAU),driftSin:Math.sin(p.along*.055),driftCos:Math.cos(p.along*.055),waveSin:Math.sin(wave),waveCos:Math.cos(wave),fineSin:Math.sin(fine),fineCos:Math.cos(fine)};
+}
+export function prepareRiverFrame(time:number,intensity:MotionIntensity){
+  const t=time*(intensity==='lively'?1.28:1),phase=t/8.8;
+  return {phase,phaseSin:Math.sin(phase*TAU),phaseCos:Math.cos(phase*TAU),driftSin:Math.sin(t*.55),driftCos:Math.cos(t*.55),waveSin:Math.sin(t*1.42),waveCos:Math.cos(t*1.42),fineSin:Math.sin(t*2.37),fineCos:Math.cos(t*2.37)};
+}
+export function shadePreparedRiverPixel(p:PreparedRiverPixel,source:PixelSource,sx:number,sy:number,f:ReturnType<typeof prepareRiverFrame>,target:Uint8ClampedArray,index:number){
+  const phase=((f.phase+p.offset)%1+1)%1,second=(phase+.5)%1,weight=(1-(p.phaseCos*f.phaseCos-p.phaseSin*f.phaseSin))*.5;
+  const drift=(p.driftSin*f.driftCos+p.driftCos*f.driftSin)*.65*p.depth;
+  const ax=sx-p.vx*phase*p.travel-p.vy*drift,ay=sy-p.vy*phase*p.travel+p.vx*drift;
+  const bx=sx-p.vx*second*p.travel-p.vy*drift,by=sy-p.vy*second*p.travel+p.vx*drift;
+  const wave=p.waveSin*f.waveCos-p.waveCos*f.waveSin,fine=p.fineSin*f.fineCos-p.fineCos*f.fineSin;
+  const bright=Math.max(0,wave*.7+fine*.3),glint=(bright*bright*bright*13-2.1)*(.4+.6*p.depth);
+  const aix=Math.floor(ax),aiy=Math.floor(ay),bix=Math.floor(bx),biy=Math.floor(by),au=ax-aix,av=ay-aiy,bu=bx-bix,bv=by-biy;
+  const a00=(1-au)*(1-av)*weight,a10=au*(1-av)*weight,a01=(1-au)*av*weight,a11=au*av*weight;
+  const b00=(1-bu)*(1-bv)*(1-weight),b10=bu*(1-bv)*(1-weight),b01=(1-bu)*bv*(1-weight),b11=bu*bv*(1-weight);
+  const ai=(aiy*source.width+aix)*4,bi=(biy*source.width+bix)*4,row=source.width*4,d=source.data;
+  for(let c=0;c<3;c++)target[index+c]=d[ai+c]*a00+d[ai+4+c]*a10+d[ai+row+c]*a01+d[ai+row+4+c]*a11+d[bi+c]*b00+d[bi+4+c]*b10+d[bi+row+c]*b01+d[bi+row+4+c]*b11+glint*(c===0?.86:1);
+}
 export function shadeRiverPixel(p:RiverPixel,source:PixelSource,sx:number,sy:number,time:number,intensity:MotionIntensity,target:Uint8ClampedArray,index:number){
-  const t=time*(intensity==='lively'?1.28:1),phase=riverPhase(time,p.x*.0017+p.y*.0023,intensity);
-  const drift=Math.sin(t*.55+p.along*.055)*.65*p.depth;
-  const sample=(progress:number)=>{
-    const dx=-p.vx*progress*p.travel-p.vy*drift,dy=-p.vy*progress*p.travel+p.vx*drift;
-    return [sx+dx,sy+dy];
-  };
-  const [ax,ay]=sample(phase.first),[bx,by]=sample(phase.second),glint=riverReflection(p,t);
-  for(let c=0;c<3;c++)target[index+c]=bilinear(source,ax,ay,c)*phase.weight+bilinear(source,bx,by,c)*(1-phase.weight)+glint*(c===0?.86:1);
+  shadePreparedRiverPixel(prepareRiverPixel(p),source,sx,sy,prepareRiverFrame(time,intensity),target,index);
 }
 
 export function drawRiverSurface(ctx:CanvasRenderingContext2D,surface:RiverSurface,time:number,view:MapView,size:MapSize,intensity:MotionIntensity){
+  const frame=prepareRiverFrame(time,intensity);
   let pixels=0;ctx.save();ctx.translate(view.x,view.y);ctx.scale(view.scale,view.scale);ctx.globalCompositeOperation='source-atop';ctx.globalAlpha=1;
   for(const tile of surface.tiles){
     if(tile.x*view.scale+view.x>size.width||(tile.x+TILE*STEP)*view.scale+view.x<0||tile.y*view.scale+view.y>size.height||(tile.y+TILE*STEP)*view.scale+view.y<0)continue;
     if(tile.lastTime!==time||tile.lastIntensity!==intensity){
-      for(const p of tile.pixels)shadeRiverPixel(p,tile.source,p.sourceX,p.sourceY,time,intensity,tile.frame.data,p.index);
+      const target=tile.frame.data,source=tile.source;
+      for(const p of tile.pixels)shadePreparedRiverPixel(p,source,p.sourceX,p.sourceY,frame,target,p.index);
       tile.context.putImageData(tile.frame,0,0);tile.lastTime=time;tile.lastIntensity=intensity;
     }
     ctx.drawImage(tile.canvas,tile.x,tile.y,TILE*STEP,TILE*STEP);pixels+=tile.pixels.length;

@@ -66,7 +66,7 @@ export default function LivingAtlas(){
   const running=motion??!reduced,place=places.find(p=>p.id===selected);
   const dockRegion=place?.region??browseRegion;
   const dockPlaces=dockRegion&&dockRegion!=='all'?places.filter(p=>p.region===dockRegion):majorPlaces;
-  const {root,hour,displayHour,cycleEnabled,cycleDuration,setTime,setCycle,setDuration,holdForNavigation}=useDayCycle(running,visible);
+  const {root,hour,displayHour,timeRevision,cycleEnabled,cycleDuration,setTime,setCycle,setDuration,holdForNavigation}=useDayCycle(running,visible);
   const beginNavigation=useCallback(()=>{
     if(settleTimer.current!==null)clearTimeout(settleTimer.current);
     if(navigating.current)return;
@@ -146,7 +146,7 @@ export default function LivingAtlas(){
       if(moves[event.key]){event.preventDefault();setRegion(null);cancelAnimationFrame(animation.current);beginNavigation();const [x,y]=moves[event.key];paint(boundView({...view.current,x:view.current.x+x,y:view.current.y+y},size.current));settleNavigation();}
       else if(event.key==='+'||event.key==='='){event.preventDefault();zoom(1.25);}else if(event.key==='-'){event.preventDefault();zoom(.8);}else if(event.key==='Escape')overview();
     }}>
-      <AtlasPainting ref={painting} onLoad={paintingLoaded} onError={paintingFailed} hour={hour} running={running} visible={visible} intensity={intensity} route={route}/>
+      <AtlasPainting ref={painting} onLoad={paintingLoaded} onError={paintingFailed} hour={hour} timeRevision={timeRevision} running={running} visible={visible&&!breeDetail} intensity={intensity} route={route}/>
       <AtlasLabels ref={labels} selected={selected} onSelect={focus}/>
     </div>
     <div className="map-vignette"/>
