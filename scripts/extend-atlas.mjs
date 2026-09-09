@@ -1,6 +1,7 @@
 import sharp from 'sharp';
 import {readFile,writeFile} from 'node:fs/promises';
 import layout from '../lib/atlas/rauros-layout.json' with {type:'json'};
+import {harmonizeAtlas} from './harmonize-atlas.mjs';
 
 const clamp=n=>Math.max(0,Math.min(1,n));
 const smooth=n=>{const t=clamp(n);return t*t*(3-2*t);};
@@ -41,4 +42,5 @@ export async function extendAtlas(){
   for(let i=0;i<coverage.length;i++){const p=i*4;if(data[p+3]>100&&data[p+1]>=data[p]+1&&data[p+2]>=data[p]-16&&data[p+2]>=data[p+1]-22)coverage[i]=255;}
   await sharp(coverage,{raw:{width:gridWidth,height:gridHeight,channels:1}}).png().toFile('public/images/atlas-masks/expanded-water.png');
   console.log(`Extended the atlas to ${worldWidth} × ${worldHeight}; one joined painting and shared water coverage.`);
+  await harmonizeAtlas();
 }

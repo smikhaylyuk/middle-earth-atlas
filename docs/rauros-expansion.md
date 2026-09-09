@@ -46,9 +46,11 @@ with the blend beginning downstream of it. `rauros-layout.json` records place
 anchors and river motion paths measured from the selected painting.
 
 `scripts/extend-atlas.mjs` composites the sheet onto the existing, repaired
-3700 × 2800 painting. The displayed result is `atlas-expanded.webp`,
+3700 × 2800 painting. The expanded base is `atlas-expanded.webp`,
 4350 × 3300. Existing landmark and shoreline coordinates do not move. The
 previous base, repairs and coast masks remain available unchanged.
+The displayed painting now includes the subsequent
+[Eriador style harmonization](eriador-style-harmonization.md).
 
 Lighting and animation use the same single viewport canvas and map-wide
 clock. Water coverage extends at the same two-world-units-per-pixel scale;

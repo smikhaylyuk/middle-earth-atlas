@@ -15,7 +15,7 @@ function track(points){
   sampled.push({x:points.at(-1)[0],y:points.at(-1)[1],alpha:1});return {points:sampled,length};
 }
 const field=buildRiverField([track(layout.anduin),track(layout.entwash)],water);
-const {data:paint,info:paintInfo}=await sharp('public/images/atlas-expanded.webp').ensureAlpha().raw().toBuffer({resolveWithObject:true});
+const {data:paint,info:paintInfo}=await sharp('public/images/atlas-harmonized.webp').ensureAlpha().raw().toBuffer({resolveWithObject:true});
 const source={data:paint,width:paintInfo.width,height:paintInfo.height};
 function frame(t){const rgba=new Uint8ClampedArray(field.pixels.length*4);field.pixels.forEach((p,i)=>shadeRiverPixel(p,source,p.x,p.y,t,'subtle',rgba,i*4));return rgba;}
 
