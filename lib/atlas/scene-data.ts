@@ -8,11 +8,12 @@ import morannon from './morannon-layout.json';
 import mordor from './mordor-layout.json';
 import gondor from './gondor-layout.json';
 import pelennor from './pelennor-layout.json';
+import morgul from './morgul-layout.json';
 
 type Point={x:number;y:number};
 type Flock={path:string;duration:number;delay:number};
 export type InkLabel=Point & {text:string;angle?:number;kind?:'forest'|'water'|'mountain';size?:number};
-export type SceneRegion={id:string;x:number;y:number;width:number;height:number;rivers:string;roads:string[];lights:readonly Point[];chimneys:readonly Point[];mist:readonly (Point & {w:number;h:number;delay:number})[];flocks:readonly Flock[];labels:InkLabel[]};
+export type SceneRegion={id:string;x:number;y:number;width:number;height:number;rivers:string;roads:string[];lights:readonly (Point & {color?:string;core?:string})[];chimneys:readonly Point[];mist:readonly (Point & {w:number;h:number;delay:number})[];flocks:readonly Flock[];labels:InkLabel[]};
 const flocks:Flock[]=[{path:'M70 700 C330 460 710 190 1270 180',duration:64,delay:-12},{path:'M400 990 C480 720 950 450 1450 290',duration:76,delay:-36}];
 const localRiver=(points:number[][])=>points.map(([x,y],i)=>`${i?'L':'M'}${x-rauros.x} ${y-rauros.y}`).join(' ');
 export const sceneRegions:SceneRegion[]=[
@@ -50,6 +51,13 @@ export const sceneRegions:SceneRegion[]=[
     mist:[{x:1050,y:1040,w:160,h:32,delay:-27}],
     flocks:[{path:"M1350 1140 C1200 900 1140 550 1530 420",duration:116,delay:-47}],
     labels:[{x:880,y:445,text:"PELENNOR FIELDS",size:20,angle:0},{x:395,y:485,text:"MINDOLLUIN",kind:"mountain",size:17,angle:57},{x:1560,y:1240,text:"SOUTH ITHILIEN",size:20,angle:0}],
+  },
+  {id:'morgul',x:morgul.x,y:morgul.y,width:morgul.width,height:morgul.height,
+    rivers:morgul.morgulduin.map(([x,y],i)=>`${i?'L':'M'}${x-morgul.x} ${y-morgul.y}`).join(' '),roads:[],
+    lights:[{x:1004,y:612,color:'#d9e3cc',core:'#eef0df'},{x:1229,y:440,color:'#b97958',core:'#d2a887'}],chimneys:[],
+    mist:[{x:650,y:695,w:180,h:25,delay:-19}],
+    flocks:[{path:'M210 1100 C350 980 420 830 365 590',duration:127,delay:-35}],
+    labels:[{x:1030,y:875,text:'MORGUL VALE',kind:'mountain',size:20},{x:1295,y:1030,text:'MORGAI',kind:'mountain',angle:78,size:16}],
   },
   {id:'mordor',x:mordor.x,y:mordor.y,width:mordor.width,height:mordor.height,rivers:'',roads:[],lights:[],
     chimneys:[{x:mordor.crater.x-mordor.x,y:mordor.crater.y-mordor.y}],

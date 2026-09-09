@@ -15,6 +15,10 @@ export function homeView(size:MapSize):MapView{
 }
 export function regionView(region:RegionId,size:MapSize):MapView{
   if(region==='all')return homeView(size);
+  if(region==='morgul'){
+    const scale=Math.max(.24,Math.min((size.width-64)/1480,(size.height-235)/1150));
+    return boundView({scale,x:size.width*.5-5410*scale,y:size.height*.43-4520*scale},size);
+  }
   if(region==='pelennor'){
     const scale=Math.max(.24,Math.min((size.width-64)/1650,(size.height-235)/1250));
     return boundView({scale,x:size.width*.5-4420*scale,y:size.height*.43-4840*scale},size);

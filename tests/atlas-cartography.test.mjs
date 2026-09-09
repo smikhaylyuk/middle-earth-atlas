@@ -24,6 +24,10 @@ await test('road annotations have joined endpoints from the Havens through Bree 
   const southern=new Set(['gondorApproach']),southQueue=['gondorApproach'];
   for(const node of southQueue)for(const next of neighbours.get(node)??[])if(!southern.has(next)){southern.add(next);southQueue.push(next);}
   for(const node of ['minasGreatGate','osgiliathWest','harlondQuays','pelennorSouthGate','southGondorEdge'])assert.ok(southern.has(node),`${node} is disconnected from the North-way`);
+  const eastern=new Set(['osgiliathEast']),eastQueue=['osgiliathEast'];
+  for(const node of eastQueue)for(const next of neighbours.get(node)??[])if(!eastern.has(next)){eastern.add(next);eastQueue.push(next);}
+  for(const node of ['ithilienCrossroads','haradNorth','haradSouth','morgulGate','torechEntrance'])assert.ok(eastern.has(node),`${node} is disconnected from eastern Osgiliath`);
+  assert.ok(!eastern.has('osgiliathWest'),'The road graph must not restore the fallen Anduin bridge');
 });
 
 await test('birds remain visible at overview and motion loops do not stall at negative offsets',()=>{

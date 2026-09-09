@@ -18,7 +18,7 @@ export const loadImage=(src:`/${string}`)=>new Promise<HTMLImageElement>((resolv
 });
 
 async function loadCoverage(name:'sea'|'water'){
-  const image=await loadImage(`/images/atlas-masks/${name==='water'?'pelennor-water':name}.png`),canvas=document.createElement('canvas');
+  const image=await loadImage(`/images/atlas-masks/${name==='water'?'morgul-water':name}.png`),canvas=document.createElement('canvas');
   const width=image.naturalWidth,height=image.naturalHeight;canvas.width=width;canvas.height=height;
   const ctx=canvas.getContext('2d',{willReadFrequently:true});if(!ctx)throw new Error('Canvas unavailable');
   ctx.drawImage(image,0,0);const rgba=ctx.getImageData(0,0,width,height).data,values=new Uint8Array(width*height);
@@ -86,7 +86,7 @@ export function drawCanvasScene(ctx:CanvasRenderingContext2D,scene:CanvasScene,v
     for(const mist of region.mist){const x=region.x+mist.x+mist.w*.5+Math.sin((time-mist.delay)/18)*85,y=region.y+mist.y+mist.h*.5+Math.sin(time/13)*9;if(!inView(x,y,mist.w))continue;const opacity=.36*a.mist*strength*region.opacity(mist.x,mist.y);glow(ctx,x,y,mist.w*.6,mist.h*.52,'#eeecd6',opacity);glow(ctx,x+mist.w*.2,y-12,mist.w*.32,mist.h*.34,'#f6f2df',opacity*.75);}
     for(const [i,p] of region.lights.entries()){
       const x=region.x+p.x,y=region.y+p.y;if(!inView(x,y))continue;const opacity=region.opacity(p.x,p.y)*(a.night*.85+a.warmth*.15)*(.85+.15*Math.sin(time*1.2+i));
-      const radius=Math.max(14,Math.min(30,7/view.scale));glow(ctx,x,y,radius,radius,region.id==='anduin'?'#e5e5b0':'#efb068',opacity*.75);ctx.globalAlpha=opacity;ctx.fillStyle='#ffe5a3';ctx.beginPath();ctx.arc(x,y,Math.max(1.6,Math.min(3,1/view.scale)),0,Math.PI*2);ctx.fill();
+      const radius=Math.max(14,Math.min(30,7/view.scale));glow(ctx,x,y,radius,radius,p.color??(region.id==='anduin'?'#e5e5b0':'#efb068'),opacity*.75);ctx.globalAlpha=opacity;ctx.fillStyle=p.core??'#ffe5a3';ctx.beginPath();ctx.arc(x,y,Math.max(1.6,Math.min(3,1/view.scale)),0,Math.PI*2);ctx.fill();
     }
     for(const [i,p] of region.chimneys.entries()){
       for(let wisp=0;wisp<3;wisp++){

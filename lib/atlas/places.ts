@@ -212,6 +212,26 @@ export const places = [
     description:'Emyn Arnen rises east of the Anduin and south of Osgiliath. The river curves around the feet of these hills, an outlier of the Ephel Dúath. After the War of the Ring, Faramir becomes Lord of Emyn Arnen; this view shows the country before his new household is established.',
     date:null,region:'pelennor',major:false,source:'https://tolkiengateway.net/wiki/Emyn_Arnen',sourceLabel:'Unfinished index · Appendix A · Published map',
   },
+  {
+    id:'cross-roads',name:'Cross-roads',overviewLabel:'Cross-roads',kind:'The meeting of four ways',pinSubtitle:'The Fallen King',subtitle:'Where Ithilien’s roads meet',
+    description:'The north–south Harad Road meets the road from Osgiliath to Minas Morgul among great trees. Beside the western road stands a defaced statue of a king of Gondor. Its fallen head rests nearby, crowned by small flowers.',
+    date:null,region:'morgul',major:true,source:'https://tolkiengateway.net/wiki/Cross-roads',sourceLabel:'Book IV, ch. 7 · Journey to the Cross-roads · Published map',
+  },
+  {
+    id:'minas-morgul',name:'Minas Morgul',overviewLabel:'Minas Morgul',kind:'The Tower of Sorcery',pinSubtitle:'The fallen Moon-tower',subtitle:'A pale city within the mountain valley',
+    description:'Once Minas Ithil, this stronghold now belongs to the Nazgûl. A white bridge crosses the Morgulduin to its northern gate. Pale light clings to the walls; the meadows beside the cold stream bear poisonous white flowers.',
+    date:null,region:'morgul',major:true,source:'https://tolkiengateway.net/wiki/Minas_Morgul',sourceLabel:'Book IV, ch. 8 · The Stairs of Cirith Ungol',
+  },
+  {
+    id:'morgul-stairs',name:'Morgul Stairs',overviewLabel:'Morgul Stairs',kind:'The hidden ascent',pinSubtitle:'Above the valley',subtitle:'A narrow way toward Cirith Ungol',
+    description:'Before the bridge to Minas Morgul, a narrow path turns north and climbs the valley’s wall. The Straight Stair and Winding Stair lead toward the tunnel of Torech Ungol. This hidden ascent is separate from the broader road over the Morgul Pass.',
+    date:null,region:'morgul',major:false,source:'https://tolkiengateway.net/wiki/Stairs_of_Cirith_Ungol',sourceLabel:'Book IV, ch. 8–9 · The Stairs of Cirith Ungol · Shelob’s Lair',
+  },
+  {
+    id:'cirith-ungol',name:'Cirith Ungol',overviewLabel:'Cirith Ungol',kind:'The watch above the pass',pinSubtitle:'The eastern tower',subtitle:'On the Mordor side of the mountains',
+    description:'The tower guards the eastern exit of Cirith Ungol. Three tiers of pointed bastions face into Mordor beneath a round turret. Beyond the pass lie the trough of the Morgai and Gorgoroth. The fortress was built by Gondor but is now held by Orcs.',
+    date:null,region:'morgul',major:true,source:'https://tolkiengateway.net/wiki/Tower_of_Cirith_Ungol',sourceLabel:'Book VI, ch. 1 · The Tower of Cirith Ungol',
+  },
   ...easternPlaces.map(p=>({...p,...eastNotes[p.id],overviewLabel:p.id==='weathertop'?'Amon Sûl':p.name,region:'east' as const,major:true})),
 ] as const;
 export type PlaceId = typeof places[number]['id'];

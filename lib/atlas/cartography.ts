@@ -22,6 +22,8 @@ export const roadNodes={
   darkTowerGate:[5690,3826],doomEastEntrance:[5435,3870],
   gondorApproach:[4313,4350],minasGreatGate:[4198,4831],osgiliathWest:[4555,4605],
   harlondJunction:[4307,5010],harlondQuays:[4380,4990],pelennorSouthGate:[4341,5177],southGondorEdge:[4420,5470],
+  osgiliathEast:[4810,4618],ithilienCrossroads:[5041,4611],haradNorth:[4599,4180],haradSouth:[4985,5030],
+  morgulBridgeNorth:[5570,4537],morgulGate:[5587,4580],stairsBranch:[5548,4531],torechEntrance:[5649,4311],
 } as const;
 type RoadNode=keyof typeof roadNodes;
 export type RoadGuide={name:string;from:RoadNode;to:RoadNode;path:string;x?:number;y?:number};
@@ -47,6 +49,17 @@ export const roadGuides:RoadGuide[]=[
   {name:'Harlond quay road',from:'harlondJunction',to:'harlondQuays',path:'M4307 5010 L4333 4976 L4380 4990'},
   {name:'South Road through the Rammas',from:'harlondJunction',to:'pelennorSouthGate',path:'M4307 5010 C4340 5044 4339 5110 4341 5177'},
   {name:'South Road toward lower Gondor',from:'pelennorSouthGate',to:'southGondorEdge',path:'M4341 5177 C4360 5220 4420 5250 4430 5320 S4460 5410 4420 5470'},
+  // Osgiliath's eastern bank is a separate node. No line restores the lost
+  // Anduin bridge or presents the Morgul road as Frodo's western approach.
+  {name:'Osgiliath road to the Cross-roads',from:'osgiliathEast',to:'ithilienCrossroads',path:'M4810 4618 C4880 4618 4970 4616 5041 4611'},
+  {name:'Harad Road through North Ithilien',from:'haradNorth',to:'ithilienCrossroads',path:'M4599 4180 C4605 4230 4650 4275 4730 4300 S4810 4370 4900 4410 S4985 4480 5007 4550 L5041 4611'},
+  {name:'Harad Road south of the Cross-roads',from:'ithilienCrossroads',to:'haradSouth',path:'M5041 4611 C5064 4650 5040 4672 5011 4694 L5003 4720 C4975 4760 4915 4750 4900 4810 S4900 4915 4985 5030'},
+  {name:'Morgul road along the northern bank',from:'ithilienCrossroads',to:'stairsBranch',path:'M5041 4611 C5140 4620 5240 4584 5340 4560 S5460 4513 5548 4531'},
+  {name:'Approach to the white bridge',from:'stairsBranch',to:'morgulBridgeNorth',path:'M5548 4531 L5570 4537'},
+  {name:'White bridge to Minas Morgul',from:'morgulBridgeNorth',to:'morgulGate',path:'M5570 4537 C5567 4555 5572 4570 5587 4580'},
+  // The surface annotation ends at the cave mouth. The tunnel's interior
+  // and exit are not drawn as an invented road over the mountain crest.
+  {name:'Stairs to Torech Ungol',from:'stairsBranch',to:'torechEntrance',path:'M5548 4531 L5550 4500 L5530 4480 L5542 4450 L5576 4420 L5570 4398 L5605 4350 L5649 4311'},
 ];
 
 // Water highlights follow the inspected corrected channels. The Glanduin
