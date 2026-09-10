@@ -11,6 +11,7 @@ import pelennor from './pelennor-layout.json';
 import morgul from './morgul-layout.json';
 import lamedon from './lamedon-layout.json';
 import anfalas from './anfalas-layout.json';
+import belfalas from './belfalas-layout.json';
 
 type Point={x:number;y:number};
 type Flock={path:string;duration:number;delay:number};
@@ -74,6 +75,13 @@ export const sceneRegions:SceneRegion[]=[
     mist:[{x:860,y:780,w:180,h:30,delay:-37}],
     flocks:[{path:'M450 2080 C350 1650 730 1310 900 990',duration:132,delay:-46}],
     labels:[{x:405,y:2180,text:'ANDRAST',kind:'mountain',size:20,angle:-30},{x:600,y:2690,text:'BAY OF BELFALAS',kind:'water',size:24}],
+  },
+  {id:'belfalas',x:belfalas.x,y:belfalas.y,width:belfalas.width,height:belfalas.height,
+    rivers:Object.values(belfalas.rivers).map(points=>points.map(([x,y],i)=>`${i?'L':'M'}${x-belfalas.x} ${y-belfalas.y}`).join(' ')).join(' '),roads:[],
+    lights:belfalas.lights.map(p=>({x:p.x-belfalas.x,y:p.y-belfalas.y})),chimneys:[],
+    mist:[{x:2460,y:540,w:150,h:25,delay:-33}],
+    flocks:[{path:'M1720 1250 C1890 1110 2030 800 2440 790',duration:137,delay:-43}],
+    labels:[{x:900,y:1490,text:'BAY OF BELFALAS',kind:'water',size:26}],
   },
   {id:'mordor',x:mordor.x,y:mordor.y,width:mordor.width,height:mordor.height,rivers:'',roads:[],lights:[],
     chimneys:[{x:mordor.crater.x-mordor.x,y:mordor.crater.y-mordor.y}],

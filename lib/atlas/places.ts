@@ -272,6 +272,26 @@ export const places = [
     description:'Anfalas is the coastal fief between the Lefnui and Morthond, south of Pinnath Gelin. Its name is also rendered Langstrand. Golasgil leads hunters, herdsmen and men of its small villages to the defence of Minas Tirith. The atlas currently shows the western part of this long coast.',
     date:null,region:'anfalas',major:true,source:'https://tolkiengateway.net/wiki/Anfalas',sourceLabel:'Book V, ch. 1 · Minas Tirith · Published map',
   },
+  {
+    id:'edhellond',name:'Edhellond',overviewLabel:'Edhellond',kind:'The deserted Elf-haven',pinSubtitle:'At the meeting of river and sea',subtitle:'The old haven north of Dol Amroth',
+    description:'The Ringló joins the Morthond above this ancient haven, near the sheltered waters of Cobas Haven. Elves once sailed west from here. In Third Age 1981, Amroth was lost at sea and the last Elven ship departed. By the War of the Ring the harbour stood deserted, remembered in the traditions of Gondor.',
+    date:null,region:'belfalas',major:true,source:'https://tolkiengateway.net/wiki/Edhellond',sourceLabel:'Unfinished Tales · Amroth and Nimrodel · Published map',
+  },
+  {
+    id:'cobas-haven',name:'Cobas Haven',overviewLabel:'Cobas Haven',kind:'The sheltered bay',pinSubtitle:'Beneath the headland',subtitle:'Where the rivers reach the Bay of Belfalas',
+    description:'The combined waters of the Morthond and Ringló enter this small coastal bay. Edhellond lies near the river mouth; the high headland of Dol Amroth shelters the haven to the south. Beyond it opens the greater Bay of Belfalas.',
+    date:null,region:'belfalas',major:true,source:'https://tolkiengateway.net/wiki/Cobas_Haven',sourceLabel:'Published map · The War of the Ring · The Second Map',
+  },
+  {
+    id:'dol-amroth',name:'Dol Amroth',overviewLabel:'Dol Amroth',kind:'The city of the Swan-knights',pinSubtitle:'The castle above the sea',subtitle:'The seat of the Princes of Belfalas',
+    description:'A castle and port-city stand on a high headland on the western coast of Belfalas, south of Edhellond. The Sea-ward Tower overlooks the water. Prince Imrahil leads the Swan-knights of Dol Amroth to the defence of Minas Tirith; his house bears a ship with a swan-prow on its banner.',
+    date:null,region:'belfalas',major:true,source:'https://tolkiengateway.net/wiki/Dol_Amroth',sourceLabel:'Book V, ch. 1 · Minas Tirith · The Adventures of Tom Bombadil, preface',
+  },
+  {
+    id:'belfalas',name:'Belfalas',overviewLabel:'Belfalas',kind:'A shoreland of Gondor',pinSubtitle:'Hills above the surf',subtitle:'The mountainous peninsula south of Lamedon',
+    description:'Wooded hills and rocky heights run through this southern promontory of Gondor. The lower Ringló and Morthond lie to the west, while the Gilrain marks the fief’s eastern side beyond this part of the atlas. Dol Amroth is its chief city, overlooking the sea from the western shore.',
+    date:null,region:'belfalas',major:true,source:'https://tolkiengateway.net/wiki/Belfalas',sourceLabel:'Published map · Unfinished Tales · Cirion and Eorl, note 39',
+  },
   ...easternPlaces.map(p=>({...p,...eastNotes[p.id],overviewLabel:p.id==='weathertop'?'Amon Sûl':p.name,region:'east' as const,major:true})),
 ] as const;
 export type PlaceId = typeof places[number]['id'];

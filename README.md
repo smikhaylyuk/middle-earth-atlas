@@ -1,6 +1,6 @@
 # Middle-earth — A Living Atlas
 
-An interactive, painterly atlas of Middle-earth, from the Grey Havens and the Shire through Rohan to Gondor and Mordor. Explore Minas Tirith, the Morgul Vale, Erech and Lamedon, and the western coast through Drúwaith Iaur to Anfalas, with flowing rivers and a shared day and night cycle.
+An interactive, painterly atlas of Middle-earth, from the Grey Havens and the Shire through Rohan to Gondor and Mordor. Explore Minas Tirith, the Morgul Vale, Erech and Lamedon, and the western coast through Drúwaith Iaur and Anfalas to Edhellond and Dol Amroth, with flowing rivers and a shared day and night cycle.
 
 ![The painted landscape of Eriador](public/images/eriador-painted.jpg)
 
@@ -71,6 +71,6 @@ This is an unofficial fan project. Middle-earth and its stories were created by 
 
 ## Map rendering
 
-The approved paintings are precomposed into `public/images/atlas-anfalas.webp`. A canvas draws this image into a viewport-sized backing surface, capped at two device pixels per CSS pixel and approximately eight million pixels. Zoom changes the sampled view, never the canvas allocation. Place markers and effects share the same animation-frame camera update. The clock and effect animations briefly hold during navigation, then resume without skipping time.
+The approved paintings are precomposed into `public/images/atlas-belfalas.webp`. A canvas draws this image into a viewport-sized backing surface, capped at two device pixels per CSS pixel and approximately eight million pixels. Zoom changes the sampled view, never the canvas allocation. Place markers and effects share the same animation-frame camera update. The clock and effect animations briefly hold during navigation, then resume without skipping time.
 
 To update a painting or its alignment, run `npm run build:atlas` and commit the regenerated paintings and masks in `public/images/atlas-masks/`. The script uses Sharp, already supplied by Vinext, to bake the existing artwork and geographic correction patches. It does not create new terrain. The source paintings remain available for subsequent map expansions.
