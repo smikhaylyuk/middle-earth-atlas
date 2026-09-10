@@ -289,8 +289,28 @@ export const places = [
   },
   {
     id:'belfalas',name:'Belfalas',overviewLabel:'Belfalas',kind:'A shoreland of Gondor',pinSubtitle:'Hills above the surf',subtitle:'The mountainous peninsula south of Lamedon',
-    description:'Wooded hills and rocky heights run through this southern promontory of Gondor. The lower Ringló and Morthond lie to the west, while the Gilrain marks the fief’s eastern side beyond this part of the atlas. Dol Amroth is its chief city, overlooking the sea from the western shore.',
+    description:'Wooded hills and rocky heights run through this southern promontory of Gondor. The lower Ringló and Morthond lie to the west, while the Gilrain marks the fief’s eastern side. Dol Amroth is its chief city, overlooking the sea from the western shore.',
     date:null,region:'belfalas',major:true,source:'https://tolkiengateway.net/wiki/Belfalas',sourceLabel:'Published map · Unfinished Tales · Cirion and Eorl, note 39',
+  },
+  {
+    id:'linhir',name:'Linhir',overviewLabel:'Linhir',kind:'The haven on Gilrain',pinSubtitle:'Below the meeting of the rivers',subtitle:'A crossing on the road through southern Gondor',
+    description:'Linhir stands on the west bank below the meeting of the Gilrain and Serni. The road from Erech crosses here on its way to Pelargir. Tolkien describes fords in the story and a haven with a ferrybridge in his unfinished index. The combined waters run south from the town into the Bay of Belfalas.',
+    date:null,region:'linhir',major:true,source:'https://tolkiengateway.net/wiki/Linhir',sourceLabel:'Book V, ch. 9 · The Last Debate · Unfinished index',
+  },
+  {
+    id:'gilrain',name:'Gilrain',overviewLabel:'Gilrain',kind:'The border river',pinSubtitle:'Between Belfalas and Lebennin',subtitle:'From the mountains to the haven',
+    description:'The Gilrain descends from the White Mountains, marking the eastern side of Belfalas. Above Linhir it meets the Serni, which approaches from the northeast. Their combined waters pass the haven before reaching the sea.',
+    date:null,region:'linhir',major:false,source:'https://tolkiengateway.net/wiki/Gilrain',sourceLabel:'Published map · Book V, ch. 9 · The Last Debate',
+  },
+  {
+    id:'serni',name:'Serni',overviewLabel:'Serni',kind:'A river of Lebennin',pinSubtitle:'The eastern branch above Linhir',subtitle:'Southwest from the mountain foothills',
+    description:'The Serni rises south of the eastern White Mountains and flows southwest through Lebennin to meet the Gilrain just above Linhir. It reaches the sea through their shared lower course, separate from the great river Anduin farther east.',
+    date:null,region:'linhir',major:false,source:'https://tolkiengateway.net/wiki/Serni',sourceLabel:'Published map · The Rivers and Beacon-hills of Gondor',
+  },
+  {
+    id:'western-lebennin',name:'Western Lebennin',overviewLabel:'Lebennin',kind:'The land of five streams',pinSubtitle:'East of the Gilrain',subtitle:'The western countryside of southern Gondor',
+    description:'Lebennin stretches south of the White Mountains, between the Gilrain and Anduin. This part of the atlas follows its western fields and coast eastward from Linhir. Farther east lie the other rivers of the land and the great haven of Pelargir, beyond the present sheet.',
+    date:null,region:'linhir',major:true,source:'https://tolkiengateway.net/wiki/Lebennin',sourceLabel:'Published map · Book V, ch. 9 · The Last Debate',
   },
   ...easternPlaces.map(p=>({...p,...eastNotes[p.id],overviewLabel:p.id==='weathertop'?'Amon Sûl':p.name,region:'east' as const,major:true})),
 ] as const;

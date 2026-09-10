@@ -50,7 +50,7 @@ export const AtlasPainting=memo(forwardRef<AtlasPaintingHandle,Props>(function A
     let alive=true;
     buffer.current=document.createElement('canvas');
     paintingCache.current={canvas:document.createElement('canvas'),key:'',builds:0};
-    void Promise.all([loadImage('/images/atlas-belfalas.webp'),loadCanvasScene()]).then(([image,scene])=>{
+    void Promise.all([loadImage('/images/atlas-linhir.webp'),loadCanvasScene()]).then(([image,scene])=>{
       if(!alive)return;
       const tracks=[...scene.regions.flatMap(region=>region.water),scene.join,...scene.corrections];
       const rivers=createRiverSurface(image,buildRiverField(tracks,scene.water));
@@ -76,5 +76,5 @@ export const AtlasPainting=memo(forwardRef<AtlasPaintingHandle,Props>(function A
     frame=requestAnimationFrame(tick);
     return()=>cancelAnimationFrame(frame);
   },[draw,props.visible,props.running]);
-  return <><link rel="preload" as="image" href={assetPath('/images/atlas-belfalas.webp')}/><canvas ref={canvas} className="atlas-painting" data-renderer="unified-canvas" aria-hidden="true"/></>;
+  return <><link rel="preload" as="image" href={assetPath('/images/atlas-linhir.webp')}/><canvas ref={canvas} className="atlas-painting" data-renderer="unified-canvas" aria-hidden="true"/></>;
 }));

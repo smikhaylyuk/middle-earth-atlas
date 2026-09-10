@@ -12,6 +12,7 @@ import morgul from './morgul-layout.json';
 import lamedon from './lamedon-layout.json';
 import anfalas from './anfalas-layout.json';
 import belfalas from './belfalas-layout.json';
+import linhir from './linhir-layout.json';
 
 type Point={x:number;y:number};
 type Flock={path:string;duration:number;delay:number};
@@ -75,6 +76,11 @@ export const sceneRegions:SceneRegion[]=[
     mist:[{x:860,y:780,w:180,h:30,delay:-37}],
     flocks:[{path:'M450 2080 C350 1650 730 1310 900 990',duration:132,delay:-46}],
     labels:[{x:405,y:2180,text:'ANDRAST',kind:'mountain',size:20,angle:-30},{x:600,y:2690,text:'BAY OF BELFALAS',kind:'water',size:24}],
+  },
+  {id:'linhir',x:linhir.x,y:linhir.y,width:linhir.width,height:linhir.height,
+    rivers:Object.values(linhir.rivers).map(points=>points.map(([x,y],i)=>`${i?'L':'M'}${x-linhir.x} ${y-linhir.y}`).join(' ')).join(' '),roads:[],
+    lights:linhir.lights.map(p=>({x:p.x-linhir.x,y:p.y-linhir.y})),chimneys:[],mist:[],flocks:[],
+    labels:[{x:865,y:445,text:'ANDUIN',kind:'water',size:16,angle:42}],
   },
   {id:'belfalas',x:belfalas.x,y:belfalas.y,width:belfalas.width,height:belfalas.height,
     rivers:Object.values(belfalas.rivers).map(points=>points.map(([x,y],i)=>`${i?'L':'M'}${x-belfalas.x} ${y-belfalas.y}`).join(' ')).join(' '),roads:[],

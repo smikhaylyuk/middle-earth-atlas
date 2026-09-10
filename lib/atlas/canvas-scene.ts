@@ -18,7 +18,7 @@ export const loadImage=(src:`/${string}`)=>new Promise<HTMLImageElement>((resolv
 });
 
 async function loadCoverage(name:'sea'|'water'){
-  const image=await loadImage(`/images/atlas-masks/belfalas-${name}.png`),canvas=document.createElement('canvas');
+  const image=await loadImage(`/images/atlas-masks/linhir-${name}.png`),canvas=document.createElement('canvas');
   const width=image.naturalWidth,height=image.naturalHeight;canvas.width=width;canvas.height=height;
   const ctx=canvas.getContext('2d',{willReadFrequently:true});if(!ctx)throw new Error('Canvas unavailable');
   ctx.drawImage(image,0,0);const rgba=ctx.getImageData(0,0,width,height).data,values=new Uint8Array(width*height);
@@ -54,7 +54,7 @@ export async function loadCanvasScene():Promise<CanvasScene>{
     if(region.id==='anduin'||region.id==='rohan')for(const t of water)for(const p of t.points)if(p.x>3200&&p.x<3460&&p.y>1780&&p.y<2040)p.alpha=0;
     return {...region,opacity,water,roadTracks:region.roads.flatMap(d=>paths(d).map(part=>samplePath(part,region.x,region.y,opacity))),birdTracks:region.flocks.map(f=>samplePath(f.path,region.x,region.y,opacity))};
   }));
-  const [sea,water,shore,tributaries]=await Promise.all([loadCoverage('sea'),loadCoverage('water'),fetch(assetPath('/images/atlas-masks/belfalas-shore-wave-field.json')).then(r=>{if(!r.ok)throw new Error('Could not load shoreline');return r.json() as Promise<ShoreWaveField>;}),fetch(assetPath('/images/atlas-masks/tributaries.json')).then(r=>{if(!r.ok)throw new Error('Could not load watercourses');return r.json() as Promise<{points:[number,number][]}[]>;})]);
+  const [sea,water,shore,tributaries]=await Promise.all([loadCoverage('sea'),loadCoverage('water'),fetch(assetPath('/images/atlas-masks/linhir-shore-wave-field.json')).then(r=>{if(!r.ok)throw new Error('Could not load shoreline');return r.json() as Promise<ShoreWaveField>;}),fetch(assetPath('/images/atlas-masks/tributaries.json')).then(r=>{if(!r.ok)throw new Error('Could not load watercourses');return r.json() as Promise<{points:[number,number][]}[]>;})]);
   const roads=roadGuides.flatMap(r=>paths(r.path).map(p=>samplePath(p,r.x??0,r.y??0,()=>1)));
   const corrections=Object.values(correctedRivers).map(p=>samplePath(p,0,0,()=>1));
   for(const river of tributaries)corrections.push(samplePath(river.points.map(([x,y],i)=>`${i?'L':'M'}${x} ${y}`).join(' '),0,0,()=>1));

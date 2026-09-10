@@ -15,6 +15,11 @@ export function homeView(size:MapSize):MapView{
 }
 export function regionView(region:RegionId,size:MapSize):MapView{
   if(region==='all')return homeView(size);
+  if(region==='linhir'){
+    const top=112,bottom=size.height-(size.width<650?230:255);
+    const scale=Math.max(.10,Math.min((size.width-64)/1550,(bottom-top)/1700));
+    return boundView({scale,x:size.width*.5-4510*scale,y:(top+bottom)*.5-6310*scale},size);
+  }
   if(region==='belfalas'){
     const top=112,bottom=size.height-(size.width<650?230:255);
     const scale=Math.max(.10,Math.min((size.width-64)/2800,(bottom-top)/2100));
