@@ -1,0 +1,794 @@
+{
+  "version": 1,
+  "status": "alignment-study",
+  "width": 3840,
+  "height": 2931,
+  "axes": "x east, y south; pixels on the locked reference scan, not latitude/longitude",
+  "sources": {
+    "general": {
+      "title": "Christopher Tolkien · The West of Middle-earth at the End of the Third Age (1980)",
+      "url": "https://tolkiengateway.net/wiki/File:Christopher_Tolkien_-_The_West_of_Middle-earth.png",
+      "width": 3840,
+      "height": 2931,
+      "sha256": "4455ee862b1498d7fc7d819d67f93eaf0abd4c7ca66219bc3e32b5fe5847b9f2",
+      "image": "/images/alignment-reference.webp"
+    },
+    "gondor": {
+      "title": "Christopher Tolkien · Map of Rohan, Gondor and Mordor",
+      "url": "https://tolkiengateway.net/wiki/File:Christopher_Tolkien_-_Map_of_Rohan,_Gondor,_and_Mordor.png",
+      "width": 1920,
+      "height": 1547,
+      "corrections": "Celos enters Sirith from the west. Use the detailed map and documented correction, not the erroneous branch labels in this general-map scan."
+    }
+  },
+  "anchors": [
+    {
+      "id": "grey-havens",
+      "name": "Grey Havens",
+      "region": "eriador",
+      "reference": [
+        652,
+        729
+      ],
+      "current": [
+        433.59,
+        481.45
+      ],
+      "role": "support",
+      "uncertainty": 40,
+      "source": "general",
+      "note": "Approximate head of the Gulf of Lune; a coastal support point, not a precise town survey."
+    },
+    {
+      "id": "hobbiton",
+      "name": "Hobbiton",
+      "region": "eriador",
+      "reference": [
+        969,
+        807
+      ],
+      "current": [
+        804.69,
+        369.14
+      ],
+      "role": "control",
+      "uncertainty": 18,
+      "source": "general",
+      "note": "Manually digitized from the mapped feature; not the printed name."
+    },
+    {
+      "id": "bree",
+      "name": "Bree",
+      "region": "eriador",
+      "reference": [
+        1231,
+        808
+      ],
+      "current": [
+        1284.18,
+        481.45
+      ],
+      "role": "control",
+      "uncertainty": 18,
+      "source": "general",
+      "note": "Manually digitized from the mapped feature; not the printed name."
+    },
+    {
+      "id": "weathertop",
+      "name": "Weathertop",
+      "region": "eriador",
+      "reference": [
+        1416,
+        772
+      ],
+      "current": [
+        1544.92,
+        418.95
+      ],
+      "role": "control",
+      "uncertainty": 18,
+      "source": "general",
+      "note": "Manually digitized from the mapped feature; not the printed name."
+    },
+    {
+      "id": "rivendell",
+      "name": "Rivendell",
+      "region": "eriador",
+      "reference": [
+        1859,
+        778
+      ],
+      "current": [
+        2132.81,
+        466.8
+      ],
+      "role": "control",
+      "uncertainty": 18,
+      "source": "general",
+      "note": "Manually digitized from the mapped feature; not the printed name."
+    },
+    {
+      "id": "moria-west-gate",
+      "name": "West-gate of Moria",
+      "region": "eriador",
+      "reference": [
+        1796,
+        1138
+      ],
+      "current": [
+        2195,
+        1117
+      ],
+      "role": "control",
+      "uncertainty": 18,
+      "source": "general",
+      "note": "Manually digitized from the mapped feature; not the printed name."
+    },
+    {
+      "id": "dimrill-dale",
+      "name": "Dimrill Dale",
+      "region": "anduin",
+      "reference": [
+        1868,
+        1128
+      ],
+      "current": [
+        2394.47,
+        1118.97
+      ],
+      "role": "control",
+      "uncertainty": 18,
+      "source": "general",
+      "note": "Manually digitized from the mapped feature; not the printed name."
+    },
+    {
+      "id": "tharbad",
+      "name": "Tharbad",
+      "region": "eriador",
+      "reference": [
+        1382,
+        1177
+      ],
+      "current": [
+        1457,
+        1347
+      ],
+      "role": "control",
+      "uncertainty": 18,
+      "source": "general",
+      "note": "Manually digitized from the mapped feature; not the printed name."
+    },
+    {
+      "id": "gladden-fields",
+      "name": "Gladden Fields",
+      "region": "anduin",
+      "reference": [
+        2165,
+        952
+      ],
+      "current": [
+        2981.96,
+        964.06
+      ],
+      "role": "support",
+      "uncertainty": 35,
+      "source": "general",
+      "note": "The wetland at the Gladden–Anduin junction; a regional anchor."
+    },
+    {
+      "id": "dol-guldur",
+      "name": "Dol Guldur",
+      "region": "anduin",
+      "reference": [
+        2273,
+        1224
+      ],
+      "current": [
+        3350.5,
+        1188.18
+      ],
+      "role": "control",
+      "uncertainty": 18,
+      "source": "general",
+      "note": "Manually digitized from the mapped feature; not the printed name."
+    },
+    {
+      "id": "caras-galadhon",
+      "name": "Caras Galadhon vicinity",
+      "region": "anduin",
+      "reference": [
+        2026,
+        1296
+      ],
+      "current": [
+        2964.28,
+        1318.37
+      ],
+      "role": "support",
+      "uncertainty": 45,
+      "source": "general",
+      "note": "General map shows Lórien, not a surveyed Caras Galadhon location. Provisional support only; detailed placement remains to verify."
+    },
+    {
+      "id": "isengard",
+      "name": "Isengard",
+      "region": "rohan",
+      "reference": [
+        1667,
+        1585
+      ],
+      "current": [
+        1839,
+        1789
+      ],
+      "role": "control",
+      "uncertainty": 18,
+      "source": "general",
+      "note": "Manually digitized from the mapped feature; not the printed name."
+    },
+    {
+      "id": "fords-of-isen",
+      "name": "Fords of Isen",
+      "region": "rohan",
+      "reference": [
+        1635,
+        1707
+      ],
+      "current": [
+        1842.92,
+        2069.45
+      ],
+      "role": "control",
+      "uncertainty": 18,
+      "source": "general",
+      "note": "Manually digitized from the mapped feature; not the printed name."
+    },
+    {
+      "id": "helms-deep",
+      "name": "Helm’s Deep",
+      "region": "rohan",
+      "reference": [
+        1759,
+        1793
+      ],
+      "current": [
+        2282.54,
+        2447.38
+      ],
+      "role": "control",
+      "uncertainty": 18,
+      "source": "general",
+      "note": "Manually digitized from the mapped feature; not the printed name."
+    },
+    {
+      "id": "edoras",
+      "name": "Edoras",
+      "region": "rohan",
+      "reference": [
+        1797,
+        1820
+      ],
+      "current": [
+        2628.42,
+        2510.36
+      ],
+      "role": "control",
+      "uncertainty": 18,
+      "source": "general",
+      "note": "Manually digitized from the mapped feature; not the printed name."
+    },
+    {
+      "id": "nen-hithoel",
+      "name": "Nen Hithoel",
+      "region": "rohan",
+      "reference": [
+        2296,
+        1793
+      ],
+      "current": [
+        3515,
+        2460
+      ],
+      "role": "support",
+      "uncertainty": 25,
+      "source": "general",
+      "note": "Lake centre; not a settlement."
+    },
+    {
+      "id": "rauros",
+      "name": "Rauros",
+      "region": "rohan",
+      "reference": [
+        2312,
+        1825
+      ],
+      "current": [
+        3590,
+        2714
+      ],
+      "role": "control",
+      "uncertainty": 18,
+      "source": "general",
+      "note": "Manually digitized from the mapped feature; not the printed name."
+    },
+    {
+      "id": "dead-marshes",
+      "name": "Dead Marshes",
+      "region": "mordor",
+      "reference": [
+        2453,
+        1857
+      ],
+      "current": [
+        4560,
+        2620
+      ],
+      "role": "support",
+      "uncertainty": 45,
+      "source": "general",
+      "note": "Wetland extent rather than a point location."
+    },
+    {
+      "id": "black-gate",
+      "name": "Black Gate",
+      "region": "mordor",
+      "reference": [
+        2607,
+        1802
+      ],
+      "current": [
+        5025,
+        3070
+      ],
+      "role": "control",
+      "uncertainty": 18,
+      "source": "general",
+      "note": "Manually digitized from the mapped feature; not the printed name."
+    },
+    {
+      "id": "isenmouthe",
+      "name": "Isenmouthe",
+      "region": "mordor",
+      "reference": [
+        2683,
+        1898
+      ],
+      "current": [
+        5067,
+        3571
+      ],
+      "role": "support",
+      "uncertainty": 25,
+      "source": "general",
+      "note": "Approximate throat of Udûn."
+    },
+    {
+      "id": "mount-doom",
+      "name": "Mount Doom",
+      "region": "mordor",
+      "reference": [
+        2763,
+        1988
+      ],
+      "current": [
+        5347,
+        3991
+      ],
+      "role": "control",
+      "uncertainty": 18,
+      "source": "general",
+      "note": "Manually digitized from the mapped feature; not the printed name."
+    },
+    {
+      "id": "barad-dur",
+      "name": "Barad-dûr",
+      "region": "mordor",
+      "reference": [
+        2865,
+        1960
+      ],
+      "current": [
+        5830,
+        3880
+      ],
+      "role": "control",
+      "uncertainty": 18,
+      "source": "general",
+      "note": "Manually digitized from the mapped feature; not the printed name."
+    },
+    {
+      "id": "cair-andros",
+      "name": "Cair Andros",
+      "region": "gondor",
+      "reference": [
+        2492,
+        2000
+      ],
+      "current": [
+        4244,
+        3739
+      ],
+      "role": "control",
+      "uncertainty": 18,
+      "source": "general",
+      "note": "Manually digitized from the mapped feature; not the printed name."
+    },
+    {
+      "id": "minas-tirith",
+      "name": "Minas Tirith",
+      "region": "gondor",
+      "reference": [
+        2470,
+        2084
+      ],
+      "current": [
+        4080,
+        4790
+      ],
+      "role": "control",
+      "uncertainty": 18,
+      "source": "general",
+      "note": "Manually digitized from the mapped feature; not the printed name."
+    },
+    {
+      "id": "osgiliath",
+      "name": "Osgiliath",
+      "region": "gondor",
+      "reference": [
+        2511,
+        2073
+      ],
+      "current": [
+        4657,
+        4616
+      ],
+      "role": "control",
+      "uncertainty": 18,
+      "source": "general",
+      "note": "Manually digitized from the mapped feature; not the printed name."
+    },
+    {
+      "id": "minas-morgul",
+      "name": "Minas Morgul",
+      "region": "mordor",
+      "reference": [
+        2586,
+        2078
+      ],
+      "current": [
+        5592,
+        4612
+      ],
+      "role": "control",
+      "uncertainty": 18,
+      "source": "general",
+      "note": "Manually digitized from the mapped feature; not the printed name."
+    },
+    {
+      "id": "erech",
+      "name": "Erech",
+      "region": "gondor",
+      "reference": [
+        1895,
+        1979
+      ],
+      "current": [
+        2580,
+        3286
+      ],
+      "role": "control",
+      "uncertainty": 18,
+      "source": "general",
+      "note": "Manually digitized from the mapped feature; not the printed name."
+    },
+    {
+      "id": "edhellond",
+      "name": "Edhellond",
+      "region": "coast",
+      "reference": [
+        1891,
+        2198
+      ],
+      "current": [
+        1968,
+        5861
+      ],
+      "role": "support",
+      "uncertainty": 25,
+      "source": "general",
+      "note": "Published general-map placement is itself conjectural."
+    },
+    {
+      "id": "dol-amroth",
+      "name": "Dol Amroth",
+      "region": "coast",
+      "reference": [
+        1832,
+        2307
+      ],
+      "current": [
+        2051,
+        6412
+      ],
+      "role": "control",
+      "uncertainty": 18,
+      "source": "general",
+      "note": "Manually digitized from the mapped feature; not the printed name."
+    },
+    {
+      "id": "linhir",
+      "name": "Linhir",
+      "region": "coast",
+      "reference": [
+        2161,
+        2330
+      ],
+      "current": [
+        4330,
+        6322
+      ],
+      "role": "support",
+      "uncertainty": 25,
+      "source": "general",
+      "note": "Gilrain–Serni mouth vicinity, checked against the detailed Gondor map; town is above the mouth on the west bank."
+    },
+    {
+      "id": "belfalas",
+      "name": "Belfalas",
+      "region": "coast",
+      "reference": [
+        1943,
+        2430
+      ],
+      "current": [
+        3329,
+        6777
+      ],
+      "role": "support",
+      "uncertainty": 60,
+      "source": "general",
+      "note": "Regional support point; not a landmark or capital."
+    },
+    {
+      "id": "pinnath-gelin",
+      "name": "Pinnath Gelin",
+      "region": "coast",
+      "reference": [
+        1606,
+        2150
+      ],
+      "current": [
+        1620,
+        4478
+      ],
+      "role": "support",
+      "uncertainty": 55,
+      "source": "general",
+      "note": "Hill-country support; not a settlement."
+    },
+    {
+      "id": "anfalas",
+      "name": "Anfalas",
+      "region": "coast",
+      "reference": [
+        1638,
+        2198
+      ],
+      "current": [
+        1580,
+        4883
+      ],
+      "role": "support",
+      "uncertainty": 55,
+      "source": "general",
+      "note": "Coastal-region support; not a settlement."
+    },
+    {
+      "id": "annuminas",
+      "name": "Annúminas",
+      "region": "northwest",
+      "reference": [
+        924,
+        635
+      ],
+      "current": null,
+      "role": "future",
+      "uncertainty": 35,
+      "source": "general",
+      "note": "Reserved reference footprint; detailed anchors to be verified before painting."
+    },
+    {
+      "id": "fornost",
+      "name": "Fornost",
+      "region": "northwest",
+      "reference": [
+        1184,
+        603
+      ],
+      "current": null,
+      "role": "future",
+      "uncertainty": 35,
+      "source": "general",
+      "note": "Reserved reference footprint; detailed anchors to be verified before painting."
+    },
+    {
+      "id": "carn-dum",
+      "name": "Carn Dûm",
+      "region": "northwest",
+      "reference": [
+        1484,
+        227
+      ],
+      "current": null,
+      "role": "future",
+      "uncertainty": 35,
+      "source": "general",
+      "note": "Reserved reference footprint; detailed anchors to be verified before painting."
+    },
+    {
+      "id": "forochel",
+      "name": "Icebay of Forochel",
+      "region": "northwest",
+      "reference": [
+        813,
+        195
+      ],
+      "current": null,
+      "role": "future",
+      "uncertainty": 35,
+      "source": "general",
+      "note": "Reserved reference footprint; detailed anchors to be verified before painting."
+    },
+    {
+      "id": "gundabad",
+      "name": "Mount Gundabad",
+      "region": "north",
+      "reference": [
+        1900,
+        350
+      ],
+      "current": null,
+      "role": "future",
+      "uncertainty": 35,
+      "source": "general",
+      "note": "Reserved reference footprint; detailed anchors to be verified before painting."
+    },
+    {
+      "id": "carrock",
+      "name": "Carrock",
+      "region": "north",
+      "reference": [
+        2128,
+        690
+      ],
+      "current": null,
+      "role": "future",
+      "uncertainty": 35,
+      "source": "general",
+      "note": "Reserved reference footprint; detailed anchors to be verified before painting."
+    },
+    {
+      "id": "erebor",
+      "name": "Erebor",
+      "region": "northeast",
+      "reference": [
+        2600,
+        505
+      ],
+      "current": null,
+      "role": "future",
+      "uncertainty": 35,
+      "source": "general",
+      "note": "Reserved reference footprint; detailed anchors to be verified before painting."
+    },
+    {
+      "id": "esgaroth",
+      "name": "Lake-town",
+      "region": "northeast",
+      "reference": [
+        2601,
+        574
+      ],
+      "current": null,
+      "role": "future",
+      "uncertainty": 35,
+      "source": "general",
+      "note": "Reserved reference footprint; detailed anchors to be verified before painting."
+    },
+    {
+      "id": "iron-hills",
+      "name": "Iron Hills",
+      "region": "northeast",
+      "reference": [
+        3086,
+        509
+      ],
+      "current": null,
+      "role": "future",
+      "uncertainty": 35,
+      "source": "general",
+      "note": "Reserved reference footprint; detailed anchors to be verified before painting."
+    },
+    {
+      "id": "sea-rhun",
+      "name": "Sea of Rhûn",
+      "region": "east",
+      "reference": [
+        3500,
+        1250
+      ],
+      "current": null,
+      "role": "future",
+      "uncertainty": 35,
+      "source": "general",
+      "note": "Reserved reference footprint; detailed anchors to be verified before painting."
+    },
+    {
+      "id": "pelargir",
+      "name": "Pelargir",
+      "region": "coast",
+      "reference": [
+        2393,
+        2360
+      ],
+      "current": null,
+      "role": "future",
+      "uncertainty": 35,
+      "source": "general",
+      "note": "Reserved reference footprint; detailed anchors to be verified before painting."
+    },
+    {
+      "id": "ethir-anduin",
+      "name": "Ethir Anduin",
+      "region": "coast",
+      "reference": [
+        2147,
+        2510
+      ],
+      "current": null,
+      "role": "future",
+      "uncertainty": 35,
+      "source": "general",
+      "note": "Reserved reference footprint; detailed anchors to be verified before painting."
+    },
+    {
+      "id": "nurnen",
+      "name": "Sea of Núrnen",
+      "region": "southeast",
+      "reference": [
+        3480,
+        2420
+      ],
+      "current": null,
+      "role": "future",
+      "uncertainty": 35,
+      "source": "general",
+      "note": "Reserved reference footprint; detailed anchors to be verified before painting."
+    },
+    {
+      "id": "poros",
+      "name": "Crossings of Poros",
+      "region": "southeast",
+      "reference": [
+        2530,
+        2411
+      ],
+      "current": null,
+      "role": "future",
+      "uncertainty": 35,
+      "source": "general",
+      "note": "Reserved reference footprint; detailed anchors to be verified before painting."
+    }
+  ],
+  "detailPolicy": {
+    "keepNativeArtwork": true,
+    "originalWorld": [
+      6030,
+      7500
+    ],
+    "tileSize": 512,
+    "maxDecodedTiles": 48,
+    "maximumViewScale": 16,
+    "warning": "A fitted sketch is not finished cartography. Repaint folded or heavily distorted areas; do not stretch landmark architecture to claim a final match."
+  }
+}

@@ -1,0 +1,1903 @@
+{
+  "buildKey": "b54accb22229513dd5c78b07a6644cb53aae0fcfe62a86e6f8d55800d34b3310",
+  "source": "public/images/atlas-linhir.webp",
+  "width": 6030,
+  "height": 7500,
+  "tileSize": 512,
+  "levels": [
+    {
+      "factor": 4,
+      "width": 1508,
+      "height": 1875,
+      "tiles": [
+        {
+          "x": 0,
+          "y": 0,
+          "w": 2048,
+          "h": 2048,
+          "width": 512,
+          "height": 512,
+          "path": "/images/alignment/painting/4/0-0.webp"
+        },
+        {
+          "x": 2048,
+          "y": 0,
+          "w": 2048,
+          "h": 2048,
+          "width": 512,
+          "height": 512,
+          "path": "/images/alignment/painting/4/1-0.webp"
+        },
+        {
+          "x": 0,
+          "y": 2048,
+          "w": 2048,
+          "h": 2048,
+          "width": 512,
+          "height": 512,
+          "path": "/images/alignment/painting/4/0-1.webp"
+        },
+        {
+          "x": 2048,
+          "y": 2048,
+          "w": 2048,
+          "h": 2048,
+          "width": 512,
+          "height": 512,
+          "path": "/images/alignment/painting/4/1-1.webp"
+        },
+        {
+          "x": 4096,
+          "y": 2048,
+          "w": 1936,
+          "h": 2048,
+          "width": 484,
+          "height": 512,
+          "path": "/images/alignment/painting/4/2-1.webp"
+        },
+        {
+          "x": 0,
+          "y": 4096,
+          "w": 2048,
+          "h": 2048,
+          "width": 512,
+          "height": 512,
+          "path": "/images/alignment/painting/4/0-2.webp"
+        },
+        {
+          "x": 2048,
+          "y": 4096,
+          "w": 2048,
+          "h": 2048,
+          "width": 512,
+          "height": 512,
+          "path": "/images/alignment/painting/4/1-2.webp"
+        },
+        {
+          "x": 4096,
+          "y": 4096,
+          "w": 1936,
+          "h": 2048,
+          "width": 484,
+          "height": 512,
+          "path": "/images/alignment/painting/4/2-2.webp"
+        },
+        {
+          "x": 0,
+          "y": 6144,
+          "w": 2048,
+          "h": 1356,
+          "width": 512,
+          "height": 339,
+          "path": "/images/alignment/painting/4/0-3.webp"
+        },
+        {
+          "x": 2048,
+          "y": 6144,
+          "w": 2048,
+          "h": 1356,
+          "width": 512,
+          "height": 339,
+          "path": "/images/alignment/painting/4/1-3.webp"
+        },
+        {
+          "x": 4096,
+          "y": 6144,
+          "w": 1936,
+          "h": 1356,
+          "width": 484,
+          "height": 339,
+          "path": "/images/alignment/painting/4/2-3.webp"
+        }
+      ]
+    },
+    {
+      "factor": 2,
+      "width": 3015,
+      "height": 3750,
+      "tiles": [
+        {
+          "x": 0,
+          "y": 0,
+          "w": 1024,
+          "h": 1024,
+          "width": 512,
+          "height": 512,
+          "path": "/images/alignment/painting/2/0-0.webp"
+        },
+        {
+          "x": 1024,
+          "y": 0,
+          "w": 1024,
+          "h": 1024,
+          "width": 512,
+          "height": 512,
+          "path": "/images/alignment/painting/2/1-0.webp"
+        },
+        {
+          "x": 2048,
+          "y": 0,
+          "w": 1024,
+          "h": 1024,
+          "width": 512,
+          "height": 512,
+          "path": "/images/alignment/painting/2/2-0.webp"
+        },
+        {
+          "x": 3072,
+          "y": 0,
+          "w": 1024,
+          "h": 1024,
+          "width": 512,
+          "height": 512,
+          "path": "/images/alignment/painting/2/3-0.webp"
+        },
+        {
+          "x": 0,
+          "y": 1024,
+          "w": 1024,
+          "h": 1024,
+          "width": 512,
+          "height": 512,
+          "path": "/images/alignment/painting/2/0-1.webp"
+        },
+        {
+          "x": 1024,
+          "y": 1024,
+          "w": 1024,
+          "h": 1024,
+          "width": 512,
+          "height": 512,
+          "path": "/images/alignment/painting/2/1-1.webp"
+        },
+        {
+          "x": 2048,
+          "y": 1024,
+          "w": 1024,
+          "h": 1024,
+          "width": 512,
+          "height": 512,
+          "path": "/images/alignment/painting/2/2-1.webp"
+        },
+        {
+          "x": 3072,
+          "y": 1024,
+          "w": 1024,
+          "h": 1024,
+          "width": 512,
+          "height": 512,
+          "path": "/images/alignment/painting/2/3-1.webp"
+        },
+        {
+          "x": 0,
+          "y": 2048,
+          "w": 1024,
+          "h": 1024,
+          "width": 512,
+          "height": 512,
+          "path": "/images/alignment/painting/2/0-2.webp"
+        },
+        {
+          "x": 1024,
+          "y": 2048,
+          "w": 1024,
+          "h": 1024,
+          "width": 512,
+          "height": 512,
+          "path": "/images/alignment/painting/2/1-2.webp"
+        },
+        {
+          "x": 2048,
+          "y": 2048,
+          "w": 1024,
+          "h": 1024,
+          "width": 512,
+          "height": 512,
+          "path": "/images/alignment/painting/2/2-2.webp"
+        },
+        {
+          "x": 3072,
+          "y": 2048,
+          "w": 1024,
+          "h": 1024,
+          "width": 512,
+          "height": 512,
+          "path": "/images/alignment/painting/2/3-2.webp"
+        },
+        {
+          "x": 4096,
+          "y": 2048,
+          "w": 1024,
+          "h": 1024,
+          "width": 512,
+          "height": 512,
+          "path": "/images/alignment/painting/2/4-2.webp"
+        },
+        {
+          "x": 5120,
+          "y": 2048,
+          "w": 910,
+          "h": 1024,
+          "width": 455,
+          "height": 512,
+          "path": "/images/alignment/painting/2/5-2.webp"
+        },
+        {
+          "x": 0,
+          "y": 3072,
+          "w": 1024,
+          "h": 1024,
+          "width": 512,
+          "height": 512,
+          "path": "/images/alignment/painting/2/0-3.webp"
+        },
+        {
+          "x": 1024,
+          "y": 3072,
+          "w": 1024,
+          "h": 1024,
+          "width": 512,
+          "height": 512,
+          "path": "/images/alignment/painting/2/1-3.webp"
+        },
+        {
+          "x": 2048,
+          "y": 3072,
+          "w": 1024,
+          "h": 1024,
+          "width": 512,
+          "height": 512,
+          "path": "/images/alignment/painting/2/2-3.webp"
+        },
+        {
+          "x": 3072,
+          "y": 3072,
+          "w": 1024,
+          "h": 1024,
+          "width": 512,
+          "height": 512,
+          "path": "/images/alignment/painting/2/3-3.webp"
+        },
+        {
+          "x": 4096,
+          "y": 3072,
+          "w": 1024,
+          "h": 1024,
+          "width": 512,
+          "height": 512,
+          "path": "/images/alignment/painting/2/4-3.webp"
+        },
+        {
+          "x": 5120,
+          "y": 3072,
+          "w": 910,
+          "h": 1024,
+          "width": 455,
+          "height": 512,
+          "path": "/images/alignment/painting/2/5-3.webp"
+        },
+        {
+          "x": 0,
+          "y": 4096,
+          "w": 1024,
+          "h": 1024,
+          "width": 512,
+          "height": 512,
+          "path": "/images/alignment/painting/2/0-4.webp"
+        },
+        {
+          "x": 1024,
+          "y": 4096,
+          "w": 1024,
+          "h": 1024,
+          "width": 512,
+          "height": 512,
+          "path": "/images/alignment/painting/2/1-4.webp"
+        },
+        {
+          "x": 2048,
+          "y": 4096,
+          "w": 1024,
+          "h": 1024,
+          "width": 512,
+          "height": 512,
+          "path": "/images/alignment/painting/2/2-4.webp"
+        },
+        {
+          "x": 3072,
+          "y": 4096,
+          "w": 1024,
+          "h": 1024,
+          "width": 512,
+          "height": 512,
+          "path": "/images/alignment/painting/2/3-4.webp"
+        },
+        {
+          "x": 4096,
+          "y": 4096,
+          "w": 1024,
+          "h": 1024,
+          "width": 512,
+          "height": 512,
+          "path": "/images/alignment/painting/2/4-4.webp"
+        },
+        {
+          "x": 5120,
+          "y": 4096,
+          "w": 910,
+          "h": 1024,
+          "width": 455,
+          "height": 512,
+          "path": "/images/alignment/painting/2/5-4.webp"
+        },
+        {
+          "x": 0,
+          "y": 5120,
+          "w": 1024,
+          "h": 1024,
+          "width": 512,
+          "height": 512,
+          "path": "/images/alignment/painting/2/0-5.webp"
+        },
+        {
+          "x": 1024,
+          "y": 5120,
+          "w": 1024,
+          "h": 1024,
+          "width": 512,
+          "height": 512,
+          "path": "/images/alignment/painting/2/1-5.webp"
+        },
+        {
+          "x": 2048,
+          "y": 5120,
+          "w": 1024,
+          "h": 1024,
+          "width": 512,
+          "height": 512,
+          "path": "/images/alignment/painting/2/2-5.webp"
+        },
+        {
+          "x": 3072,
+          "y": 5120,
+          "w": 1024,
+          "h": 1024,
+          "width": 512,
+          "height": 512,
+          "path": "/images/alignment/painting/2/3-5.webp"
+        },
+        {
+          "x": 4096,
+          "y": 5120,
+          "w": 1024,
+          "h": 1024,
+          "width": 512,
+          "height": 512,
+          "path": "/images/alignment/painting/2/4-5.webp"
+        },
+        {
+          "x": 5120,
+          "y": 5120,
+          "w": 910,
+          "h": 1024,
+          "width": 455,
+          "height": 512,
+          "path": "/images/alignment/painting/2/5-5.webp"
+        },
+        {
+          "x": 0,
+          "y": 6144,
+          "w": 1024,
+          "h": 1024,
+          "width": 512,
+          "height": 512,
+          "path": "/images/alignment/painting/2/0-6.webp"
+        },
+        {
+          "x": 1024,
+          "y": 6144,
+          "w": 1024,
+          "h": 1024,
+          "width": 512,
+          "height": 512,
+          "path": "/images/alignment/painting/2/1-6.webp"
+        },
+        {
+          "x": 2048,
+          "y": 6144,
+          "w": 1024,
+          "h": 1024,
+          "width": 512,
+          "height": 512,
+          "path": "/images/alignment/painting/2/2-6.webp"
+        },
+        {
+          "x": 3072,
+          "y": 6144,
+          "w": 1024,
+          "h": 1024,
+          "width": 512,
+          "height": 512,
+          "path": "/images/alignment/painting/2/3-6.webp"
+        },
+        {
+          "x": 4096,
+          "y": 6144,
+          "w": 1024,
+          "h": 1024,
+          "width": 512,
+          "height": 512,
+          "path": "/images/alignment/painting/2/4-6.webp"
+        },
+        {
+          "x": 0,
+          "y": 7168,
+          "w": 1024,
+          "h": 332,
+          "width": 512,
+          "height": 166,
+          "path": "/images/alignment/painting/2/0-7.webp"
+        },
+        {
+          "x": 1024,
+          "y": 7168,
+          "w": 1024,
+          "h": 332,
+          "width": 512,
+          "height": 166,
+          "path": "/images/alignment/painting/2/1-7.webp"
+        },
+        {
+          "x": 2048,
+          "y": 7168,
+          "w": 1024,
+          "h": 332,
+          "width": 512,
+          "height": 166,
+          "path": "/images/alignment/painting/2/2-7.webp"
+        },
+        {
+          "x": 3072,
+          "y": 7168,
+          "w": 1024,
+          "h": 332,
+          "width": 512,
+          "height": 166,
+          "path": "/images/alignment/painting/2/3-7.webp"
+        },
+        {
+          "x": 4096,
+          "y": 7168,
+          "w": 1024,
+          "h": 332,
+          "width": 512,
+          "height": 166,
+          "path": "/images/alignment/painting/2/4-7.webp"
+        }
+      ]
+    },
+    {
+      "factor": 1,
+      "width": 6030,
+      "height": 7500,
+      "tiles": [
+        {
+          "x": 0,
+          "y": 0,
+          "w": 512,
+          "h": 512,
+          "width": 512,
+          "height": 512,
+          "path": "/images/alignment/painting/1/0-0.webp"
+        },
+        {
+          "x": 512,
+          "y": 0,
+          "w": 512,
+          "h": 512,
+          "width": 512,
+          "height": 512,
+          "path": "/images/alignment/painting/1/1-0.webp"
+        },
+        {
+          "x": 1024,
+          "y": 0,
+          "w": 512,
+          "h": 512,
+          "width": 512,
+          "height": 512,
+          "path": "/images/alignment/painting/1/2-0.webp"
+        },
+        {
+          "x": 1536,
+          "y": 0,
+          "w": 512,
+          "h": 512,
+          "width": 512,
+          "height": 512,
+          "path": "/images/alignment/painting/1/3-0.webp"
+        },
+        {
+          "x": 2048,
+          "y": 0,
+          "w": 512,
+          "h": 512,
+          "width": 512,
+          "height": 512,
+          "path": "/images/alignment/painting/1/4-0.webp"
+        },
+        {
+          "x": 2560,
+          "y": 0,
+          "w": 512,
+          "h": 512,
+          "width": 512,
+          "height": 512,
+          "path": "/images/alignment/painting/1/5-0.webp"
+        },
+        {
+          "x": 3072,
+          "y": 0,
+          "w": 512,
+          "h": 512,
+          "width": 512,
+          "height": 512,
+          "path": "/images/alignment/painting/1/6-0.webp"
+        },
+        {
+          "x": 3584,
+          "y": 0,
+          "w": 512,
+          "h": 512,
+          "width": 512,
+          "height": 512,
+          "path": "/images/alignment/painting/1/7-0.webp"
+        },
+        {
+          "x": 0,
+          "y": 512,
+          "w": 512,
+          "h": 512,
+          "width": 512,
+          "height": 512,
+          "path": "/images/alignment/painting/1/0-1.webp"
+        },
+        {
+          "x": 512,
+          "y": 512,
+          "w": 512,
+          "h": 512,
+          "width": 512,
+          "height": 512,
+          "path": "/images/alignment/painting/1/1-1.webp"
+        },
+        {
+          "x": 1024,
+          "y": 512,
+          "w": 512,
+          "h": 512,
+          "width": 512,
+          "height": 512,
+          "path": "/images/alignment/painting/1/2-1.webp"
+        },
+        {
+          "x": 1536,
+          "y": 512,
+          "w": 512,
+          "h": 512,
+          "width": 512,
+          "height": 512,
+          "path": "/images/alignment/painting/1/3-1.webp"
+        },
+        {
+          "x": 2048,
+          "y": 512,
+          "w": 512,
+          "h": 512,
+          "width": 512,
+          "height": 512,
+          "path": "/images/alignment/painting/1/4-1.webp"
+        },
+        {
+          "x": 2560,
+          "y": 512,
+          "w": 512,
+          "h": 512,
+          "width": 512,
+          "height": 512,
+          "path": "/images/alignment/painting/1/5-1.webp"
+        },
+        {
+          "x": 3072,
+          "y": 512,
+          "w": 512,
+          "h": 512,
+          "width": 512,
+          "height": 512,
+          "path": "/images/alignment/painting/1/6-1.webp"
+        },
+        {
+          "x": 3584,
+          "y": 512,
+          "w": 512,
+          "h": 512,
+          "width": 512,
+          "height": 512,
+          "path": "/images/alignment/painting/1/7-1.webp"
+        },
+        {
+          "x": 0,
+          "y": 1024,
+          "w": 512,
+          "h": 512,
+          "width": 512,
+          "height": 512,
+          "path": "/images/alignment/painting/1/0-2.webp"
+        },
+        {
+          "x": 512,
+          "y": 1024,
+          "w": 512,
+          "h": 512,
+          "width": 512,
+          "height": 512,
+          "path": "/images/alignment/painting/1/1-2.webp"
+        },
+        {
+          "x": 1024,
+          "y": 1024,
+          "w": 512,
+          "h": 512,
+          "width": 512,
+          "height": 512,
+          "path": "/images/alignment/painting/1/2-2.webp"
+        },
+        {
+          "x": 1536,
+          "y": 1024,
+          "w": 512,
+          "h": 512,
+          "width": 512,
+          "height": 512,
+          "path": "/images/alignment/painting/1/3-2.webp"
+        },
+        {
+          "x": 2048,
+          "y": 1024,
+          "w": 512,
+          "h": 512,
+          "width": 512,
+          "height": 512,
+          "path": "/images/alignment/painting/1/4-2.webp"
+        },
+        {
+          "x": 2560,
+          "y": 1024,
+          "w": 512,
+          "h": 512,
+          "width": 512,
+          "height": 512,
+          "path": "/images/alignment/painting/1/5-2.webp"
+        },
+        {
+          "x": 3072,
+          "y": 1024,
+          "w": 512,
+          "h": 512,
+          "width": 512,
+          "height": 512,
+          "path": "/images/alignment/painting/1/6-2.webp"
+        },
+        {
+          "x": 3584,
+          "y": 1024,
+          "w": 512,
+          "h": 512,
+          "width": 512,
+          "height": 512,
+          "path": "/images/alignment/painting/1/7-2.webp"
+        },
+        {
+          "x": 0,
+          "y": 1536,
+          "w": 512,
+          "h": 512,
+          "width": 512,
+          "height": 512,
+          "path": "/images/alignment/painting/1/0-3.webp"
+        },
+        {
+          "x": 512,
+          "y": 1536,
+          "w": 512,
+          "h": 512,
+          "width": 512,
+          "height": 512,
+          "path": "/images/alignment/painting/1/1-3.webp"
+        },
+        {
+          "x": 1024,
+          "y": 1536,
+          "w": 512,
+          "h": 512,
+          "width": 512,
+          "height": 512,
+          "path": "/images/alignment/painting/1/2-3.webp"
+        },
+        {
+          "x": 1536,
+          "y": 1536,
+          "w": 512,
+          "h": 512,
+          "width": 512,
+          "height": 512,
+          "path": "/images/alignment/painting/1/3-3.webp"
+        },
+        {
+          "x": 2048,
+          "y": 1536,
+          "w": 512,
+          "h": 512,
+          "width": 512,
+          "height": 512,
+          "path": "/images/alignment/painting/1/4-3.webp"
+        },
+        {
+          "x": 2560,
+          "y": 1536,
+          "w": 512,
+          "h": 512,
+          "width": 512,
+          "height": 512,
+          "path": "/images/alignment/painting/1/5-3.webp"
+        },
+        {
+          "x": 3072,
+          "y": 1536,
+          "w": 512,
+          "h": 512,
+          "width": 512,
+          "height": 512,
+          "path": "/images/alignment/painting/1/6-3.webp"
+        },
+        {
+          "x": 3584,
+          "y": 1536,
+          "w": 512,
+          "h": 512,
+          "width": 512,
+          "height": 512,
+          "path": "/images/alignment/painting/1/7-3.webp"
+        },
+        {
+          "x": 0,
+          "y": 2048,
+          "w": 512,
+          "h": 512,
+          "width": 512,
+          "height": 512,
+          "path": "/images/alignment/painting/1/0-4.webp"
+        },
+        {
+          "x": 512,
+          "y": 2048,
+          "w": 512,
+          "h": 512,
+          "width": 512,
+          "height": 512,
+          "path": "/images/alignment/painting/1/1-4.webp"
+        },
+        {
+          "x": 1024,
+          "y": 2048,
+          "w": 512,
+          "h": 512,
+          "width": 512,
+          "height": 512,
+          "path": "/images/alignment/painting/1/2-4.webp"
+        },
+        {
+          "x": 1536,
+          "y": 2048,
+          "w": 512,
+          "h": 512,
+          "width": 512,
+          "height": 512,
+          "path": "/images/alignment/painting/1/3-4.webp"
+        },
+        {
+          "x": 2048,
+          "y": 2048,
+          "w": 512,
+          "h": 512,
+          "width": 512,
+          "height": 512,
+          "path": "/images/alignment/painting/1/4-4.webp"
+        },
+        {
+          "x": 2560,
+          "y": 2048,
+          "w": 512,
+          "h": 512,
+          "width": 512,
+          "height": 512,
+          "path": "/images/alignment/painting/1/5-4.webp"
+        },
+        {
+          "x": 3072,
+          "y": 2048,
+          "w": 512,
+          "h": 512,
+          "width": 512,
+          "height": 512,
+          "path": "/images/alignment/painting/1/6-4.webp"
+        },
+        {
+          "x": 3584,
+          "y": 2048,
+          "w": 512,
+          "h": 512,
+          "width": 512,
+          "height": 512,
+          "path": "/images/alignment/painting/1/7-4.webp"
+        },
+        {
+          "x": 4096,
+          "y": 2048,
+          "w": 512,
+          "h": 512,
+          "width": 512,
+          "height": 512,
+          "path": "/images/alignment/painting/1/8-4.webp"
+        },
+        {
+          "x": 4608,
+          "y": 2048,
+          "w": 512,
+          "h": 512,
+          "width": 512,
+          "height": 512,
+          "path": "/images/alignment/painting/1/9-4.webp"
+        },
+        {
+          "x": 5120,
+          "y": 2048,
+          "w": 512,
+          "h": 512,
+          "width": 512,
+          "height": 512,
+          "path": "/images/alignment/painting/1/10-4.webp"
+        },
+        {
+          "x": 0,
+          "y": 2560,
+          "w": 512,
+          "h": 512,
+          "width": 512,
+          "height": 512,
+          "path": "/images/alignment/painting/1/0-5.webp"
+        },
+        {
+          "x": 512,
+          "y": 2560,
+          "w": 512,
+          "h": 512,
+          "width": 512,
+          "height": 512,
+          "path": "/images/alignment/painting/1/1-5.webp"
+        },
+        {
+          "x": 1024,
+          "y": 2560,
+          "w": 512,
+          "h": 512,
+          "width": 512,
+          "height": 512,
+          "path": "/images/alignment/painting/1/2-5.webp"
+        },
+        {
+          "x": 1536,
+          "y": 2560,
+          "w": 512,
+          "h": 512,
+          "width": 512,
+          "height": 512,
+          "path": "/images/alignment/painting/1/3-5.webp"
+        },
+        {
+          "x": 2048,
+          "y": 2560,
+          "w": 512,
+          "h": 512,
+          "width": 512,
+          "height": 512,
+          "path": "/images/alignment/painting/1/4-5.webp"
+        },
+        {
+          "x": 2560,
+          "y": 2560,
+          "w": 512,
+          "h": 512,
+          "width": 512,
+          "height": 512,
+          "path": "/images/alignment/painting/1/5-5.webp"
+        },
+        {
+          "x": 3072,
+          "y": 2560,
+          "w": 512,
+          "h": 512,
+          "width": 512,
+          "height": 512,
+          "path": "/images/alignment/painting/1/6-5.webp"
+        },
+        {
+          "x": 3584,
+          "y": 2560,
+          "w": 512,
+          "h": 512,
+          "width": 512,
+          "height": 512,
+          "path": "/images/alignment/painting/1/7-5.webp"
+        },
+        {
+          "x": 4096,
+          "y": 2560,
+          "w": 512,
+          "h": 512,
+          "width": 512,
+          "height": 512,
+          "path": "/images/alignment/painting/1/8-5.webp"
+        },
+        {
+          "x": 4608,
+          "y": 2560,
+          "w": 512,
+          "h": 512,
+          "width": 512,
+          "height": 512,
+          "path": "/images/alignment/painting/1/9-5.webp"
+        },
+        {
+          "x": 5120,
+          "y": 2560,
+          "w": 512,
+          "h": 512,
+          "width": 512,
+          "height": 512,
+          "path": "/images/alignment/painting/1/10-5.webp"
+        },
+        {
+          "x": 5632,
+          "y": 2560,
+          "w": 398,
+          "h": 512,
+          "width": 398,
+          "height": 512,
+          "path": "/images/alignment/painting/1/11-5.webp"
+        },
+        {
+          "x": 0,
+          "y": 3072,
+          "w": 512,
+          "h": 512,
+          "width": 512,
+          "height": 512,
+          "path": "/images/alignment/painting/1/0-6.webp"
+        },
+        {
+          "x": 512,
+          "y": 3072,
+          "w": 512,
+          "h": 512,
+          "width": 512,
+          "height": 512,
+          "path": "/images/alignment/painting/1/1-6.webp"
+        },
+        {
+          "x": 1024,
+          "y": 3072,
+          "w": 512,
+          "h": 512,
+          "width": 512,
+          "height": 512,
+          "path": "/images/alignment/painting/1/2-6.webp"
+        },
+        {
+          "x": 1536,
+          "y": 3072,
+          "w": 512,
+          "h": 512,
+          "width": 512,
+          "height": 512,
+          "path": "/images/alignment/painting/1/3-6.webp"
+        },
+        {
+          "x": 2048,
+          "y": 3072,
+          "w": 512,
+          "h": 512,
+          "width": 512,
+          "height": 512,
+          "path": "/images/alignment/painting/1/4-6.webp"
+        },
+        {
+          "x": 2560,
+          "y": 3072,
+          "w": 512,
+          "h": 512,
+          "width": 512,
+          "height": 512,
+          "path": "/images/alignment/painting/1/5-6.webp"
+        },
+        {
+          "x": 3072,
+          "y": 3072,
+          "w": 512,
+          "h": 512,
+          "width": 512,
+          "height": 512,
+          "path": "/images/alignment/painting/1/6-6.webp"
+        },
+        {
+          "x": 3584,
+          "y": 3072,
+          "w": 512,
+          "h": 512,
+          "width": 512,
+          "height": 512,
+          "path": "/images/alignment/painting/1/7-6.webp"
+        },
+        {
+          "x": 4096,
+          "y": 3072,
+          "w": 512,
+          "h": 512,
+          "width": 512,
+          "height": 512,
+          "path": "/images/alignment/painting/1/8-6.webp"
+        },
+        {
+          "x": 4608,
+          "y": 3072,
+          "w": 512,
+          "h": 512,
+          "width": 512,
+          "height": 512,
+          "path": "/images/alignment/painting/1/9-6.webp"
+        },
+        {
+          "x": 5120,
+          "y": 3072,
+          "w": 512,
+          "h": 512,
+          "width": 512,
+          "height": 512,
+          "path": "/images/alignment/painting/1/10-6.webp"
+        },
+        {
+          "x": 5632,
+          "y": 3072,
+          "w": 398,
+          "h": 512,
+          "width": 398,
+          "height": 512,
+          "path": "/images/alignment/painting/1/11-6.webp"
+        },
+        {
+          "x": 0,
+          "y": 3584,
+          "w": 512,
+          "h": 512,
+          "width": 512,
+          "height": 512,
+          "path": "/images/alignment/painting/1/0-7.webp"
+        },
+        {
+          "x": 512,
+          "y": 3584,
+          "w": 512,
+          "h": 512,
+          "width": 512,
+          "height": 512,
+          "path": "/images/alignment/painting/1/1-7.webp"
+        },
+        {
+          "x": 1024,
+          "y": 3584,
+          "w": 512,
+          "h": 512,
+          "width": 512,
+          "height": 512,
+          "path": "/images/alignment/painting/1/2-7.webp"
+        },
+        {
+          "x": 1536,
+          "y": 3584,
+          "w": 512,
+          "h": 512,
+          "width": 512,
+          "height": 512,
+          "path": "/images/alignment/painting/1/3-7.webp"
+        },
+        {
+          "x": 2048,
+          "y": 3584,
+          "w": 512,
+          "h": 512,
+          "width": 512,
+          "height": 512,
+          "path": "/images/alignment/painting/1/4-7.webp"
+        },
+        {
+          "x": 2560,
+          "y": 3584,
+          "w": 512,
+          "h": 512,
+          "width": 512,
+          "height": 512,
+          "path": "/images/alignment/painting/1/5-7.webp"
+        },
+        {
+          "x": 3072,
+          "y": 3584,
+          "w": 512,
+          "h": 512,
+          "width": 512,
+          "height": 512,
+          "path": "/images/alignment/painting/1/6-7.webp"
+        },
+        {
+          "x": 3584,
+          "y": 3584,
+          "w": 512,
+          "h": 512,
+          "width": 512,
+          "height": 512,
+          "path": "/images/alignment/painting/1/7-7.webp"
+        },
+        {
+          "x": 4096,
+          "y": 3584,
+          "w": 512,
+          "h": 512,
+          "width": 512,
+          "height": 512,
+          "path": "/images/alignment/painting/1/8-7.webp"
+        },
+        {
+          "x": 4608,
+          "y": 3584,
+          "w": 512,
+          "h": 512,
+          "width": 512,
+          "height": 512,
+          "path": "/images/alignment/painting/1/9-7.webp"
+        },
+        {
+          "x": 5120,
+          "y": 3584,
+          "w": 512,
+          "h": 512,
+          "width": 512,
+          "height": 512,
+          "path": "/images/alignment/painting/1/10-7.webp"
+        },
+        {
+          "x": 5632,
+          "y": 3584,
+          "w": 398,
+          "h": 512,
+          "width": 398,
+          "height": 512,
+          "path": "/images/alignment/painting/1/11-7.webp"
+        },
+        {
+          "x": 0,
+          "y": 4096,
+          "w": 512,
+          "h": 512,
+          "width": 512,
+          "height": 512,
+          "path": "/images/alignment/painting/1/0-8.webp"
+        },
+        {
+          "x": 512,
+          "y": 4096,
+          "w": 512,
+          "h": 512,
+          "width": 512,
+          "height": 512,
+          "path": "/images/alignment/painting/1/1-8.webp"
+        },
+        {
+          "x": 1024,
+          "y": 4096,
+          "w": 512,
+          "h": 512,
+          "width": 512,
+          "height": 512,
+          "path": "/images/alignment/painting/1/2-8.webp"
+        },
+        {
+          "x": 1536,
+          "y": 4096,
+          "w": 512,
+          "h": 512,
+          "width": 512,
+          "height": 512,
+          "path": "/images/alignment/painting/1/3-8.webp"
+        },
+        {
+          "x": 2048,
+          "y": 4096,
+          "w": 512,
+          "h": 512,
+          "width": 512,
+          "height": 512,
+          "path": "/images/alignment/painting/1/4-8.webp"
+        },
+        {
+          "x": 2560,
+          "y": 4096,
+          "w": 512,
+          "h": 512,
+          "width": 512,
+          "height": 512,
+          "path": "/images/alignment/painting/1/5-8.webp"
+        },
+        {
+          "x": 3072,
+          "y": 4096,
+          "w": 512,
+          "h": 512,
+          "width": 512,
+          "height": 512,
+          "path": "/images/alignment/painting/1/6-8.webp"
+        },
+        {
+          "x": 3584,
+          "y": 4096,
+          "w": 512,
+          "h": 512,
+          "width": 512,
+          "height": 512,
+          "path": "/images/alignment/painting/1/7-8.webp"
+        },
+        {
+          "x": 4096,
+          "y": 4096,
+          "w": 512,
+          "h": 512,
+          "width": 512,
+          "height": 512,
+          "path": "/images/alignment/painting/1/8-8.webp"
+        },
+        {
+          "x": 4608,
+          "y": 4096,
+          "w": 512,
+          "h": 512,
+          "width": 512,
+          "height": 512,
+          "path": "/images/alignment/painting/1/9-8.webp"
+        },
+        {
+          "x": 5120,
+          "y": 4096,
+          "w": 512,
+          "h": 512,
+          "width": 512,
+          "height": 512,
+          "path": "/images/alignment/painting/1/10-8.webp"
+        },
+        {
+          "x": 5632,
+          "y": 4096,
+          "w": 398,
+          "h": 512,
+          "width": 398,
+          "height": 512,
+          "path": "/images/alignment/painting/1/11-8.webp"
+        },
+        {
+          "x": 0,
+          "y": 4608,
+          "w": 512,
+          "h": 512,
+          "width": 512,
+          "height": 512,
+          "path": "/images/alignment/painting/1/0-9.webp"
+        },
+        {
+          "x": 512,
+          "y": 4608,
+          "w": 512,
+          "h": 512,
+          "width": 512,
+          "height": 512,
+          "path": "/images/alignment/painting/1/1-9.webp"
+        },
+        {
+          "x": 1024,
+          "y": 4608,
+          "w": 512,
+          "h": 512,
+          "width": 512,
+          "height": 512,
+          "path": "/images/alignment/painting/1/2-9.webp"
+        },
+        {
+          "x": 1536,
+          "y": 4608,
+          "w": 512,
+          "h": 512,
+          "width": 512,
+          "height": 512,
+          "path": "/images/alignment/painting/1/3-9.webp"
+        },
+        {
+          "x": 2048,
+          "y": 4608,
+          "w": 512,
+          "h": 512,
+          "width": 512,
+          "height": 512,
+          "path": "/images/alignment/painting/1/4-9.webp"
+        },
+        {
+          "x": 2560,
+          "y": 4608,
+          "w": 512,
+          "h": 512,
+          "width": 512,
+          "height": 512,
+          "path": "/images/alignment/painting/1/5-9.webp"
+        },
+        {
+          "x": 3072,
+          "y": 4608,
+          "w": 512,
+          "h": 512,
+          "width": 512,
+          "height": 512,
+          "path": "/images/alignment/painting/1/6-9.webp"
+        },
+        {
+          "x": 3584,
+          "y": 4608,
+          "w": 512,
+          "h": 512,
+          "width": 512,
+          "height": 512,
+          "path": "/images/alignment/painting/1/7-9.webp"
+        },
+        {
+          "x": 4096,
+          "y": 4608,
+          "w": 512,
+          "h": 512,
+          "width": 512,
+          "height": 512,
+          "path": "/images/alignment/painting/1/8-9.webp"
+        },
+        {
+          "x": 4608,
+          "y": 4608,
+          "w": 512,
+          "h": 512,
+          "width": 512,
+          "height": 512,
+          "path": "/images/alignment/painting/1/9-9.webp"
+        },
+        {
+          "x": 5120,
+          "y": 4608,
+          "w": 512,
+          "h": 512,
+          "width": 512,
+          "height": 512,
+          "path": "/images/alignment/painting/1/10-9.webp"
+        },
+        {
+          "x": 5632,
+          "y": 4608,
+          "w": 398,
+          "h": 512,
+          "width": 398,
+          "height": 512,
+          "path": "/images/alignment/painting/1/11-9.webp"
+        },
+        {
+          "x": 0,
+          "y": 5120,
+          "w": 512,
+          "h": 512,
+          "width": 512,
+          "height": 512,
+          "path": "/images/alignment/painting/1/0-10.webp"
+        },
+        {
+          "x": 512,
+          "y": 5120,
+          "w": 512,
+          "h": 512,
+          "width": 512,
+          "height": 512,
+          "path": "/images/alignment/painting/1/1-10.webp"
+        },
+        {
+          "x": 1024,
+          "y": 5120,
+          "w": 512,
+          "h": 512,
+          "width": 512,
+          "height": 512,
+          "path": "/images/alignment/painting/1/2-10.webp"
+        },
+        {
+          "x": 1536,
+          "y": 5120,
+          "w": 512,
+          "h": 512,
+          "width": 512,
+          "height": 512,
+          "path": "/images/alignment/painting/1/3-10.webp"
+        },
+        {
+          "x": 2048,
+          "y": 5120,
+          "w": 512,
+          "h": 512,
+          "width": 512,
+          "height": 512,
+          "path": "/images/alignment/painting/1/4-10.webp"
+        },
+        {
+          "x": 2560,
+          "y": 5120,
+          "w": 512,
+          "h": 512,
+          "width": 512,
+          "height": 512,
+          "path": "/images/alignment/painting/1/5-10.webp"
+        },
+        {
+          "x": 3072,
+          "y": 5120,
+          "w": 512,
+          "h": 512,
+          "width": 512,
+          "height": 512,
+          "path": "/images/alignment/painting/1/6-10.webp"
+        },
+        {
+          "x": 3584,
+          "y": 5120,
+          "w": 512,
+          "h": 512,
+          "width": 512,
+          "height": 512,
+          "path": "/images/alignment/painting/1/7-10.webp"
+        },
+        {
+          "x": 4096,
+          "y": 5120,
+          "w": 512,
+          "h": 512,
+          "width": 512,
+          "height": 512,
+          "path": "/images/alignment/painting/1/8-10.webp"
+        },
+        {
+          "x": 4608,
+          "y": 5120,
+          "w": 512,
+          "h": 512,
+          "width": 512,
+          "height": 512,
+          "path": "/images/alignment/painting/1/9-10.webp"
+        },
+        {
+          "x": 5120,
+          "y": 5120,
+          "w": 512,
+          "h": 512,
+          "width": 512,
+          "height": 512,
+          "path": "/images/alignment/painting/1/10-10.webp"
+        },
+        {
+          "x": 5632,
+          "y": 5120,
+          "w": 398,
+          "h": 512,
+          "width": 398,
+          "height": 512,
+          "path": "/images/alignment/painting/1/11-10.webp"
+        },
+        {
+          "x": 0,
+          "y": 5632,
+          "w": 512,
+          "h": 512,
+          "width": 512,
+          "height": 512,
+          "path": "/images/alignment/painting/1/0-11.webp"
+        },
+        {
+          "x": 512,
+          "y": 5632,
+          "w": 512,
+          "h": 512,
+          "width": 512,
+          "height": 512,
+          "path": "/images/alignment/painting/1/1-11.webp"
+        },
+        {
+          "x": 1024,
+          "y": 5632,
+          "w": 512,
+          "h": 512,
+          "width": 512,
+          "height": 512,
+          "path": "/images/alignment/painting/1/2-11.webp"
+        },
+        {
+          "x": 1536,
+          "y": 5632,
+          "w": 512,
+          "h": 512,
+          "width": 512,
+          "height": 512,
+          "path": "/images/alignment/painting/1/3-11.webp"
+        },
+        {
+          "x": 2048,
+          "y": 5632,
+          "w": 512,
+          "h": 512,
+          "width": 512,
+          "height": 512,
+          "path": "/images/alignment/painting/1/4-11.webp"
+        },
+        {
+          "x": 2560,
+          "y": 5632,
+          "w": 512,
+          "h": 512,
+          "width": 512,
+          "height": 512,
+          "path": "/images/alignment/painting/1/5-11.webp"
+        },
+        {
+          "x": 3072,
+          "y": 5632,
+          "w": 512,
+          "h": 512,
+          "width": 512,
+          "height": 512,
+          "path": "/images/alignment/painting/1/6-11.webp"
+        },
+        {
+          "x": 3584,
+          "y": 5632,
+          "w": 512,
+          "h": 512,
+          "width": 512,
+          "height": 512,
+          "path": "/images/alignment/painting/1/7-11.webp"
+        },
+        {
+          "x": 4096,
+          "y": 5632,
+          "w": 512,
+          "h": 512,
+          "width": 512,
+          "height": 512,
+          "path": "/images/alignment/painting/1/8-11.webp"
+        },
+        {
+          "x": 4608,
+          "y": 5632,
+          "w": 512,
+          "h": 512,
+          "width": 512,
+          "height": 512,
+          "path": "/images/alignment/painting/1/9-11.webp"
+        },
+        {
+          "x": 0,
+          "y": 6144,
+          "w": 512,
+          "h": 512,
+          "width": 512,
+          "height": 512,
+          "path": "/images/alignment/painting/1/0-12.webp"
+        },
+        {
+          "x": 512,
+          "y": 6144,
+          "w": 512,
+          "h": 512,
+          "width": 512,
+          "height": 512,
+          "path": "/images/alignment/painting/1/1-12.webp"
+        },
+        {
+          "x": 1024,
+          "y": 6144,
+          "w": 512,
+          "h": 512,
+          "width": 512,
+          "height": 512,
+          "path": "/images/alignment/painting/1/2-12.webp"
+        },
+        {
+          "x": 1536,
+          "y": 6144,
+          "w": 512,
+          "h": 512,
+          "width": 512,
+          "height": 512,
+          "path": "/images/alignment/painting/1/3-12.webp"
+        },
+        {
+          "x": 2048,
+          "y": 6144,
+          "w": 512,
+          "h": 512,
+          "width": 512,
+          "height": 512,
+          "path": "/images/alignment/painting/1/4-12.webp"
+        },
+        {
+          "x": 2560,
+          "y": 6144,
+          "w": 512,
+          "h": 512,
+          "width": 512,
+          "height": 512,
+          "path": "/images/alignment/painting/1/5-12.webp"
+        },
+        {
+          "x": 3072,
+          "y": 6144,
+          "w": 512,
+          "h": 512,
+          "width": 512,
+          "height": 512,
+          "path": "/images/alignment/painting/1/6-12.webp"
+        },
+        {
+          "x": 3584,
+          "y": 6144,
+          "w": 512,
+          "h": 512,
+          "width": 512,
+          "height": 512,
+          "path": "/images/alignment/painting/1/7-12.webp"
+        },
+        {
+          "x": 4096,
+          "y": 6144,
+          "w": 512,
+          "h": 512,
+          "width": 512,
+          "height": 512,
+          "path": "/images/alignment/painting/1/8-12.webp"
+        },
+        {
+          "x": 4608,
+          "y": 6144,
+          "w": 512,
+          "h": 512,
+          "width": 512,
+          "height": 512,
+          "path": "/images/alignment/painting/1/9-12.webp"
+        },
+        {
+          "x": 0,
+          "y": 6656,
+          "w": 512,
+          "h": 512,
+          "width": 512,
+          "height": 512,
+          "path": "/images/alignment/painting/1/0-13.webp"
+        },
+        {
+          "x": 512,
+          "y": 6656,
+          "w": 512,
+          "h": 512,
+          "width": 512,
+          "height": 512,
+          "path": "/images/alignment/painting/1/1-13.webp"
+        },
+        {
+          "x": 1024,
+          "y": 6656,
+          "w": 512,
+          "h": 512,
+          "width": 512,
+          "height": 512,
+          "path": "/images/alignment/painting/1/2-13.webp"
+        },
+        {
+          "x": 1536,
+          "y": 6656,
+          "w": 512,
+          "h": 512,
+          "width": 512,
+          "height": 512,
+          "path": "/images/alignment/painting/1/3-13.webp"
+        },
+        {
+          "x": 2048,
+          "y": 6656,
+          "w": 512,
+          "h": 512,
+          "width": 512,
+          "height": 512,
+          "path": "/images/alignment/painting/1/4-13.webp"
+        },
+        {
+          "x": 2560,
+          "y": 6656,
+          "w": 512,
+          "h": 512,
+          "width": 512,
+          "height": 512,
+          "path": "/images/alignment/painting/1/5-13.webp"
+        },
+        {
+          "x": 3072,
+          "y": 6656,
+          "w": 512,
+          "h": 512,
+          "width": 512,
+          "height": 512,
+          "path": "/images/alignment/painting/1/6-13.webp"
+        },
+        {
+          "x": 3584,
+          "y": 6656,
+          "w": 512,
+          "h": 512,
+          "width": 512,
+          "height": 512,
+          "path": "/images/alignment/painting/1/7-13.webp"
+        },
+        {
+          "x": 4096,
+          "y": 6656,
+          "w": 512,
+          "h": 512,
+          "width": 512,
+          "height": 512,
+          "path": "/images/alignment/painting/1/8-13.webp"
+        },
+        {
+          "x": 4608,
+          "y": 6656,
+          "w": 512,
+          "h": 512,
+          "width": 512,
+          "height": 512,
+          "path": "/images/alignment/painting/1/9-13.webp"
+        },
+        {
+          "x": 0,
+          "y": 7168,
+          "w": 512,
+          "h": 332,
+          "width": 512,
+          "height": 332,
+          "path": "/images/alignment/painting/1/0-14.webp"
+        },
+        {
+          "x": 512,
+          "y": 7168,
+          "w": 512,
+          "h": 332,
+          "width": 512,
+          "height": 332,
+          "path": "/images/alignment/painting/1/1-14.webp"
+        },
+        {
+          "x": 1024,
+          "y": 7168,
+          "w": 512,
+          "h": 332,
+          "width": 512,
+          "height": 332,
+          "path": "/images/alignment/painting/1/2-14.webp"
+        },
+        {
+          "x": 1536,
+          "y": 7168,
+          "w": 512,
+          "h": 332,
+          "width": 512,
+          "height": 332,
+          "path": "/images/alignment/painting/1/3-14.webp"
+        },
+        {
+          "x": 2048,
+          "y": 7168,
+          "w": 512,
+          "h": 332,
+          "width": 512,
+          "height": 332,
+          "path": "/images/alignment/painting/1/4-14.webp"
+        },
+        {
+          "x": 2560,
+          "y": 7168,
+          "w": 512,
+          "h": 332,
+          "width": 512,
+          "height": 332,
+          "path": "/images/alignment/painting/1/5-14.webp"
+        },
+        {
+          "x": 3072,
+          "y": 7168,
+          "w": 512,
+          "h": 332,
+          "width": 512,
+          "height": 332,
+          "path": "/images/alignment/painting/1/6-14.webp"
+        },
+        {
+          "x": 3584,
+          "y": 7168,
+          "w": 512,
+          "h": 332,
+          "width": 512,
+          "height": 332,
+          "path": "/images/alignment/painting/1/7-14.webp"
+        },
+        {
+          "x": 4096,
+          "y": 7168,
+          "w": 512,
+          "h": 332,
+          "width": 512,
+          "height": 332,
+          "path": "/images/alignment/painting/1/8-14.webp"
+        },
+        {
+          "x": 4608,
+          "y": 7168,
+          "w": 512,
+          "h": 332,
+          "width": 512,
+          "height": 332,
+          "path": "/images/alignment/painting/1/9-14.webp"
+        }
+      ]
+    }
+  ],
+  "pixelPolicy": "Lossless tiles from the existing decoded painting; original source retained."
+}

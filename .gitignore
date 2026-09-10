@@ -37,3 +37,6 @@ next-env.d.ts
 /outputs/
 /work/
 *.tsbuildinfo
+
+# Reproducible full-resolution alignment tiles
+/public/images/alignment/painting/

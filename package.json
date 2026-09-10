@@ -13,7 +13,11 @@
     "lint": "oxlint",
     "format": "oxfmt",
     "test": "node --test tests/*.test.mjs",
-    "build:atlas": "node scripts/bake-atlas.mjs"
+    "build:atlas": "node scripts/bake-atlas.mjs",
+    "prebuild": "node scripts/alignment/build-study.mjs",
+    "prebuild:pages": "node scripts/alignment/build-study.mjs",
+    "predev": "node scripts/alignment/build-study.mjs",
+    "pretest": "node scripts/alignment/build-study.mjs"
   },
   "dependencies": {
     "@base-ui/react": "1.7.0",
