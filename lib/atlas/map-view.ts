@@ -15,6 +15,10 @@ export function homeView(size:MapSize):MapView{
 }
 export function regionView(region:RegionId,size:MapSize):MapView{
   if(region==='all')return homeView(size);
+  if(region==='lamedon'){
+    const scale=Math.max(.18,Math.min((size.width-64)/1850,(size.height-235)/2150));
+    return boundView({scale,x:size.width*.5-2810*scale,y:size.height*.43-4220*scale},size);
+  }
   if(region==='morgul'){
     const scale=Math.max(.24,Math.min((size.width-64)/1480,(size.height-235)/1150));
     return boundView({scale,x:size.width*.5-5410*scale,y:size.height*.43-4520*scale},size);

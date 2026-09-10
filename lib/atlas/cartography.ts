@@ -1,3 +1,4 @@
+import lamedon from './lamedon-layout.json';
 import { roadHighlight } from './illustration';
 import { westernRoad, westernSpur } from './western-illustration';
 
@@ -15,6 +16,7 @@ export const tributaryLabels=[
   {text:'ADORN',x:1585,y:2310,angle:25},
 ];
 export const roadNodes={
+  erechRoad:lamedon.road[0],tarlangPass:lamedon.road[4],cirilFord:lamedon.road[19],calembelRoad:lamedon.road[20],ethringBridge:lamedon.road[26],linhirApproach:lamedon.road.at(-1)!,
   havens:[435.55,538.09],shireJunction:[793.95,520.51],hobbiton:[804.69,369.14],
   bree:[1284.18,481.45],fordBruinen:[2035.16,595.7],
   tharbad:[1457,1347],isenJunction:[1745,1710],isengard:[1839,1789],
@@ -28,7 +30,13 @@ export const roadNodes={
 type RoadNode=keyof typeof roadNodes;
 export type RoadGuide={name:string;from:RoadNode;to:RoadNode;path:string;x?:number;y?:number};
 const shireSplit=westernRoad.indexOf("L793.95 520.51");
+const lamedonRoad=(start:number,end:number)=>lamedon.road.slice(start,end+1).map(([x,y],i)=>`${i?'L':'M'}${x} ${y}`).join(' ');
 export const roadGuides:RoadGuide[]=[
+  {name:'Erech road over Tarlang’s Neck',from:'erechRoad',to:'tarlangPass',path:lamedonRoad(0,4)},
+  {name:'Lamedon road to the Ciril ford',from:'tarlangPass',to:'cirilFord',path:lamedonRoad(4,19)},
+  {name:'Road into Calembel',from:'cirilFord',to:'calembelRoad',path:lamedonRoad(19,20)},
+  {name:'Calembel road to Ethring',from:'calembelRoad',to:'ethringBridge',path:lamedonRoad(20,26)},
+  {name:'Road south toward Linhir',from:'ethringBridge',to:'linhirApproach',path:lamedonRoad(26,lamedon.road.length-1)},
   {name:'Great East Road',from:'havens',to:'shireJunction',path:westernRoad.slice(0,shireSplit)+'L793.95 520.51'},
   {name:'Great East Road',from:'shireJunction',to:'bree',path:'M793.95 520.51'+westernRoad.slice(shireSplit+14)},
   {name:'Hobbiton road',from:'shireJunction',to:'hobbiton',path:westernSpur},

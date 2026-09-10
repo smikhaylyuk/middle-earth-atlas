@@ -232,6 +232,26 @@ export const places = [
     description:'The tower guards the eastern exit of Cirith Ungol. Three tiers of pointed bastions face into Mordor beneath a round turret. Beyond the pass lie the trough of the Morgai and Gorgoroth. The fortress was built by Gondor but is now held by Orcs.',
     date:null,region:'morgul',major:true,source:'https://tolkiengateway.net/wiki/Tower_of_Cirith_Ungol',sourceLabel:'Book VI, ch. 1 · The Tower of Cirith Ungol',
   },
+  {
+    id:'erech',name:'Erech',overviewLabel:'Erech',kind:'The Stone of Isildur',pinSubtitle:'At the mouth of Blackroot Vale',subtitle:'A black stone upon a quiet hill',
+    description:'South of the White Mountains, a smooth black globe stands upon the Hill of Erech. Isildur brought the stone from Númenor. Here the King of the Mountains swore his oath, and here Aragorn later summons the Dead to fulfil it.',
+    date:null,region:'lamedon',major:true,source:'https://tolkiengateway.net/wiki/Erech',sourceLabel:'Book V, ch. 2 · The Passing of the Grey Company · Published map',
+  },
+  {
+    id:'tarlangs-neck',name:'Tarlang’s Neck',overviewLabel:'Tarlang’s Neck',kind:'The pass into Lamedon',pinSubtitle:'A southern mountain spur',subtitle:'Between Blackroot Vale and the eastern valleys',
+    description:'The road from Erech crosses a low neck in a rocky spur of the White Mountains. Beyond this divide lie the valleys of Lamedon and the road to Calembel. The pass runs over the spur; the Paths of the Dead lie farther north.',
+    date:null,region:'lamedon',major:true,source:'https://tolkiengateway.net/wiki/Tarlang%27s_Neck',sourceLabel:'Book V, ch. 2 · Nomenclature · Published map',
+  },
+  {
+    id:'calembel',name:'Calembel',overviewLabel:'Calembel',kind:'A hill-town of Lamedon',pinSubtitle:'Beside the fords of Ciril',subtitle:'A green valley beneath the White Mountains',
+    description:'Calembel stands on a small hill near the fords of the Ciril. The road from Erech crosses the river here before continuing east toward Ethring and the southern lands of Gondor. In the War of the Ring, Aragorn finds the town deserted as its people take refuge in the hills.',
+    date:null,region:'lamedon',major:true,source:'https://tolkiengateway.net/wiki/Calembel',sourceLabel:'Book V, ch. 2 · The Passing of the Grey Company · Published map',
+  },
+  {
+    id:'ethring',name:'Ethring',overviewLabel:'Ethring',kind:'The crossing of Ringló',pinSubtitle:'East of Lamedon',subtitle:'A bridge on the road through southern Gondor',
+    description:'At Ethring the road from Calembel crosses the Ringló, then turns south toward Linhir and Pelargir. The published map marks a crossing here without identifying a town. The river flows southwest to meet the Ciril and, farther downstream, the Morthond.',
+    date:null,region:'lamedon',major:true,source:'https://tolkiengateway.net/wiki/Ethring',sourceLabel:'Published map · Book V, ch. 9 · The Last Debate',
+  },
   ...easternPlaces.map(p=>({...p,...eastNotes[p.id],overviewLabel:p.id==='weathertop'?'Amon Sûl':p.name,region:'east' as const,major:true})),
 ] as const;
 export type PlaceId = typeof places[number]['id'];

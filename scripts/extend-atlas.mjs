@@ -7,6 +7,7 @@ import {extendMordor} from './extend-mordor.mjs';
 import {extendGondor} from './extend-gondor.mjs';
 import {extendPelennor} from './extend-pelennor.mjs';
 import {extendMorgul} from './extend-morgul.mjs';
+import {extendLamedon} from './extend-lamedon.mjs';
 
 const clamp=n=>Math.max(0,Math.min(1,n));
 const smooth=n=>{const t=clamp(n);return t*t*(3-2*t);};
@@ -53,4 +54,5 @@ export async function extendAtlas(){
   await extendGondor();
   await extendPelennor();
   await extendMorgul();
+  await extendLamedon();
 }

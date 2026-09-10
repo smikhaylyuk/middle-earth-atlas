@@ -9,6 +9,7 @@ import mordor from './mordor-layout.json';
 import gondor from './gondor-layout.json';
 import pelennor from './pelennor-layout.json';
 import morgul from './morgul-layout.json';
+import lamedon from './lamedon-layout.json';
 
 type Point={x:number;y:number};
 type Flock={path:string;duration:number;delay:number};
@@ -58,6 +59,14 @@ export const sceneRegions:SceneRegion[]=[
     mist:[{x:650,y:695,w:180,h:25,delay:-19}],
     flocks:[{path:'M210 1100 C350 980 420 830 365 590',duration:127,delay:-35}],
     labels:[{x:1030,y:875,text:'MORGUL VALE',kind:'mountain',size:20},{x:1295,y:1030,text:'MORGAI',kind:'mountain',angle:78,size:16}],
+  },
+  {id:'lamedon',x:lamedon.x,y:lamedon.y,width:lamedon.width,height:lamedon.height,
+    rivers:Object.values(lamedon.rivers).map(points=>points.map(([x,y],i)=>`${i?'L':'M'}${x-lamedon.x} ${y-lamedon.y}`).join(' ')).join(' '),roads:[],
+    lights:[{x:947,y:1804}],chimneys:[{x:947,y:1804}],
+    mist:[{x:380,y:1100,w:150,h:25,delay:-23}],
+    flocks:[{path:'M420 2220 C620 2020 750 1610 970 1390',duration:124,delay:-51}],
+    labels:[{x:370,y:760,text:'BLACKROOT VALE',size:17,angle:77},{x:780,y:1620,text:'LAMEDON',size:27},
+      {x:250,y:1900,text:'MORTHOND',kind:'water',size:17,angle:78},{x:925,y:2130,text:'CIRIL',kind:'water',size:17,angle:75},{x:660,y:2570,text:'RINGLÓ',kind:'water',size:17,angle:-32}],
   },
   {id:'mordor',x:mordor.x,y:mordor.y,width:mordor.width,height:mordor.height,rivers:'',roads:[],lights:[],
     chimneys:[{x:mordor.crater.x-mordor.x,y:mordor.crater.y-mordor.y}],

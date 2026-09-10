@@ -27,6 +27,10 @@ await test('road annotations have joined endpoints from the Havens through Bree 
   const eastern=new Set(['osgiliathEast']),eastQueue=['osgiliathEast'];
   for(const node of eastQueue)for(const next of neighbours.get(node)??[])if(!eastern.has(next)){eastern.add(next);eastQueue.push(next);}
   for(const node of ['ithilienCrossroads','haradNorth','haradSouth','morgulGate','torechEntrance'])assert.ok(eastern.has(node),`${node} is disconnected from eastern Osgiliath`);
+  const valleys=new Set(['erechRoad']),valleyQueue=['erechRoad'];
+  for(const node of valleyQueue)for(const next of neighbours.get(node)??[])if(!valleys.has(next)){valleys.add(next);valleyQueue.push(next);}
+  for(const node of ['tarlangPass','cirilFord','calembelRoad','ethringBridge','linhirApproach'])assert.ok(valleys.has(node),`${node} is disconnected from Erech`);
+  assert.ok(!valleys.has('edoras'),'Do not invent a surface road across the Paths of the Dead');
   assert.ok(!eastern.has('osgiliathWest'),'The road graph must not restore the fallen Anduin bridge');
 });
 

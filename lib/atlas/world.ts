@@ -9,12 +9,13 @@ import mordor from './mordor-layout.json';
 import gondor from './gondor-layout.json';
 import pelennor from './pelennor-layout.json';
 import morgul from './morgul-layout.json';
+import lamedon from './lamedon-layout.json';
 
 export const EAST_OFFSET = 1000;
 export const BASE_MAP_WIDTH = ANDUIN_OFFSET + ANDUIN_WIDTH;
 export const BASE_MAP_HEIGHT = ROHAN_OFFSET + ROHAN_HEIGHT;
-export const MAP_WIDTH = pelennor.worldWidth;
-export const MAP_HEIGHT = pelennor.worldHeight;
+export const MAP_WIDTH = lamedon.worldWidth;
+export const MAP_HEIGHT = lamedon.worldHeight;
 export const mapPlaces = {
   ...westernPlaces,
   ...southernPlaces,
@@ -26,8 +27,9 @@ export const mapPlaces = {
   ...gondor.places,
   ...pelennor.places,
   ...morgul.places,
+  ...lamedon.places,
   bree:{x:illustratedPlaces.bree.x+EAST_OFFSET,y:illustratedPlaces.bree.y},
   weathertop:{x:illustratedPlaces.weathertop.x+EAST_OFFSET,y:illustratedPlaces.weathertop.y},
   rivendell:{x:illustratedPlaces.rivendell.x+EAST_OFFSET,y:illustratedPlaces.rivendell.y},
 };
-export type RegionId = 'all' | 'west' | 'east' | 'south' | 'anduin' | 'rohan' | 'rauros' | 'morannon' | 'mordor' | 'gondor' | 'pelennor' | 'morgul';
+export type RegionId = 'all' | 'west' | 'east' | 'south' | 'anduin' | 'rohan' | 'rauros' | 'morannon' | 'mordor' | 'gondor' | 'pelennor' | 'morgul' | 'lamedon';

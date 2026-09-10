@@ -35,6 +35,7 @@ const regionLabels:Record<RegionId,{label:string;description:string}>={
   rauros:{label:'Rauros',description:'Explore Nen Hithoel, Rauros and the Emyn Muil'},
   morannon:{label:'Marshes',description:'Explore the Dead Marshes, Dagorlad and the Black Gate'},
   gondor:{label:'Gondor',description:'Explore Cair Andros, Henneth Annûn, Drúadan Forest and Amon Dîn'},
+  lamedon:{label:'Lamedon',description:'Explore Erech, Tarlang’s Neck, Calembel and the crossing of Ethring'},
   morgul:{label:'Morgul Vale',description:'Explore the Cross-roads, Minas Morgul, the mountain stairs and Cirith Ungol'},
   pelennor:{label:'Pelennor',description:'Explore Minas Tirith, Osgiliath, Harlond and Emyn Arnen'},
   mordor:{label:'Mordor',description:'Explore Udûn, the Isenmouthe, Mount Doom and Barad-dûr'},
@@ -59,7 +60,7 @@ export default function LivingAtlas(){
   const [ready,setReady]=useState(false),[failed,setFailed]=useState(false),[dragging,setDragging]=useState(false);
   const [breeDetail,setBreeDetail]=useState<BreeDetail|null>(null);
   const [region,setRegion]=useState<RegionId|null>('all');
-  const [browseRegion,setBrowseRegion]=useState<RegionId>('morgul');
+  const [browseRegion,setBrowseRegion]=useState<RegionId>('lamedon');
   const paintingLoaded=useCallback(()=>setReady(true),[]),paintingFailed=useCallback(()=>setFailed(true),[]);
   useEffect(()=>{regionNavigation.current?.querySelector<HTMLButtonElement>('button[aria-pressed="true"]')?.scrollIntoView({block:'nearest',inline:'nearest'});},[region]);
   const visible=useSyncExternalStore(subscribeVisibility,visibilitySnapshot,()=>true);
@@ -112,7 +113,7 @@ export default function LivingAtlas(){
   const zoom=useCallback((factor:number)=>{setRegion(null);fly(zoomView(view.current,size.current,factor));},[fly]);
   useEffect(()=>{
     const element=stage.current;if(!element)return;
-    const resize=()=>{cancelAnimationFrame(animation.current);settleNavigation();size.current={width:element.clientWidth,height:element.clientHeight};if(!viewInitialized.current){const initialRegion='morgul';state.current.region=initialRegion;setRegion(initialRegion);viewInitialized.current=true;}paint(state.current.place?placeView(state.current.place,size.current):state.current.region?regionView(state.current.region,size.current):boundView(view.current,size.current));};
+    const resize=()=>{cancelAnimationFrame(animation.current);settleNavigation();size.current={width:element.clientWidth,height:element.clientHeight};if(!viewInitialized.current){const initialRegion='lamedon';state.current.region=initialRegion;setRegion(initialRegion);viewInitialized.current=true;}paint(state.current.place?placeView(state.current.place,size.current):state.current.region?regionView(state.current.region,size.current):boundView(view.current,size.current));};
     const observer=new ResizeObserver(resize);observer.observe(element);resize();
     const wheel=(event:WheelEvent)=>{event.preventDefault();setRegion(null);cancelAnimationFrame(animation.current);beginNavigation();const r=element.getBoundingClientRect();paint(zoomView(view.current,size.current,Math.exp(-wheelPixels(event.deltaY,event.deltaMode,size.current.height)*.0013),{x:event.clientX-r.left,y:event.clientY-r.top}));settleNavigation();};
     element.addEventListener('wheel',wheel,{passive:false});
