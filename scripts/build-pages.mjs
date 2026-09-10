@@ -1,7 +1,7 @@
 import { spawnSync } from 'node:child_process';
 import { access, rename, writeFile } from 'node:fs/promises';
 
-const repository = process.env.GITHUB_REPOSITORY?.split('/')[1] || 'eriador-living-atlas';
+const repository = process.env.GITHUB_REPOSITORY?.split('/')[1] || 'middle-earth-atlas';
 const basePath = repository.endsWith('.github.io') ? '' : `/${repository}`;
 const build = spawnSync(process.execPath, ['node_modules/vinext/dist/cli.js', 'build'], {
   stdio: 'inherit',

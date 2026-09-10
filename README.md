@@ -1,19 +1,19 @@
-# Eriador — A Living Atlas
+# Middle-earth — A Living Atlas
 
-An interactive, painterly atlas of western Middle-earth, from the Grey Havens and the Shire to Rivendell, south through Eregion to Isengard, east to Lórien and the Anduin valley, and onward into Rohan.
+An interactive, painterly atlas of Middle-earth, from the Grey Havens and the Shire through Rohan to Gondor and Mordor. Explore Minas Tirith, the Morgul Vale, Erech and Lamedon, with flowing rivers and a shared day and night cycle.
 
 ![The painted landscape of Eriador](public/images/eriador-painted.jpg)
 
 ## Explore the atlas
 
-- Pan and zoom across a continuous illustrated landscape, with All, West, East, South, Anduin and Rohan views.
-- Discover twenty-two locations, including Moria, Lórien, the Fords of Isen, Helm’s Deep, Edoras, Dunharrow and the Argonath, with book-based reference notes.
+- Pan and zoom across a continuous illustrated landscape, with regional views spanning Eriador, Rohan, Gondor, Ithilien and Mordor.
+- Discover landmarks including Rivendell, Moria, Lórien, Edoras, Minas Tirith, Minas Morgul, Erech and Calembel, with book-based reference notes.
 - Watch a continuous morning, day, evening and night cycle, with changing light, settlement windows, chimney smoke, mist, birds and moving water.
 - Adjust the cycle speed, hold a time of day, or pause motion.
 - Visit an illustrated study of the Prancing Pony in Bree, sharing the map's clock and atmosphere.
 - Navigate with a mouse, touch gestures or the keyboard. Arrow keys pan; plus and minus zoom.
 
-**[Explore the live atlas](https://smikhaylyuk.github.io/eriador-living-atlas/)** — no sign-in required.
+**[Explore the live atlas](https://smikhaylyuk.github.io/middle-earth-atlas/)** — no sign-in required.
 
 ## Run locally
 
@@ -38,7 +38,7 @@ The application uses React, TypeScript, Vinext, Vite and Tailwind CSS, with Clou
 
 ## GitHub Pages
 
-`npm run build:pages` exports the complete website to `dist/client`, including the paintings and animations. The build adds the repository prefix to asset URLs so they work at `/eriador-living-atlas/`. Only this public output directory is deployed.
+`npm run build:pages` exports the complete website to `dist/client`, including the paintings and animations. The build adds the repository prefix to asset URLs so they work at `/middle-earth-atlas/`. Only this public output directory is deployed.
 
 The workflow in `.github/workflows/pages.yml` installs the locked dependencies, checks the source, builds the static site and deploys it using GitHub Pages. The repository uses **Settings → Pages → Source: GitHub Actions**. No personal access token or application secret is required by the workflow.
 
@@ -47,7 +47,7 @@ The workflow in `.github/workflows/pages.yml` installs the locked dependencies, 
 | Path | Purpose |
 | --- | --- |
 | `components/living-atlas.tsx` | Map navigation, place details and controls |
-| `components/atlas-artwork.tsx` | Eastern and western paintings with aligned effects |
+| `components/atlas-painting.tsx` | Cached painting and shared canvas renderer |
 | `components/use-day-cycle.ts` | Shared animated clock |
 | `components/bree-discovery.tsx` | Prancing Pony detail scene |
 | `lib/atlas/places.ts` | Place descriptions and references |
@@ -71,6 +71,6 @@ This is an unofficial fan project. Middle-earth and its stories were created by 
 
 ## Map rendering
 
-The approved paintings are precomposed into `public/images/atlas-painted.webp`. A canvas draws this image into a viewport-sized backing surface, capped at two device pixels per CSS pixel and approximately eight million pixels. Zoom changes the sampled view, never the canvas allocation. Place markers and effects share the same animation-frame camera update. The clock and effect animations briefly hold during navigation, then resume without skipping time.
+The approved paintings are precomposed into `public/images/atlas-lamedon.webp`. A canvas draws this image into a viewport-sized backing surface, capped at two device pixels per CSS pixel and approximately eight million pixels. Zoom changes the sampled view, never the canvas allocation. Place markers and effects share the same animation-frame camera update. The clock and effect animations briefly hold during navigation, then resume without skipping time.
 
-To update a painting or its alignment, run `npm run build:atlas` and commit the regenerated painting and five masks in `public/images/atlas-masks/`. The script uses Sharp, already supplied by Vinext, to bake the existing artwork and geographic correction patches. It does not create new terrain. The source paintings remain available for subsequent map expansions.
+To update a painting or its alignment, run `npm run build:atlas` and commit the regenerated paintings and masks in `public/images/atlas-masks/`. The script uses Sharp, already supplied by Vinext, to bake the existing artwork and geographic correction patches. It does not create new terrain. The source paintings remain available for subsequent map expansions.
