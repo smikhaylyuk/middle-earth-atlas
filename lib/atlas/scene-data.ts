@@ -10,6 +10,7 @@ import gondor from './gondor-layout.json';
 import pelennor from './pelennor-layout.json';
 import morgul from './morgul-layout.json';
 import lamedon from './lamedon-layout.json';
+import anfalas from './anfalas-layout.json';
 
 type Point={x:number;y:number};
 type Flock={path:string;duration:number;delay:number};
@@ -67,6 +68,12 @@ export const sceneRegions:SceneRegion[]=[
     flocks:[{path:'M420 2220 C620 2020 750 1610 970 1390',duration:124,delay:-51}],
     labels:[{x:370,y:760,text:'BLACKROOT VALE',size:17,angle:77},{x:780,y:1620,text:'LAMEDON',size:27},
       {x:250,y:1900,text:'MORTHOND',kind:'water',size:17,angle:78},{x:925,y:2130,text:'CIRIL',kind:'water',size:17,angle:75},{x:660,y:2570,text:'RINGLÓ',kind:'water',size:17,angle:-32}],
+  },
+  {id:'anfalas',x:anfalas.x,y:anfalas.y,width:anfalas.width,height:anfalas.height,
+    rivers:anfalas.lefnui.map(([x,y],i)=>`${i?'L':'M'}${x-anfalas.x} ${y-anfalas.y}`).join(' '),roads:[],lights:[],chimneys:[],
+    mist:[{x:860,y:780,w:180,h:30,delay:-37}],
+    flocks:[{path:'M450 2080 C350 1650 730 1310 900 990',duration:132,delay:-46}],
+    labels:[{x:405,y:2180,text:'ANDRAST',kind:'mountain',size:20,angle:-30},{x:600,y:2690,text:'BAY OF BELFALAS',kind:'water',size:24}],
   },
   {id:'mordor',x:mordor.x,y:mordor.y,width:mordor.width,height:mordor.height,rivers:'',roads:[],lights:[],
     chimneys:[{x:mordor.crater.x-mordor.x,y:mordor.crater.y-mordor.y}],

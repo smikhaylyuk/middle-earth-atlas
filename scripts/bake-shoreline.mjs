@@ -3,10 +3,10 @@ import sharp from 'sharp';
 // Trace the connected sea coverage, never a hand-invented coastline. Small
 // texture holes are smoothed before contouring; the live water mask still
 // rejects every crest segment that touches painted land.
-export async function bakeShoreline(waterMask){
+export async function bakeShoreline(waterMask,{width:worldWidth=3700,height:worldHeight=2800}={}){
   // The open-sea highlight mask deliberately rejects pale shallows, so its
   // edge sits offshore. Surf needs the full water coverage up to the bank.
-  const {data:coverage,info:{width,height}}=await sharp(waterMask).resize(925,700).removeAlpha().greyscale().blur(1.2).threshold(120).raw().toBuffer({resolveWithObject:true});
+  const {data:coverage,info:{width,height}}=await sharp(waterMask).resize(Math.round(worldWidth/4),Math.round(worldHeight/4)).removeAlpha().greyscale().blur(1.2).threshold(120).raw().toBuffer({resolveWithObject:true});
   const data=new Uint8Array(width*height),queue=new Int32Array(width*height);let head=0,tail=0;
   for(let y=40;y<height-25;y++){const i=y*width+45;if(coverage[i]>127){data[i]=255;queue[tail++]=i;}}
   while(head<tail){const i=queue[head++],x=i%width,y=Math.floor(i/width);for(const n of [x>0?i-1:-1,x<width-1?i+1:-1,y>0?i-width:-1,y<height-1?i+width:-1])if(n>=0&&!data[n]&&coverage[n]>127){data[n]=255;queue[tail++]=n;}}
@@ -26,9 +26,9 @@ export async function bakeShoreline(waterMask){
     if(!length)continue;
     const dx=nx/length,dy=ny/length;
     if(![3,7,12].every(d=>inside(Math.round(x+dx*d),Math.round(y+dy*d))))continue;
-    points.push([x*4,y*4,+dx.toFixed(4),+dy.toFixed(4)]);
+    points.push([x*worldWidth/width,y*worldHeight/height,+dx.toFixed(4),+dy.toFixed(4)]);
   }
-  return {width:3700,height:2800,tracks:[points]};
+  return {width:worldWidth,height:worldHeight,tracks:[points]};
 }
 
 // Distance contours cannot fold or cross at concave bays, unlike displaced

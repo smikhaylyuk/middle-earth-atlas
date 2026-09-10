@@ -252,6 +252,26 @@ export const places = [
     description:'At Ethring the road from Calembel crosses the Ringló, then turns south toward Linhir and Pelargir. The published map marks a crossing here without identifying a town. The river flows southwest to meet the Ciril and, farther downstream, the Morthond.',
     date:null,region:'lamedon',major:true,source:'https://tolkiengateway.net/wiki/Ethring',sourceLabel:'Published map · Book V, ch. 9 · The Last Debate',
   },
+  {
+    id:'druwaith-iaur',name:'Drúwaith Iaur',overviewLabel:'Drúwaith Iaur',kind:'The Old Púkel-wilderness',pinSubtitle:'Woods above the western coast',subtitle:'On the northwestern slopes of Andrast',
+    description:'Dark woods shelter the western slopes of the mountains of Andrast. The Drúedain lived here in secret into the late Third Age. This remote country was never settled by the Númenóreans and lies outside Gondor’s inhabited lands; it is separate from Drúadan Forest near Minas Tirith.',
+    date:null,region:'anfalas',major:true,source:'https://tolkiengateway.net/wiki/Dr%C3%BAwaith_Iaur',sourceLabel:'Unfinished Tales · The Drúedain · Published map',
+  },
+  {
+    id:'lefnui',name:'Lefnui',overviewLabel:'Lefnui',kind:'The western river',pinSubtitle:'From mountain spring to firth',subtitle:'The western boundary of Gondor',
+    description:'The Lefnui rises in the western White Mountains and winds southwest, west of Pinnath Gelin. Its lower waters open into a long, narrow firth on the Bay of Belfalas. The river marks Gondor’s western boundary, separating its lands from the mountainous promontory of Andrast.',
+    date:null,region:'anfalas',major:true,source:'https://tolkiengateway.net/wiki/Lefnui',sourceLabel:'Published map · The Rivers and Beacon-hills of Gondor',
+  },
+  {
+    id:'pinnath-gelin',name:'Pinnath Gelin',overviewLabel:'Pinnath Gelin',kind:'The Green Hills',pinSubtitle:'North of the long shore',subtitle:'Between the Lefnui and the Morthond',
+    description:'A line of green hills rises north of Anfalas in western Gondor. During the War of the Ring, Hirluin the Fair brings three hundred men clad in green from this country to defend Minas Tirith. This marker identifies the hill country; the published map names no capital here.',
+    date:null,region:'anfalas',major:true,source:'https://tolkiengateway.net/wiki/Pinnath_Gelin',sourceLabel:'Book V, ch. 1 · Minas Tirith · Published map',
+  },
+  {
+    id:'anfalas',name:'Anfalas',overviewLabel:'Anfalas',kind:'The long shore',pinSubtitle:'Langstrand of Gondor',subtitle:'Below the green hills, beside the sea',
+    description:'Anfalas is the coastal fief between the Lefnui and Morthond, south of Pinnath Gelin. Its name is also rendered Langstrand. Golasgil leads hunters, herdsmen and men of its small villages to the defence of Minas Tirith. The atlas currently shows the western part of this long coast.',
+    date:null,region:'anfalas',major:true,source:'https://tolkiengateway.net/wiki/Anfalas',sourceLabel:'Book V, ch. 1 · Minas Tirith · Published map',
+  },
   ...easternPlaces.map(p=>({...p,...eastNotes[p.id],overviewLabel:p.id==='weathertop'?'Amon Sûl':p.name,region:'east' as const,major:true})),
 ] as const;
 export type PlaceId = typeof places[number]['id'];

@@ -15,6 +15,11 @@ export function homeView(size:MapSize):MapView{
 }
 export function regionView(region:RegionId,size:MapSize):MapView{
   if(region==='all')return homeView(size);
+  if(region==='anfalas'){
+    const top=112,bottom=size.height-(size.width<650?230:255);
+    const scale=Math.max(.12,Math.min((size.width-64)/2450,(bottom-top)/2550));
+    return boundView({scale,x:size.width*.5-1270*scale,y:(top+bottom)*.5-4150*scale},size);
+  }
   if(region==='lamedon'){
     const scale=Math.max(.18,Math.min((size.width-64)/1850,(size.height-235)/2150));
     return boundView({scale,x:size.width*.5-2810*scale,y:size.height*.43-4220*scale},size);
